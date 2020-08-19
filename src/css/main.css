@@ -1,0 +1,28 @@
+:root{
+    --day-background: url('../assets/bg/bg_main_day.png');
+}
+
+body.day {
+    background: var(--day-background);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+img#character {
+    height: 80vh;
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+}
+
+.anim-floating {
+    animation-name: floating;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+.anim-bob {
+    animation-name: bobbing;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
