@@ -1,18 +1,37 @@
-:root{
-    --day-background: url('../assets/bg/bg_main_day.png');
+:root {
+    --background-day: url('../assets/bg/bg_main_day.png');
+    --background-twilight: url('../assets/bg/bg_main_twilight.png');
+    --background-night: url('../assets/bg/bg_main_night.png');
+    --ui-color-base: rgba(3, 10, 41, 0.5);
+    --ui-color-highlight: rgba(255, 255, 255, 0.25);
+    --ui-blur: 0.6vh;
 }
 
-body.day {
-    background: var(--day-background);
+body {
+    height: 100vh;
+    margin: 0px;
+
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+    body.day {
+        background-image: var(--background-day);
+    }
 
-img#character {
+    body.twilight {
+        background-image: var(--background-twilight);
+    }
+
+    body.night {
+        background-image: var(--background-night);
+    }
+
+#character {
     height: 80vh;
     position: fixed;
     top: 10vh;
-    left: 10vw;
+    left: 5vw;
 }
 
 .anim-floating {
@@ -23,6 +42,73 @@ img#character {
 
 .anim-bob {
     animation-name: bobbing;
-    animation-duration: 0.5s;
+    animation-duration: 0.45s;
     animation-iteration-count: 1;
 }
+
+#topbar {
+    height: 7vh;
+    width: 75vw;
+    position: fixed;
+    top: 0;
+    background: linear-gradient(to right, var(--ui-color-base), transparent);
+    backdrop-filter: blur(var(--ui-blur));
+}
+
+#sidebar_right {
+    height: 100vh;
+    width: 4vw;
+    position: fixed;
+    right: 0;
+    background-color: var(--ui-color-base);
+    backdrop-filter: blur(var(--ui-blur));
+}
+
+#bottombar {
+    height: 7vh;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    background-color: var(--ui-color-base);
+    backdrop-filter: blur(var(--ui-blur));
+}
+
+#section-highlight {
+    height: 65vh;
+    width: 35vw;
+    position: fixed;
+    top: 20vh;
+    right: 6vw;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+}
+
+    #section-highlight > .container-top {
+        height: 60%;
+        width: 100%;
+        background-color: var(--ui-color-base);
+        backdrop-filter: blur(var(--ui-blur));
+    }
+
+        #section-highlight > .container-top > .banner {
+            height: 55%;
+            margin-top: 1vh;
+            margin-left: 1vh;
+            margin-right: 1vh;
+            background-color: saddlebrown;
+        }
+
+        #section-highlight > .container-top > .pagination {
+            margin-top: 1vh;
+            margin-left: 1vh;
+            margin-right: 1vh;
+        }
+
+    #section-highlight > .container-bottom {
+        height: 38%;
+        width: 100%;
+        margin-top: 4vh;
+        background-color: var(--ui-color-base);
+        backdrop-filter: blur(var(--ui-blur));
+    }

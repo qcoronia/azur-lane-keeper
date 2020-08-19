@@ -1,35 +1,35 @@
 @keyframes floating {
     0% {
-        transform: translateY(0px);
+        transform: translateY(0vh);
     }
 
     50% {
-        transform: translateY(10px);
+        transform: translateY(1vh);
     }
 
     100% {
-        transform: translateY(0px);
+        transform: translateY(0vh);
     }
 }
 
 @keyframes bobbing {
     0% {
-        transform: translateY(0px);
+        transform: translateY(0vh);
     }
 
     25% {
-        transform: translateY(-20px);
+        transform: translateY(-3vh);
     }
 
     50% {
-        transform: translateY(0px);
+        transform: translateY(0vh);
     }
 
     75% {
-        transform: translateY(-20px);
+        transform: translateY(-3vh);
     }
 
     100% {
-        transform: translateY(0px);
+        transform: translateY(0vh);
     }
 }

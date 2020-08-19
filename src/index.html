@@ -4,9 +4,23 @@
   <title>New Tab Page</title>
   <link rel="stylesheet" href="./css/main.css" />
   <link rel="stylesheet" href="./css/animations.css" />
+  <link rel="stylesheet" href="./css/characters.css" />
 </head>
 <body>
-  <img id="character" src="" onclick="character.tapped()" />
+  <img id="character" onclick="character.tapped()" />
+  <div id="topbar"></div>
+  <div id="bottombar"></div>
+  <div id="sidebar_right"></div>
+  <div id="section-highlight">
+    <div class="container-top">
+      <div class="banner"></div>
+      <div class="pagination">
+        <button class="button-blue"></button>
+        <button class="button-yellow"></button>
+      </div>
+    </div>
+    <div class="container-bottom"></div>
+  </div>
 
   <script type="text/javascript" src="./js/main.js"></script>
 </body>
