@@ -23,8 +23,8 @@ const character = {
     document.querySelector(elements.character).classList.remove('anim-floating');
     document.querySelector(elements.character).classList.add('anim-bob');
     setTimeout(() => {
-      document.querySelector(elements.character).classList.add('anim-floating')
-      document.querySelector(elements.character).classList.remove('anim-bob')
+      document.querySelector(elements.character).classList.add('anim-floating');
+      document.querySelector(elements.character).classList.remove('anim-bob');
     }, 500);
   }
 };

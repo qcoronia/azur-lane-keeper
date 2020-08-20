@@ -2,7 +2,7 @@
     --background-day: url('../assets/bg/bg_main_day.png');
     --background-twilight: url('../assets/bg/bg_main_twilight.png');
     --background-night: url('../assets/bg/bg_main_night.png');
-    --ui-color-base: rgba(3, 10, 41, 0.5);
+    --ui-color-base: rgba(0, 0, 0, 0.3);
     --ui-color-highlight: rgba(255, 255, 255, 0.25);
     --ui-blur: 0.6vh;
 }
@@ -55,14 +55,76 @@ body {
     backdrop-filter: blur(var(--ui-blur));
 }
 
-#sidebar_right {
+#content_right {
     height: 100vh;
-    width: 4vw;
-    position: fixed;
-    right: 0;
-    background-color: var(--ui-color-base);
-    backdrop-filter: blur(var(--ui-blur));
+    width: 100vw;
+    display: flex;
 }
+
+    #content_right > #sidebar_right {
+        height: 100vh;
+        width: 4.5vw;
+        position: fixed;
+        right: 0;
+        background-color: var(--ui-color-base);
+        backdrop-filter: blur(var(--ui-blur));
+    }
+
+    #content_right > #section-highlight {
+        height: 61vh;
+        width: 31vw;
+        position: fixed;
+        top: 20vh;
+        right: 6vw;
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+    }
+
+        #content_right > #section-highlight > .container-top {
+            height: 73%;
+            width: 100%;
+            background-color: var(--ui-color-highlight);
+            backdrop-filter: blur(var(--ui-blur));
+        }
+
+            #content_right > #section-highlight > .container-top > .banner {
+                height: 55%;
+                margin-top: 1vh;
+                margin-left: 1vh;
+                margin-right: 1vh;
+                background-color: saddlebrown;
+            }
+
+            #content_right > #section-highlight > .container-top > .pagination {
+                margin-top: 1vh;
+                margin-left: 1vh;
+                margin-right: 1vh;
+            }
+
+            #content_right > #section-highlight > .container-top > .button-blue {
+                height: 10vh;
+                width: 33.5vh;
+                position: fixed;
+                left: 2vh;
+                bottom: -2vh;
+            }
+
+            #content_right > #section-highlight > .container-top > .button-yellow {
+                height: 20vh;
+                width: 20vh;
+                position: fixed;
+                bottom: -2vh;
+                right: 2.5vh;
+            }
+
+        #content_right > #section-highlight > .container-bottom {
+            height: 38%;
+            width: 100%;
+            margin-top: 4vh;
+            background-color: var(--ui-color-base);
+            backdrop-filter: blur(var(--ui-blur));
+        }
 
 #bottombar {
     height: 7vh;
@@ -70,45 +132,4 @@ body {
     position: fixed;
     bottom: 0;
     background-color: var(--ui-color-base);
-    backdrop-filter: blur(var(--ui-blur));
 }
-
-#section-highlight {
-    height: 65vh;
-    width: 35vw;
-    position: fixed;
-    top: 20vh;
-    right: 6vw;
-    display: flex;
-    flex-direction: column;
-    background-color: transparent;
-}
-
-    #section-highlight > .container-top {
-        height: 60%;
-        width: 100%;
-        background-color: var(--ui-color-base);
-        backdrop-filter: blur(var(--ui-blur));
-    }
-
-        #section-highlight > .container-top > .banner {
-            height: 55%;
-            margin-top: 1vh;
-            margin-left: 1vh;
-            margin-right: 1vh;
-            background-color: saddlebrown;
-        }
-
-        #section-highlight > .container-top > .pagination {
-            margin-top: 1vh;
-            margin-left: 1vh;
-            margin-right: 1vh;
-        }
-
-    #section-highlight > .container-bottom {
-        height: 38%;
-        width: 100%;
-        margin-top: 4vh;
-        background-color: var(--ui-color-base);
-        backdrop-filter: blur(var(--ui-blur));
-    }
