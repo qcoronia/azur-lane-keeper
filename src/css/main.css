@@ -6,9 +6,13 @@
     --ui-color-highlight: rgba(255, 255, 255, 0.25);
     --ui-blur: 0.6vh;
     --ui-enter-exit-duration: 0.45s;
+    --ui-border-color-icon: #24aeff;
+    --ui-font-family: "Source Sans Pro", sans-serif;
 }
 
 body {
+    font-family: var(--ui-font-family);
+
     height: 100vh;
     margin: 0px;
 
@@ -41,6 +45,12 @@ body {
     animation-iteration-count: infinite;
 }
 
+.anim-floating-icon {
+    animation-name: floating-icon;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
 .anim-bob {
     animation-name: bobbing;
     animation-duration: 0.45s;
@@ -48,7 +58,7 @@ body {
 }
 
 #topbar {
-    height: 10vh;
+    height: 8vh;
     width: 75vw;
     position: fixed;
     top: 0;
@@ -70,6 +80,81 @@ body {
         animation-iteration-count: 1;
     }
 
+    #topbar > .icon-design-top {
+        transform: rotate(45deg);
+        position: absolute;
+        left: 14vh;
+        top: -7vh;
+    }
+
+        #topbar > .icon-design-top:before {
+            content: "";
+            height: 5vh;
+            width: 5vh;
+            position: fixed;
+            top: 0.5vh;
+            border-width: 0.7vh;
+            border-style: solid;
+            border-color: var(--ui-border-color-icon);
+        }
+
+        #topbar > .icon-design-top:after {
+            content: "";
+            height: 6vh;
+            width: 5vh;
+            position: fixed;
+            left: 8vh;
+            border-width: 0 0 0.3vh 0;
+            border-style: solid;
+            border-color: var(--ui-border-color-icon);
+        }
+
+    #topbar > #username_field {
+        height: 6.3vh;
+        width: 35vh;
+        position: fixed;
+        left: 18.7vh;
+        border-width: 0 0 0.3vh 0;
+        border-style: solid;
+        border-color: var(--ui-border-color-icon);
+        color: white;
+        vertical-align: bottom;
+    }
+
+        #topbar > #username_field > span {
+            width: 100%;
+            position: absolute;
+            bottom: 0vh;
+            text-align: center;
+            font-size: 3.5vh;
+            border-bottom: 0.5vh solid yellow;
+            margin-bottom: 0.5vh;
+        }
+
+    #topbar > #icon {
+        transform: rotate(45deg);
+        height: 11vh;
+        width: 11vh;
+        position: relative;
+        top: 2.5vh;
+        left: 4vh;
+        overflow: hidden;
+        border-width: 0.5vh;
+        border-style: solid;
+        border-color: var(--ui-border-color-icon);
+    }
+
+        #topbar > #icon > #character_chibi {
+            transform: rotate(-45deg);
+            height: 28vh;
+            width: 28vh;
+            position: relative;
+            top: -9vh;
+            left: -11vh;
+            background-position-x: center;
+            background-size: cover;
+        }
+
 #content_right {
     height: 100vh;
     width: 100vw;
@@ -78,7 +163,7 @@ body {
 
     #content_right > #sidebar_right {
         height: 100vh;
-        width: 5vw;
+        width: 4vw;
         position: fixed;
         right: 0;
         background-color: var(--ui-color-base);
@@ -99,7 +184,7 @@ body {
             animation-iteration-count: 1;
         }
 
-    #content_right > #section-highlight {
+    #content_right > #section_highlight {
         height: 61vh;
         width: 31vw;
         position: fixed;
@@ -110,21 +195,21 @@ body {
         background-color: transparent;
     }
 
-        #content_right > #section-highlight.visible {
+        #content_right > #section_highlight.visible {
             visibility: visible;
-            animation-name: side_bar_enter;
+            animation-name: section_highlight_enter;
             animation-duration: var(--ui-enter-exit-duration);
             animation-iteration-count: 1;
         }
 
-        #content_right > #section-highlight.hidden {
+        #content_right > #section_highlight.hidden {
             visibility: hidden;
-            animation-name: side_bar_exit;
+            animation-name: section_highlight_exit;
             animation-duration: var(--ui-enter-exit-duration);
             animation-iteration-count: 1;
         }
 
-        #content_right > #section-highlight > .container-top {
+        #content_right > #section_highlight > .container_top {
             height: 73%;
             width: 100%;
             background-color: var(--ui-color-highlight);
@@ -132,7 +217,7 @@ body {
             box-shadow: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
         }
 
-            #content_right > #section-highlight > .container-top > .banner {
+            #content_right > #section_highlight > .container_top > .banner {
                 height: 55%;
                 margin-top: 1vh;
                 margin-left: 1vh;
@@ -140,13 +225,13 @@ body {
                 background-color: saddlebrown;
             }
 
-            #content_right > #section-highlight > .container-top > .pagination {
+            #content_right > #section_highlight > .container_top > .pagination {
                 margin-top: 1vh;
                 margin-left: 1vh;
                 margin-right: 1vh;
             }
 
-            #content_right > #section-highlight > .container-top > .button-blue {
+            #content_right > #section_highlight > .container_top > .button_blue {
                 height: 10vh;
                 width: 33.5vh;
                 position: fixed;
@@ -157,7 +242,7 @@ body {
                 box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
             }
 
-            #content_right > #section-highlight > .container-top > .button-yellow {
+            #content_right > #section_highlight > .container_top > .button_yellow {
                 height: 20vh;
                 width: 20vh;
                 position: fixed;
@@ -168,7 +253,7 @@ body {
                 box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
             }
 
-        #content_right > #section-highlight > .container-bottom {
+        #content_right > #section_highlight > .container_bottom {
             height: 38%;
             width: 100%;
             margin-top: 4vh;
@@ -177,7 +262,7 @@ body {
         }
 
 #bottombar {
-    height: 10vh;
+    height: 8vh;
     width: 100vw;
     position: fixed;
     bottom: 0;

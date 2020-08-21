@@ -10,7 +10,8 @@ const ui = {
     topbar: '#topbar',
     bottombar: '#bottombar',
     sidebar_right: '#sidebar_right',
-    section_highlight: '#section-highlight',
+    section_highlight: '#section_highlight',
+    username: '#username_field > span',
   },
   showHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');
@@ -22,17 +23,31 @@ const ui = {
     document.querySelectorAll(selectors).forEach(el => el.classList.remove('visible'));
     document.querySelectorAll(selectors).forEach(el => el.classList.add('hidden'));
   },
+  setUsername: username => {
+    document.querySelector(ui.hudElements.username).innerHTML = username;
+  },
 };
 
 const character = {
   selector: '#character',
+  selectorChibi: '#character_chibi',
+  currentCharacter: '',
   setSprite: name => {
+    if (document.querySelector(character.selectorChibi).classList.lenght > 0) {
+      document.querySelector(character.selectorChibi).classList.remove(character.currentCharacter);
+    }
+    character.currentCharacter = name;
     const imgUrl = `./assets/sprites/${name}.png`;
     document.querySelector(character.selector).src = imgUrl;
+    document.querySelector(character.selectorChibi).classList.add(name);
   },
 
   setAnim: animName => {
     document.querySelector(character.selector).classList.add(animName);
+  },
+
+  setIconAnim: animName => {
+    document.querySelector(character.selectorChibi).classList.add(animName);
   },
 
   tapped: () => {
@@ -51,5 +66,7 @@ const character = {
   background.setDaylight('day');
   character.setSprite('Indianapolis');
   character.setAnim('anim-floating');
+  character.setIconAnim('anim-floating-icon');
+  ui.setUsername('Alca');
   ui.showHud();
 }) ();

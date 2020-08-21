@@ -1,3 +1,6 @@
 #character.Indianapolis {
     background-image: url('../assets/sprites/Indianapolis.png');
 }
+#character_chibi.Indianapolis {
+    background-image: url('../assets/sprites/IndianapolisChibi.png');
+}

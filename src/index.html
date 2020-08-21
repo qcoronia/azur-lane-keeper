@@ -2,23 +2,34 @@
 <html>
 <head>
   <title>New Tab Page</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="./css/main.css" />
   <link rel="stylesheet" href="./css/animations.css" />
   <link rel="stylesheet" href="./css/characters.css" />
 </head>
 <body>
   <img id="character" onclick="character.tapped()" />
-  <div id="topbar"></div>
+  <div id="topbar">
+    <div class="icon-design-top"></div>
+    <div id="username_field">
+      <span></span>
+    </div>
+    <button id="icon">
+      <div id="character_chibi"></div>
+    </button>
+  </div>
   <div id="content_right">
     <div id="sidebar_right"></div>
-    <div id="section-highlight">
-      <div class="container-top">
+    <div id="section_highlight">
+      <div class="container_top">
         <div class="banner"></div>
         <div class="pagination"></div>
-        <button class="button-blue"></button>
-        <button class="button-yellow"></button>
+        <button class="button_blue"></button>
+        <button class="button_yellow"></button>
       </div>
-      <div class="container-bottom"></div>
+      <div class="container_bottom"></div>
     </div>
   </div>
   <div id="bottombar">

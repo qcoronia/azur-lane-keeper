@@ -12,6 +12,20 @@
     }
 }
 
+@keyframes floating-icon {
+    0% {
+        background-position-y: 0vh;
+    }
+
+    50% {
+        background-position-y: 1vh;
+    }
+
+    100% {
+        background-position-y: 0vh;
+    }
+}
+
 @keyframes bobbing {
     0% {
         transform: translateY(0vh);
@@ -96,11 +110,11 @@
 
 @keyframes section_highlight_enter {
     from {
-        transform: translateX(0vw);
+        transform: translateX(37vw);
     }
 
     to {
-        transform: translateX(37vw);
+        transform: translateX(0vw);
     }
 }
 
