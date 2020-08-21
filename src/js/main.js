@@ -1,31 +1,47 @@
-const elements = {
-  background: 'body',
-  character: '#character',
-};
-
 const background = {
-  setDaylight: function (daylight) {
-    document.querySelector(elements.background).classList.add(daylight);
+  selector: 'body',
+  setDaylight: daylight => {
+    document.querySelector(background.selector).classList.add(daylight);
   }
 };
 
+const ui = {
+  hudElements: {
+    topbar: '#topbar',
+    bottombar: '#bottombar',
+    sidebar_right: '#sidebar_right',
+    section_highlight: '#section-highlight',
+  },
+  showHud: () => {
+    const selectors = Object.values(ui.hudElements).join(',');
+    document.querySelectorAll(selectors).forEach(el => el.classList.remove('hidden'));
+    document.querySelectorAll(selectors).forEach(el => el.classList.add('visible'));
+  },
+  hideHud: () => {
+    const selectors = Object.values(ui.hudElements).join(',');
+    document.querySelectorAll(selectors).forEach(el => el.classList.remove('visible'));
+    document.querySelectorAll(selectors).forEach(el => el.classList.add('hidden'));
+  },
+};
+
 const character = {
-  setSprite: function (name) {
+  selector: '#character',
+  setSprite: name => {
     const imgUrl = `./assets/sprites/${name}.png`;
-    document.querySelector(elements.character).src = imgUrl;
+    document.querySelector(character.selector).src = imgUrl;
   },
 
-  setAnim: function (animName) {
-    document.querySelector(elements.character).classList.add(animName);
+  setAnim: animName => {
+    document.querySelector(character.selector).classList.add(animName);
   },
 
-  tapped: function () {
-    document.querySelector(elements.character).classList.remove('anim-floating');
-    document.querySelector(elements.character).classList.add('anim-bob');
+  tapped: () => {
+    document.querySelector(character.selector).classList.remove('anim-floating');
+    document.querySelector(character.selector).classList.add('anim-bob');
     setTimeout(() => {
-      document.querySelector(elements.character).classList.add('anim-floating');
-      document.querySelector(elements.character).classList.remove('anim-bob');
-    }, 500);
+      document.querySelector(character.selector).classList.add('anim-floating');
+      document.querySelector(character.selector).classList.remove('anim-bob');
+    }, 450);
   }
 };
 
@@ -35,4 +51,5 @@ const character = {
   background.setDaylight('day');
   character.setSprite('Indianapolis');
   character.setAnim('anim-floating');
+  ui.showHud();
 }) ();

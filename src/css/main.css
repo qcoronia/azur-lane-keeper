@@ -5,6 +5,7 @@
     --ui-color-base: rgba(0, 0, 0, 0.4);
     --ui-color-highlight: rgba(255, 255, 255, 0.25);
     --ui-blur: 0.6vh;
+    --ui-enter-exit-duration: 0.45s;
 }
 
 body {
@@ -47,13 +48,27 @@ body {
 }
 
 #topbar {
-    height: 7vh;
+    height: 10vh;
     width: 75vw;
     position: fixed;
     top: 0;
     background: linear-gradient(to right, var(--ui-color-base), transparent);
     backdrop-filter: blur(var(--ui-blur));
 }
+
+    #topbar.visible {
+        visibility: visible;
+        animation-name: top_bar_enter;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
+
+    #topbar.hidden {
+        visibility: hidden;
+        animation-name: top_bar_exit;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
 
 #content_right {
     height: 100vh;
@@ -63,12 +78,26 @@ body {
 
     #content_right > #sidebar_right {
         height: 100vh;
-        width: 4.5vw;
+        width: 5vw;
         position: fixed;
         right: 0;
         background-color: var(--ui-color-base);
         backdrop-filter: blur(var(--ui-blur));
     }
+
+        #content_right > #sidebar_right.visible {
+            visibility: visible;
+            animation-name: side_bar_enter;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
+
+        #content_right > #sidebar_right.hidden {
+            visibility: hidden;
+            animation-name: side_bar_exit;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
 
     #content_right > #section-highlight {
         height: 61vh;
@@ -80,6 +109,20 @@ body {
         flex-direction: column;
         background-color: transparent;
     }
+
+        #content_right > #section-highlight.visible {
+            visibility: visible;
+            animation-name: side_bar_enter;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
+
+        #content_right > #section-highlight.hidden {
+            visibility: hidden;
+            animation-name: side_bar_exit;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
 
         #content_right > #section-highlight > .container-top {
             height: 73%;
@@ -134,12 +177,26 @@ body {
         }
 
 #bottombar {
-    height: 7vh;
+    height: 10vh;
     width: 100vw;
     position: fixed;
     bottom: 0;
     background-color: var(--ui-color-base);
 }
+
+    #bottombar.visible {
+        visibility: visible;
+        animation-name: bottom_bar_enter;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
+
+    #bottombar.hidden {
+        visibility: hidden;
+        animation-name: bottom_bar_exit;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
 
     #bottombar > #disclaimer {
         color: rgba(255, 255, 255, 0.25);

@@ -33,3 +33,83 @@
         transform: translateY(0vh);
     }
 }
+
+@keyframes top_bar_enter {
+    from {
+        transform: translateY(-10vh);
+    }
+
+    to {
+        transform: translateY(0vh);
+    }
+}
+
+@keyframes top_bar_exit {
+    from {
+        transform: translateY(0vh);
+    }
+
+    to {
+        transform: translateY(-10vh);
+    }
+}
+
+@keyframes bottom_bar_enter {
+    from {
+        transform: translateY(10vh);
+    }
+
+    to {
+        transform: translateY(0vh);
+    }
+}
+
+@keyframes bottom_bar_exit {
+    from {
+        transform: translateY(0vh);
+    }
+
+    to {
+        transform: translateY(10vh);
+    }
+}
+
+@keyframes side_bar_enter {
+    from {
+        transform: translateX(5vw);
+    }
+
+    to {
+        transform: translateX(0vw);
+    }
+}
+
+@keyframes side_bar_exit {
+    from {
+        transform: translateX(0vw);
+    }
+
+    to {
+        transform: translateX(5vw);
+    }
+}
+
+@keyframes section_highlight_enter {
+    from {
+        transform: translateX(0vw);
+    }
+
+    to {
+        transform: translateX(37vw);
+    }
+}
+
+@keyframes section_highlight_exit {
+    from {
+        transform: translateX(0vw);
+    }
+
+    to {
+        transform: translateX(37vw);
+    }
+}
