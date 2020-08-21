@@ -1,3 +1,7 @@
+const config = {
+  refreshTimeOffset: 480,
+};
+
 const background = {
   selector: 'body',
   setDaylight: daylight => {

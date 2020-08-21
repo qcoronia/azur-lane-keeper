@@ -156,6 +156,57 @@ body {
             background-size: cover;
         }
 
+    #topbar > #counters {
+        height: 100%;
+        width: 45vw;
+        position: absolute;
+        top: 0vh;
+        right: -20vw;
+        background-color: transparent;
+        display: flex;
+        align-items: flex-end;
+    }
+
+        #topbar > #counters > [id^=counter] {
+            height: 60%;
+            width: 10vw;
+            background-color: rgba(34, 38, 47, 0.5);
+            margin: 0 2vw;
+        }
+
+            #topbar > #counters > [id^=counter] > .icon {
+                height: 3vw;
+                width: 3vw;
+                position: relative;
+                top: -1vh;
+                font-size: 3vw;
+                text-align: center;
+                margin-left: -1.5vw;
+                text-shadow: 0 0 1vh black;
+            }
+
+            #topbar > #counters > [id^=counter] > .icon {
+                height: 3vw;
+                width: 3vw;
+                position: relative;
+                top: -1vh;
+                font-size: 3vw;
+                text-align: center;
+                margin-left: -1.5vw;
+            }
+
+            #topbar > #counters > [id^=counter] > .menu {
+                height: 2vw;
+                width: 2vw;
+                position: relative;
+                top: -6vh;
+                right: -1vw;
+                background-color: #516288;
+                transform: rotate(45deg);
+                float: right;
+                border: 0.1vh solid #a3a3d2;
+            }
+
 #content_right {
     height: 100vh;
     width: 100vw;
