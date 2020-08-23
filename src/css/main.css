@@ -184,6 +184,18 @@ body {
                 margin-left: -1.5vw;
                 text-shadow: 0 0 1vh black;
             }
+            
+            #topbar > #counters > #counter_patch_date > .icon {
+                color: #5a5a5a;
+            }
+
+            #topbar > #counters > #counter_patch_time > .icon {
+                color: #ffee2e;
+            }
+
+            #topbar > #counters > #counter_clock > .icon {
+                color: #fc1e59;
+            }
 
             #topbar > #counters > [id^=counter] > .icon {
                 height: 3vw;
@@ -205,6 +217,15 @@ body {
                 transform: rotate(45deg);
                 float: right;
                 border: 0.1vh solid #a3a3d2;
+            }
+
+            #topbar > #counters > [id^=counter] > .content {
+                position: relative;
+                display: inline;
+                top: -5.7vh;
+                right: -2.5vw;
+                font-size: 3vh;
+                color: white;
             }
 
 #content_right {

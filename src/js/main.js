@@ -17,6 +17,14 @@ const ui = {
     section_highlight: '#section_highlight',
     username: '#username_field > span',
   },
+  initHud: () => {
+    const date = new Date();
+    document.querySelector('#counter_clock > .content').innerHTML = date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  },
   showHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');
     document.querySelectorAll(selectors).forEach(el => el.classList.remove('hidden'));
@@ -72,5 +80,6 @@ const character = {
   character.setAnim('anim-floating');
   character.setIconAnim('anim-floating-icon');
   ui.setUsername('Alca');
+  ui.initHud();
   ui.showHud();
 }) ();
