@@ -1,0 +1,356 @@
+:root {
+    --background-day: url('../assets/bg/bg_main_day.png');
+    --background-twilight: url('../assets/bg/bg_main_twilight.png');
+    --background-night: url('../assets/bg/bg_main_night.png');
+    --ui-color-base: rgba(0, 0, 0, 0.4);
+    --ui-color-highlight: rgba(255, 255, 255, 0.25);
+    --ui-blur: 0.6vh;
+    --ui-enter-exit-duration: 0.45s;
+    --ui-border-color-icon: #24aeff;
+    --ui-font-family: "Source Sans Pro", sans-serif;
+    --ui-font-family-number: "Monolisk", sans-serif;
+    --ui-level-color: #ffcb00;
+}
+
+body {
+    font-family: var(--ui-font-family);
+
+    height: 100vh;
+    margin: 0px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &.day {
+        background-image: var(--background-day);
+    }
+
+    &.twilight {
+        background-image: var(--background-twilight);
+    }
+
+    &.night {
+        background-image: var(--background-night);
+    }
+}
+
+#character {
+    height: 80vh;
+    position: fixed;
+    top: 10vh;
+    left: 5vw;
+}
+
+.anim-floating {
+    animation-name: floating;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+.anim-floating-icon {
+    animation-name: floating-icon;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+.anim-bob {
+    animation-name: bobbing;
+    animation-duration: 0.45s;
+    animation-iteration-count: 1;
+}
+
+#topbar {
+    height: 8vh;
+    width: 75vw;
+    position: fixed;
+    top: 0;
+    background: linear-gradient(to right, var(--ui-color-base), transparent);
+    backdrop-filter: blur(var(--ui-blur));
+
+    &.visible {
+        visibility: visible;
+        animation-name: top_bar_enter;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
+
+    &.hidden {
+        visibility: hidden;
+        animation-name: top_bar_exit;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
+
+    > .icon-design-top {
+        transform: rotate(45deg);
+        position: absolute;
+        left: 14vh;
+        top: -7vh;
+
+        :before {
+            content: "";
+            height: 5vh;
+            width: 5vh;
+            position: fixed;
+            top: 0.5vh;
+            border-width: 0.7vh;
+            border-style: solid;
+            border-color: var(--ui-border-color-icon);
+        }
+
+       :after {
+            content: "";
+            height: 6vh;
+            width: 5vh;
+            position: fixed;
+            left: 8vh;
+            border-width: 0 0 0.3vh 0;
+            border-style: solid;
+            border-color: var(--ui-border-color-icon);
+        }
+    }
+
+    #username_field {
+        height: 6.3vh;
+        width: 35vh;
+        position: fixed;
+        left: 18.7vh;
+        border-width: 0 0 0.3vh 0;
+        border-style: solid;
+        border-color: var(--ui-border-color-icon);
+        color: white;
+        vertical-align: bottom;
+
+        > span {
+            width: 100%;
+            position: absolute;
+            bottom: 0vh;
+            text-align: center;
+            font-size: 3.5vh;
+            border-bottom: 0.5vh solid var(--ui-level-color);
+            margin-bottom: 0.1vh;
+        }
+    }
+
+    > #icon {
+        transform: rotate(45deg);
+        height: 11vh;
+        width: 11vh;
+        position: relative;
+        top: 2.5vh;
+        left: 4vh;
+        overflow: hidden;
+        border-width: 0.5vh;
+        border-style: solid;
+        border-color: var(--ui-border-color-icon);
+
+        > #character_chibi {
+            transform: rotate(-45deg);
+            height: 28vh;
+            width: 28vh;
+            position: relative;
+            top: -9vh;
+            left: -11vh;
+            background-position-x: center;
+            background-size: cover;
+        }
+    }
+
+    > #counters {
+        height: 100%;
+        width: 45vw;
+        position: absolute;
+        top: 0vh;
+        right: -20vw;
+        background-color: transparent;
+        display: flex;
+        align-items: flex-end;
+        font-family: var(--ui-font-family-number);
+
+        > [id^=counter] {
+            height: 60%;
+            width: 10vw;
+            background-color: rgba(34, 38, 47, 0.5);
+            margin: 0 2vw;
+
+            > .icon {
+                height: 3vw;
+                width: 3vw;
+                position: relative;
+                top: -1vh;
+                font-size: 3vw;
+                text-align: center;
+                margin-left: -1.5vw;
+                text-shadow: 0 0 1vh black;
+            }
+    
+            > .content {
+                position: relative;
+                display: inline;
+                top: -5.5vh;
+                right: -3vw;
+                font-size: 3.5vh;
+                color: white;
+                font-weight: 600;
+            }
+
+            > .menu {
+                height: 2vw;
+                width: 2vw;
+                position: relative;
+                top: -6vh;
+                right: -1vw;
+                background-color: #516288;
+                transform: rotate(45deg);
+                float: right;
+                border: 0.1vh solid #a3a3d2;
+            }
+        }
+            
+        > #counter_patch_date > .icon {
+            color: #5a5a5a;
+        }
+
+        > #counter_patch_time > .icon {
+            color: #ffee2e;
+        }
+
+        > #counter_clock > .icon {
+            color: #fc1e59;
+        }
+    }
+}
+
+#content_right {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+
+    > #sidebar_right {
+        height: 100vh;
+        width: 5vw;
+        position: fixed;
+        right: 0;
+        background-color: var(--ui-color-base);
+        backdrop-filter: blur(var(--ui-blur));
+
+        &.visible {
+            visibility: visible;
+            animation-name: side_bar_enter;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
+
+        &.hidden {
+            visibility: hidden;
+            animation-name: side_bar_exit;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
+    }
+
+    > #section_highlight {
+        height: 61vh;
+        width: 31vw;
+        position: fixed;
+        top: 20vh;
+        right: 6vw;
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+
+        &.visible {
+            visibility: visible;
+            animation-name: section_highlight_enter;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
+
+        &.hidden {
+            visibility: hidden;
+            animation-name: section_highlight_exit;
+            animation-duration: var(--ui-enter-exit-duration);
+            animation-iteration-count: 1;
+        }
+
+        > .container_top {
+            height: 73%;
+            width: 100%;
+            background-color: var(--ui-color-highlight);
+            backdrop-filter: blur(var(--ui-blur));
+            box-shadow: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
+
+            > .banner {
+                height: 55%;
+                margin-top: 1vh;
+                margin-left: 1vh;
+                margin-right: 1vh;
+                background-color: saddlebrown;
+            }
+
+            > .pagination {
+                margin-top: 1vh;
+                margin-left: 1vh;
+                margin-right: 1vh;
+            }
+
+            > .button_blue {
+                height: 10vh;
+                width: 33.5vh;
+                position: fixed;
+                left: 2vh;
+                bottom: -2vh;
+                background: linear-gradient(45deg, #6881df, #63ccfb);
+                border: 0.1vh solid rgb(139, 197, 239);
+                box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
+            }
+
+            > .button_yellow {
+                height: 20vh;
+                width: 20vh;
+                position: fixed;
+                bottom: -2vh;
+                right: 2.5vh;
+                background: linear-gradient(45deg, #d19666, #f2c748);
+                border: 0.1vh solid rgb(228, 218, 92);
+                box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        > .container_bottom {
+            height: 38%;
+            width: 100%;
+            margin-top: 4vh;
+            background-color: var(--ui-color-base);
+            backdrop-filter: blur(var(--ui-blur));
+        }
+    }
+}
+
+#bottombar {
+    height: 8vh;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    background-color: var(--ui-color-base);
+
+    &.visible {
+        visibility: visible;
+        animation-name: bottom_bar_enter;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
+
+    &.hidden {
+        visibility: hidden;
+        animation-name: bottom_bar_exit;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
+    }
+
+    > #disclaimer {
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 1.5vh;
+    }
+}
