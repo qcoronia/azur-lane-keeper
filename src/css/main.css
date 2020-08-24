@@ -106,7 +106,7 @@ body.night {
   top: -7vh;
 }
 
-#topbar > .icon-design-top :before {
+#topbar > .icon-design-top:before {
   content: "";
   height: 5vh;
   width: 5vh;
@@ -117,7 +117,7 @@ body.night {
   border-color: var(--ui-border-color-icon);
 }
 
-#topbar > .icon-design-top :after {
+#topbar > .icon-design-top:after {
   content: "";
   height: 6vh;
   width: 5vh;
