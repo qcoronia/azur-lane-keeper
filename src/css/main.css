@@ -2,11 +2,16 @@
   --background-day: url('../assets/bg/bg_main_day.png');
   --background-twilight: url('../assets/bg/bg_main_twilight.png');
   --background-night: url('../assets/bg/bg_main_night.png');
+  --ui-color-default: rgb(23, 61, 184);
   --ui-color-base: rgba(0, 0, 0, 0.4);
   --ui-color-highlight: rgba(255, 255, 255, 0.25);
   --ui-blur: 0.6vh;
   --ui-enter-exit-duration: 0.45s;
+  --ui-color-icon: #24aeff;
+  --ui-color-shadow-icon: #24aeff;
   --ui-border-color-icon: #24aeff;
+  --ui-color-highlight-icon: #ffcb00;
+  --ui-color-highlight-shadow-icon: #ffcb00;
   --ui-font-family: "Source Sans Pro", sans-serif;
   --ui-font-family-number: "Monolisk", sans-serif;
   --ui-level-color: #ffcb00;
@@ -273,6 +278,16 @@ body.night {
   background-color: var(--ui-color-base);
   -webkit-backdrop-filter: blur(var(--ui-blur));
           backdrop-filter: blur(var(--ui-blur));
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #content_right > #sidebar_right.visible {
@@ -293,6 +308,23 @@ body.night {
           animation-duration: var(--ui-enter-exit-duration);
   -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
+}
+
+#content_right > #sidebar_right button {
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  background-color: transparent;
+  color: var(--ui-color-icon);
+  text-shadow: 0 0 2vh var(--ui-color-icon);
+  font-weight: bold;
+  font-size: 2vh;
+  border: none;
+  width: 100%;
+}
+
+#content_right > #sidebar_right button.highlighted {
+  color: var(--ui-color-highlight-icon);
+  text-shadow: 0 0 2vh var(--ui-color-highlight-shadow-icon);
 }
 
 #content_right > #section_highlight {
@@ -455,4 +487,8 @@ body.night {
   background-color: var(--ui-color-base);
   -webkit-backdrop-filter: var(--ui-blur);
           backdrop-filter: var(--ui-blur);
+}
+
+[template] {
+  display: none;
 }

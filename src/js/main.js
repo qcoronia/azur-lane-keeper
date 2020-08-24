@@ -47,6 +47,24 @@ const ui = {
     }
     
     background.setDaylight(curDaytime);
+
+    const sidebarButtons = [
+      { label: 'AL Facebook', icon: 'fab fa-facebook-square', url: '' },
+      { label: 'AL Twitter', icon: 'fab fa-twitter', url: '' },
+      { label: 'AL Reddit', icon: 'fab fa-reddit', url: '' },
+      { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
+    ];
+    const sidebarButtonTemplate = document.querySelector('#content_right > #sidebar_right > [template=button-sidebar]').outerHTML;
+    let sidebarButtonsHtml = '';
+    for (const sidebarButton of sidebarButtons) {
+      sidebarButtonsHtml += sidebarButtonTemplate
+        .replace('template="button-sidebar"', '')
+        .replace('{{label}}', sidebarButton.label)
+        .replace('{{icon}}', sidebarButton.icon)
+        .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : '');
+    }
+    
+    document.querySelector('#content_right > #sidebar_right > .buttons-configurable').innerHTML = sidebarButtonsHtml;
   },
   showHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');
@@ -98,7 +116,6 @@ const character = {
 /** MAIN */
 
 (function () {
-  background.setDaylight('day');
   character.setSprite('Indianapolis');
   character.setAnim('anim-floating');
   character.setIconAnim('anim-floating-icon');

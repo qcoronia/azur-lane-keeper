@@ -48,7 +48,19 @@
     </div>
   </div>
   <div id="content_right">
-    <div id="sidebar_right"></div>
+    <div id="sidebar_right">
+      <button template="button-sidebar" class="{{highlighted}}">
+        <i class="{{icon}} fa-2x"></i><br>
+        <span>{{label}}</span>
+      </button>
+      <div class="buttons-configurable"></div>
+      <div class="buttons-mandatory">
+        <button id="button_settings">
+          <i class="fa fa-cog fa-2x"></i><br>
+          <span>Settings</span>
+        </button>
+      </div>
+    </div>
     <div id="section_highlight">
       <div class="container_top">
         <div class="banner"></div>
