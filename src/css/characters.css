@@ -1,15 +1,15 @@
 #character.Indianapolis {
-  background-image: url("../assets/sprites/{$character_name}.png");
+  background-image: url("../assets/sprites/Indianapolis.png");
 }
 
 #character_chibi.Indianapolis {
-  background-image: url("../assets/sprites/{$character_name}Chibi.png");
+  background-image: url("../assets/sprites/IndianapolisChibi.png");
 }
 
 #character.Grenville {
-  background-image: url("../assets/sprites/{$character_name}.png");
+  background-image: url("../assets/sprites/Grenville.png");
 }
 
 #character_chibi.Grenville {
-  background-image: url("../assets/sprites/{$character_name}Chibi.png");
+  background-image: url("../assets/sprites/GrenvilleChibi.png");
 }

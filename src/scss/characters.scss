@@ -4,9 +4,9 @@ $character_names:
 
 @each $character_name in $character_names {
     #character.#{$character_name} {
-        background-image: url('../assets/sprites/{$character_name}.png');
+        background-image: url('../assets/sprites/#{$character_name}.png');
     }
     #character_chibi.#{$character_name} {
-        background-image: url('../assets/sprites/{$character_name}Chibi.png');
+        background-image: url('../assets/sprites/#{$character_name}Chibi.png');
     }
 }

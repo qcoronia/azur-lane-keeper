@@ -2,6 +2,11 @@ const config = {
   refreshTimeOffset: 480,
 };
 
+const characters = [
+  "Indianapolis",
+  "Grenville",
+];
+
 const background = {
   selector: 'body',
   setDaylight: daylight => {
@@ -14,8 +19,10 @@ const ui = {
     topbar: '#topbar',
     bottombar: '#bottombar',
     sidebar_right: '#sidebar_right',
+    sidebar_right_buttons: '#sidebar_right > .buttons-configurable',
     section_highlight: '#section_highlight',
     username: '#username_field > span',
+    secretary_selector: '#secretary_selector',
   },
   clockInterval: -1,
   initHud: () => {
@@ -55,16 +62,15 @@ const ui = {
       { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
     ];
     const sidebarButtonTemplate = document.querySelector('#content_right > #sidebar_right > [template=button-sidebar]').outerHTML;
-    let sidebarButtonsHtml = '';
-    for (const sidebarButton of sidebarButtons) {
-      sidebarButtonsHtml += sidebarButtonTemplate
-        .replace('template="button-sidebar"', '')
-        .replace('{{label}}', sidebarButton.label)
-        .replace('{{icon}}', sidebarButton.icon)
-        .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : '');
-    }
-    
-    document.querySelector('#content_right > #sidebar_right > .buttons-configurable').innerHTML = sidebarButtonsHtml;
+    document.querySelector(ui.hudElements.sidebar_right_buttons).innerHTML = sidebarButtons.map(sidebarButton => sidebarButtonTemplate
+      .replace('template="button-sidebar"', '')
+      .replace('{{label}}', sidebarButton.label)
+      .replace('{{icon}}', sidebarButton.icon)
+      .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''));
+
+    document.querySelectorAll('#secretary_selector > datalist[id^=secretary]').forEach(el => {
+      el.innerHTML = characters.map(c => `<option value=${c}/>`);
+    });
   },
   showHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');
@@ -78,6 +84,14 @@ const ui = {
   },
   setUsername: username => {
     document.querySelector(ui.hudElements.username).innerHTML = username;
+  },
+  characterIconClicked: () => {
+    document.querySelector(ui.hudElements.secretary_selector).classList.remove('hidden');
+    document.querySelector(ui.hudElements.secretary_selector).classList.remove('visible');
+  },
+  closeSecretarySelector: () => {
+    document.querySelector(ui.hudElements.secretary_selector).classList.remove('visible');
+    document.querySelector(ui.hudElements.secretary_selector).classList.remove('hidden');
   },
 };
 
