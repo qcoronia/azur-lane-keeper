@@ -17,13 +17,36 @@ const ui = {
     section_highlight: '#section_highlight',
     username: '#username_field > span',
   },
+  clockInterval: -1,
   initHud: () => {
-    const date = new Date();
-    document.querySelector('#counter_clock > .content').innerHTML = date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true,
-    });
+    const curDate = new Date();
+    const updateClock = () => {
+      const date = new Date();
+      document.querySelector('#counter_clock > .content').innerHTML = date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      });
+    };
+    setTimeout(() => {
+      ui.clockInterval = setInterval(updateClock, 1000);
+    }, curDate.getMilliseconds() - 1000);
+
+    const curHour = curDate.getHours();
+    let curDaytime = 'day';
+    if (curHour > 0) {
+      curDaytime = 'night';
+    } else if (curHour > 5) {
+      curDaytime = 'twilight';
+    } else if (curHour > 7) {
+      curDaytime = 'day';
+    } else if (curHour > 16) {
+      curDaytime = 'twilight';
+    } else if (curHour > 18) {
+      curDaytime = 'night';
+    }
+    
+    background.setDaylight(curDaytime);
   },
   showHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');

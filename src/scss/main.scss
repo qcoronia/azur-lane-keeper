@@ -178,11 +178,12 @@ body {
                 content: "";
                 position: absolute;
                 display: inline;
-                border-top: 0.1vh solid rgba(255, 255, 255, 0.5);
-                border-bottom: 0.1vh solid rgba(255, 255, 255, 0.5);
+                border-top: 0.1vh solid rgba(255, 255, 255, 0.25);
+                border-bottom: 0.1vh solid rgba(255, 255, 255, 0.25);
                 width: 21%;
                 height: 45%;
                 top: 45%;
+                background-color: rgba(0, 0, 0, 0.2);
             }
 
             > .icon {
@@ -363,5 +364,41 @@ body {
     > #disclaimer {
         color: rgba(255, 255, 255, 0.25);
         font-size: 1.5vh;
+    }
+}
+
+.with-tooltip {
+    &:after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: 1vh;
+    }
+
+    &:hover {
+        .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    .tooltip {
+        visibility: hidden;
+        padding: 1vh;
+        text-align: center;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        margin-left: -50%;
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 3vh;
+        font-weight: bold;
+        color: white;
+        width: max-content;
+        background-color: var(--ui-color-base);
+        backdrop-filter: var(--ui-blur);
     }
 }
