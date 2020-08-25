@@ -1,10 +1,26 @@
 const config = {
   refreshTimeOffset: 480,
+  enableIdleAnimations: true,
+  enableBlur: true,
+  sidebarButtons: [
+    { label: 'AL Facebook', icon: 'fab fa-facebook-square', url: '' },
+    { label: 'AL Twitter', icon: 'fab fa-twitter', url: '' },
+    { label: 'AL Reddit', icon: 'fab fa-reddit', url: '' },
+    { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
+  ],
+  secretaries: [
+    'LongIsland',
+    'Javeline',
+    'Ayanami',
+    'Laffey',
+    'Z23',
+  ],
+  username: 'Shikikan',
 };
 
 const characters = [
-  "Indianapolis",
-  "Grenville",
+  'Indianapolis',
+  'Grenville',
 ];
 
 const background = {
@@ -59,20 +75,16 @@ const ui = {
 
     background.setDaylight(curDaytime);
 
-    const sidebarButtons = [
-      { label: 'AL Facebook', icon: 'fab fa-facebook-square', url: '' },
-      { label: 'AL Twitter', icon: 'fab fa-twitter', url: '' },
-      { label: 'AL Reddit', icon: 'fab fa-reddit', url: '' },
-      { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
-    ];
     const sidebarButtonTemplate = document.querySelector('#content_right > #sidebar_right > [template=button-sidebar]').outerHTML;
-    document.querySelector(ui.hudElements.sidebar_right_buttons).innerHTML = sidebarButtons.map(sidebarButton => sidebarButtonTemplate
+    document.querySelector(ui.hudElements.sidebar_right_buttons).innerHTML = config.sidebarButtons.map(sidebarButton => sidebarButtonTemplate
       .replace('template="button-sidebar"', '')
       .replace('{{label}}', sidebarButton.label)
       .replace('{{icon}}', sidebarButton.icon)
       .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''));
 
     document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = characters.map(c => `<option value="${c}">`).join('');
+    document.querySelectorAll('#secretary_selector > form > input[id^=secretary]')
+      .forEach((input, idx) => input.value = config.secretaries[idx]);
     ui.toggleSecretarySelector();
   },
 
@@ -125,10 +137,14 @@ const character = {
   },
 
   tapped: () => {
-    document.querySelector(character.selector).classList.remove('anim-floating');
+    if (config.enableIdleAnimations) {
+      document.querySelector(character.selector).classList.remove('anim-secretary-idle');
+    }
     document.querySelector(character.selector).classList.add('anim-bob');
     setTimeout(() => {
-      document.querySelector(character.selector).classList.add('anim-floating');
+      if (config.enableIdleAnimations) {
+        document.querySelector(character.selector).classList.add('anim-secretary-idle');
+      }
       document.querySelector(character.selector).classList.remove('anim-bob');
     }, 450);
   },
@@ -137,9 +153,12 @@ const character = {
 /** MAIN */
 
 (function () {
-  character.setSprite('Indianapolis');
-  character.setAnim('anim-secretary-idle');
-  character.setIconAnim('anim-floating-icon');
-  ui.setUsername('Alca');
+  character.setSprite(config.secretaries[0]);
+  if (config.enableIdleAnimations) {
+    character.setAnim('anim-secretary-idle');
+    character.setIconAnim('anim-floating-icon');
+  }
+
+  ui.setUsername(config.username);
   ui.initHud();
 }) ();
