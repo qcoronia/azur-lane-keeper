@@ -262,7 +262,12 @@ body.night {
   color: #fc1e59;
 }
 
-#secretary_selector {
+#secretary_selector.hidden {
+  visibility: hidden;
+}
+
+#secretary_selector > form {
+  visibility: inherit;
   position: absolute;
   top: 12vh;
   left: 8vw;
@@ -277,19 +282,21 @@ body.night {
   background-color: var(--ui-color-base);
   -webkit-backdrop-filter: blur(var(--ui-blur));
           backdrop-filter: blur(var(--ui-blur));
-  visibility: visible;
 }
 
-#secretary_selector.hidden {
-  visibility: hidden;
+#secretary_selector > form > h4 {
+  margin-top: 0vh;
+  margin-bottom: 0.5vh;
+  color: white;
 }
 
-#secretary_selector input {
+#secretary_selector > form > input {
   margin-top: 0.5vh;
   margin-bottom: 0.5vh;
 }
 
-#secretary_selector #buttons_actions {
+#secretary_selector > form > #button_actions {
+  margin-top: 0.5vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -522,4 +529,13 @@ body.night {
 
 [template] {
   display: none;
+}
+
+form button {
+  background: linear-gradient(45deg, #6881df, #63ccfb);
+  border: 0.1vh solid #8bc5ef;
+  -webkit-box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
+  color: white;
+  font-family: "Source Sans Pro", sans-serif;
 }

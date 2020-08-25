@@ -48,12 +48,18 @@
       </div>
     </div>
     <div id="secretary_selector">
-      <input id="secretary_1" list="shipgirls" />
-      <input id="secretary_2" list="shipgirls" />
-      <input id="secretary_3" list="shipgirls" />
-      <input id="secretary_4" list="shipgirls" />
-      <input id="secretary_5" list="shipgirls" />
-      <datalist id="shipgirls"></datalist>
+      <form>
+        <h4>Secretaries</h4>
+        <input id="secretary_1" list="shipgirls" />
+        <input id="secretary_2" list="shipgirls" />
+        <input id="secretary_3" list="shipgirls" />
+        <input id="secretary_4" list="shipgirls" />
+        <input id="secretary_5" list="shipgirls" />
+        <datalist id="shipgirls"></datalist>
+        <div id="button_actions">
+          <button type="button" onclick="ui.updateSecretaryRotation()">Update</button>
+        </div>
+      </form>
     </div>
   </div>
   <div id="content_right">

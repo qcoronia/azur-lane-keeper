@@ -238,29 +238,38 @@ body {
 }
 
 #secretary_selector {
-    position: absolute;
-    top: 12vh;
-    left: 8vw;
-    display: flex;
-    flex-flow: column;
-    padding: 2vh;
-    background-color: var(--ui-color-base);
-    backdrop-filter: blur(var(--ui-blur));
-    visibility: visible;
-
     &.hidden {
         visibility: hidden;
     }
 
-    input {
-        margin-top: 0.5vh;
-        margin-bottom: 0.5vh;
-    }
-
-    #buttons_actions {
+    > form {
+        visibility: inherit;
+        position: absolute;
+        top: 12vh;
+        left: 8vw;
         display: flex;
-        flex-flow: row;
-        justify-content: flex-end;
+        flex-flow: column;
+        padding: 2vh;
+        background-color: var(--ui-color-base);
+        backdrop-filter: blur(var(--ui-blur));
+
+        > h4 {
+            margin-top: 0vh;
+            margin-bottom: 0.5vh;
+            color: white;
+        }
+
+        > input {
+            margin-top: 0.5vh;
+            margin-bottom: 0.5vh;
+        }
+
+        > #button_actions {
+            margin-top: 0.5vh;
+            display: flex;
+            flex-flow: row;
+            justify-content: flex-end;
+        }
     }
 }
 
@@ -446,4 +455,12 @@ body {
 
 [template] {
     display: none;
+}
+
+form button {
+    background: linear-gradient(45deg, #6881df, #63ccfb);
+    border: 0.1vh solid rgb(139, 197, 239);
+    box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
+    color: white;
+    font-family: "Source Sans Pro", sans-serif;
 }

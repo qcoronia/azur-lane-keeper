@@ -72,7 +72,7 @@ const ui = {
       .replace('{{icon}}', sidebarButton.icon)
       .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''));
 
-    document.querySelector('#secretary_selector > #shipgirls').innerHTML = characters.map(c => `<option value="${c}">`).join('');
+    document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = characters.map(c => `<option value="${c}">`).join('');
     ui.toggleSecretarySelector();
   },
 
@@ -92,6 +92,10 @@ const ui = {
 
   toggleSecretarySelector: () => {
     document.querySelector(ui.selectors.secretary_selector).classList.toggle('hidden');
+  },
+
+  updateSecretaryRotation: () => {
+    ui.toggleSecretarySelector();
   },
 };
 
