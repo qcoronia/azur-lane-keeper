@@ -19,15 +19,12 @@
 
 body {
     font-family: var(--ui-font-family);
-
     height: 100vh;
     margin: 0px;
-
-    // background-color: var(--ui-color-default);
-
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 
     &.day {
         background-image: var(--background-day);
@@ -43,14 +40,16 @@ body {
 }
 
 #character {
-    height: 80vh;
-    position: fixed;
-    top: 10vh;
-    left: 5vw;
+    width: 100%;
+    height: 100%;
+    left: -20%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-.anim-floating {
-    animation-name: floating;
+.anim-secretary-idle {
+    animation-name: secretary-idle;
     animation-duration: 4s;
     animation-iteration-count: infinite;
 }
@@ -74,13 +73,10 @@ body {
     top: 0;
     background: linear-gradient(to right, var(--ui-color-base), transparent);
     backdrop-filter: blur(var(--ui-blur));
-
-    &.visible {
-        visibility: visible;
-        animation-name: top_bar_enter;
-        animation-duration: var(--ui-enter-exit-duration);
-        animation-iteration-count: 1;
-    }
+    visibility: visible;
+    animation-name: top_bar_enter;
+    animation-duration: var(--ui-enter-exit-duration);
+    animation-iteration-count: 1;
 
     &.hidden {
         visibility: hidden;
@@ -203,7 +199,7 @@ body {
                 margin-left: -1.5vw;
                 text-shadow: 0 0 1vh black;
             }
-    
+
             > .content {
                 position: relative;
                 display: inline;
@@ -226,7 +222,7 @@ body {
                 border: 0.1vh solid #a3a3d2;
             }
         }
-            
+
         > #counter_patch_date > .icon {
             color: #5a5a5a;
         }
@@ -238,6 +234,33 @@ body {
         > #counter_clock > .icon {
             color: #fc1e59;
         }
+    }
+}
+
+#secretary_selector {
+    position: absolute;
+    top: 12vh;
+    left: 8vw;
+    display: flex;
+    flex-flow: column;
+    padding: 2vh;
+    background-color: var(--ui-color-base);
+    backdrop-filter: blur(var(--ui-blur));
+    visibility: visible;
+
+    &.hidden {
+        visibility: hidden;
+    }
+
+    input {
+        margin-top: 0.5vh;
+        margin-bottom: 0.5vh;
+    }
+
+    #buttons_actions {
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-end;
     }
 }
 
@@ -256,13 +279,10 @@ body {
         display: flex;
         flex-flow: column;
         justify-content: center;
-
-        &.visible {
-            visibility: visible;
-            animation-name: side_bar_enter;
-            animation-duration: var(--ui-enter-exit-duration);
-            animation-iteration-count: 1;
-        }
+        visibility: visible;
+        animation-name: side_bar_enter;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
 
         &.hidden {
             visibility: hidden;
@@ -298,13 +318,10 @@ body {
         display: flex;
         flex-direction: column;
         background-color: transparent;
-
-        &.visible {
-            visibility: visible;
-            animation-name: section_highlight_enter;
-            animation-duration: var(--ui-enter-exit-duration);
-            animation-iteration-count: 1;
-        }
+        visibility: visible;
+        animation-name: section_highlight_enter;
+        animation-duration: var(--ui-enter-exit-duration);
+        animation-iteration-count: 1;
 
         &.hidden {
             visibility: hidden;
@@ -373,13 +390,10 @@ body {
     position: fixed;
     bottom: 0;
     background-color: var(--ui-color-base);
-
-    &.visible {
-        visibility: visible;
-        animation-name: bottom_bar_enter;
-        animation-duration: var(--ui-enter-exit-duration);
-        animation-iteration-count: 1;
-    }
+    visibility: visible;
+    animation-name: bottom_bar_enter;
+    animation-duration: var(--ui-enter-exit-duration);
+    animation-iteration-count: 1;
 
     &.hidden {
         visibility: hidden;
@@ -422,7 +436,7 @@ body {
         opacity: 0;
         transition: opacity 0.3s;
         font-size: 3vh;
-        font-weight: bold;
+        font-family: var(--ui-font-family);
         color: white;
         width: max-content;
         background-color: var(--ui-color-base);

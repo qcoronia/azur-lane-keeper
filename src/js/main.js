@@ -21,10 +21,13 @@ const ui = {
     sidebar_right: '#sidebar_right',
     sidebar_right_buttons: '#sidebar_right > .buttons-configurable',
     section_highlight: '#section_highlight',
+  },
+  selectors: {
     username: '#username_field > span',
     secretary_selector: '#secretary_selector',
   },
   clockInterval: -1,
+
   initHud: () => {
     const curDate = new Date();
     const updateClock = () => {
@@ -35,24 +38,25 @@ const ui = {
         hour12: true,
       });
     };
+    updateClock();
     setTimeout(() => {
       ui.clockInterval = setInterval(updateClock, 1000);
     }, curDate.getMilliseconds() - 1000);
 
     const curHour = curDate.getHours();
     let curDaytime = 'day';
-    if (curHour > 0) {
+    if (curHour > 18) {
       curDaytime = 'night';
-    } else if (curHour > 5) {
+    } else if (curHour > 16) {
       curDaytime = 'twilight';
     } else if (curHour > 7) {
       curDaytime = 'day';
-    } else if (curHour > 16) {
+    } else if (curHour > 5) {
       curDaytime = 'twilight';
-    } else if (curHour > 18) {
+    } else if (curHour > 0) {
       curDaytime = 'night';
     }
-    
+
     background.setDaylight(curDaytime);
 
     const sidebarButtons = [
@@ -68,30 +72,26 @@ const ui = {
       .replace('{{icon}}', sidebarButton.icon)
       .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''));
 
-    document.querySelectorAll('#secretary_selector > datalist[id^=secretary]').forEach(el => {
-      el.innerHTML = characters.map(c => `<option value=${c}/>`);
-    });
+    document.querySelector('#secretary_selector > #shipgirls').innerHTML = characters.map(c => `<option value="${c}">`).join('');
+    ui.toggleSecretarySelector();
   },
+
   showHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');
-    document.querySelectorAll(selectors).forEach(el => el.classList.remove('hidden'));
-    document.querySelectorAll(selectors).forEach(el => el.classList.add('visible'));
+    document.querySelectorAll(selectors).forEach(el => el.classList.toggle('hidden'));
   },
+
   hideHud: () => {
     const selectors = Object.values(ui.hudElements).join(',');
-    document.querySelectorAll(selectors).forEach(el => el.classList.remove('visible'));
-    document.querySelectorAll(selectors).forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll(selectors).forEach(el => el.classList.toggle('hidden'));
   },
+
   setUsername: username => {
-    document.querySelector(ui.hudElements.username).innerHTML = username;
+    document.querySelector(ui.selectors.username).innerHTML = username;
   },
-  characterIconClicked: () => {
-    document.querySelector(ui.hudElements.secretary_selector).classList.remove('hidden');
-    document.querySelector(ui.hudElements.secretary_selector).classList.remove('visible');
-  },
-  closeSecretarySelector: () => {
-    document.querySelector(ui.hudElements.secretary_selector).classList.remove('visible');
-    document.querySelector(ui.hudElements.secretary_selector).classList.remove('hidden');
+
+  toggleSecretarySelector: () => {
+    document.querySelector(ui.selectors.secretary_selector).classList.toggle('hidden');
   },
 };
 
@@ -99,13 +99,16 @@ const character = {
   selector: '#character',
   selectorChibi: '#character_chibi',
   currentCharacter: '',
+
   setSprite: name => {
-    if (document.querySelector(character.selectorChibi).classList.lenght > 0) {
+    if (document.querySelector(character.selector).classList.length > 0) {
+      document.querySelector(character.selector).classList.remove(character.currentCharacter);
+    }
+    if (document.querySelector(character.selectorChibi).classList.length > 0) {
       document.querySelector(character.selectorChibi).classList.remove(character.currentCharacter);
     }
     character.currentCharacter = name;
-    const imgUrl = `./assets/sprites/${name}.png`;
-    document.querySelector(character.selector).src = imgUrl;
+    document.querySelector(character.selector).classList.add(name);
     document.querySelector(character.selectorChibi).classList.add(name);
   },
 
@@ -124,16 +127,15 @@ const character = {
       document.querySelector(character.selector).classList.add('anim-floating');
       document.querySelector(character.selector).classList.remove('anim-bob');
     }, 450);
-  }
+  },
 };
 
 /** MAIN */
 
 (function () {
   character.setSprite('Indianapolis');
-  character.setAnim('anim-floating');
+  character.setAnim('anim-secretary-idle');
   character.setIconAnim('anim-floating-icon');
   ui.setUsername('Alca');
   ui.initHud();
-  ui.showHud();
 }) ();

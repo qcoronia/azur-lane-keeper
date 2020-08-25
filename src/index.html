@@ -11,13 +11,14 @@
   <link rel="stylesheet" href="./css/characters.css" />
 </head>
 <body>
-  <img id="character" onclick="character.tapped()" />
+  <!-- <img id="character" onclick="character.tapped()" /> -->
+  <div id="character" onclick="character.tapped()"></div>
   <div id="topbar">
     <div class="icon-design-top"></div>
     <div id="username_field">
       <span></span>
     </div>
-    <button id="icon" onclick="ui.characterIconClicked()">
+    <button id="icon" onclick="ui.toggleSecretarySelector()">
       <div id="character_chibi"></div>
     </button>
     <div id="counters">
@@ -47,11 +48,12 @@
       </div>
     </div>
     <div id="secretary_selector">
-      <datalist id="secretary_1"></datalist>
-      <datalist id="secretary_2"></datalist>
-      <datalist id="secretary_3"></datalist>
-      <datalist id="secretary_4"></datalist>
-      <datalist id="secretary_5"></datalist>
+      <input id="secretary_1" list="shipgirls" />
+      <input id="secretary_2" list="shipgirls" />
+      <input id="secretary_3" list="shipgirls" />
+      <input id="secretary_4" list="shipgirls" />
+      <input id="secretary_5" list="shipgirls" />
+      <datalist id="shipgirls"></datalist>
     </div>
   </div>
   <div id="content_right">
