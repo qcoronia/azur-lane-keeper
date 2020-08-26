@@ -544,10 +544,25 @@ body.night {
 }
 
 form button {
-  background: linear-gradient(45deg, #6881df, #63ccfb);
+  background: linear-gradient(45deg, #818183, #9c9e9d);
   border: 0.1vh solid #8bc5ef;
   -webkit-box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
           box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
   color: white;
   font-family: "Source Sans Pro", sans-serif;
+}
+
+form button.primary {
+  background: linear-gradient(45deg, #6881df, #63ccfb);
+  border: 0.1vh solid #8bc5ef;
+}
+
+form button.warning {
+  background: linear-gradient(45deg, #d19666, #f2c748);
+  border: 0.1vh solid #e4da5c;
+}
+
+form button.danger {
+  background: linear-gradient(45deg, #975149, #c26c63);
+  border: 0.1vh solid #f88e82;
 }

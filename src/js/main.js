@@ -1,4 +1,6 @@
-const config = {
+let config = {};
+
+const defaultConfig = {
   refreshTimeOffset: 480,
   enableIdleAnimations: true,
   enableBlur: true,
@@ -10,7 +12,7 @@ const config = {
   ],
   secretaries: [
     'LongIsland',
-    'Javeline',
+    'Javelin',
     'Ayanami',
     'Laffey',
     'Z23',
@@ -18,10 +20,18 @@ const config = {
   username: 'Shikikan',
 };
 
-const characters = [
-  'Indianapolis',
-  'Grenville',
-];
+const configManager = {
+  keyname: 'al_mgr_cfg',
+  load: () => {
+    config = {
+      ...defaultConfig,
+      ...JSON.parse(window.localStorage.getItem(configManager.keyname) || '{}'),
+    };
+  },
+  save: () => {
+    window.localStorage.setItem(configManager.keyname, JSON.stringify(config));
+  },
+}
 
 const background = {
   selector: 'body',
@@ -41,6 +51,7 @@ const ui = {
   selectors: {
     username: '#username_field > span',
     secretary_selector: '#secretary_selector',
+    secretary_selector_inputs: '#secretary_selector > form > input[id^=secretary]',
   },
   clockInterval: -1,
 
@@ -82,8 +93,10 @@ const ui = {
       .replace('{{icon}}', sidebarButton.icon)
       .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''));
 
-    document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = characters.map(c => `<option value="${c}">`).join('');
-    document.querySelectorAll('#secretary_selector > form > input[id^=secretary]')
+    al_api.ensureShipNamesCached();
+    const shipNames = JSON.parse(window.localStorage.getItem(al_api.cache_keyname));
+    document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = shipNames.map(c => `<option value="${c}">`).join('');
+    document.querySelectorAll(ui.selectors.secretary_selector_inputs)
       .forEach((input, idx) => input.value = config.secretaries[idx]);
     ui.toggleSecretarySelector();
   },
@@ -107,6 +120,7 @@ const ui = {
   },
 
   updateSecretaryRotation: () => {
+    config.secretaries = document.querySelectorAll(ui.selectors.secretary_selector_inputs).map(input => input.value);
     ui.toggleSecretarySelector();
   },
 };
@@ -125,6 +139,8 @@ const character = {
     }
     character.currentCharacter = name;
     document.querySelector(character.selector).classList.add(name);
+    document.querySelector(character.selectorChibi).classList.add(name);
+    document.querySelector(character.selector).style.backgroundImage = `url()`;
     document.querySelector(character.selectorChibi).classList.add(name);
   },
 
@@ -153,6 +169,7 @@ const character = {
 /** MAIN */
 
 (function () {
+  configManager.load();
   character.setSprite(config.secretaries[0]);
   if (config.enableIdleAnimations) {
     character.setAnim('anim-secretary-idle');

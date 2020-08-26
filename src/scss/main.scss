@@ -376,7 +376,7 @@ body {
                 left: 2vh;
                 bottom: -2vh;
                 background: linear-gradient(45deg, #6881df, #63ccfb);
-                border: 0.1vh solid rgb(139, 197, 239);
+                border: 0.1vh solid #8bc5ef;
                 box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
             }
 
@@ -387,7 +387,7 @@ body {
                 bottom: -2vh;
                 right: 2.5vh;
                 background: linear-gradient(45deg, #d19666, #f2c748);
-                border: 0.1vh solid rgb(228, 218, 92);
+                border: 0.1vh solid #e4da5c;
                 box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
             }
         }
@@ -467,9 +467,24 @@ body {
 }
 
 form button {
-    background: linear-gradient(45deg, #6881df, #63ccfb);
+    background: linear-gradient(45deg, #818183, #9c9e9d);
     border: 0.1vh solid rgb(139, 197, 239);
     box-shadow: 0 0 2.5vh 0 rgba(0, 0, 0, 0.5);
     color: white;
     font-family: "Source Sans Pro", sans-serif;
+
+    &.primary {
+        background: linear-gradient(45deg, #6881df, #63ccfb);
+        border: 0.1vh solid #8bc5ef;
+    }
+
+    &.warning {
+        background: linear-gradient(45deg, #d19666, #f2c748);
+        border: 0.1vh solid #e4da5c;
+    }
+
+    &.danger {
+        background: linear-gradient(45deg, #975149, #c26c63);
+        border: 0.1vh solid #f88e82;
+    }
 }
