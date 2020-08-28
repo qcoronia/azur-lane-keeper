@@ -34,7 +34,7 @@ const configManager = {
 }
 
 const background = {
-  selector: 'body',
+  selector: '#app',
   setDaylight: daylight => {
     document.querySelector(background.selector).classList.add(daylight);
   }
@@ -55,7 +55,7 @@ const ui = {
   },
   clockInterval: -1,
 
-  initHud: () => {
+  initHud: async () => {
     const curDate = new Date();
     const updateClock = () => {
       const date = new Date();
@@ -91,14 +91,13 @@ const ui = {
       .replace('template="button-sidebar"', '')
       .replace('{{label}}', sidebarButton.label)
       .replace('{{icon}}', sidebarButton.icon)
-      .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''));
+      .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''))
+      .join('');
 
-    al_api.ensureShipNamesCached();
-    const shipNames = JSON.parse(window.localStorage.getItem(al_api.cache_keyname));
+    const shipNames = await service.getShipgirlNames();
     document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = shipNames.map(c => `<option value="${c}">`).join('');
     document.querySelectorAll(ui.selectors.secretary_selector_inputs)
       .forEach((input, idx) => input.value = config.secretaries[idx]);
-    ui.toggleSecretarySelector();
   },
 
   showHud: () => {
@@ -125,57 +124,80 @@ const ui = {
   },
 };
 
-const character = {
-  selector: '#character',
-  selectorChibi: '#character_chibi',
-  currentCharacter: '',
+const secretary = {
+  selector: '#secretary',
+  selectorChibi: '#secretary_chibi',
+  activeIdx: 0,
 
-  setSprite: name => {
-    if (document.querySelector(character.selector).classList.length > 0) {
-      document.querySelector(character.selector).classList.remove(character.currentCharacter);
-    }
-    if (document.querySelector(character.selectorChibi).classList.length > 0) {
-      document.querySelector(character.selectorChibi).classList.remove(character.currentCharacter);
-    }
-    character.currentCharacter = name;
-    document.querySelector(character.selector).classList.add(name);
-    document.querySelector(character.selectorChibi).classList.add(name);
-    document.querySelector(character.selector).style.backgroundImage = `url()`;
-    document.querySelector(character.selectorChibi).classList.add(name);
+  changeActiveSecretary: async idx => {
+    idx = isNaN(idx) ? 0 : idx;
+    secretary.activeIdx = Math.min(Math.max(0, idx), 5);
+    const name = config.secretaries[secretary.activeIdx];
+    const shipgirls = await service.getShipgirlByName(name);
+    const skin = shipgirls[0].skins.find(e => e.name === 'Default');
+    document.querySelector(secretary.selector).style.backgroundImage = `url(${skin.image})`;
+    document.querySelector(secretary.selectorChibi).style.backgroundImage = `url(${skin.chibi})`;
+  },
+
+  switchToNextSecretary: async () => {
+    await secretary.changeActiveSecretary((secretary.activeIdx + 1) % 5);
   },
 
   setAnim: animName => {
-    document.querySelector(character.selector).classList.add(animName);
+    document.querySelector(secretary.selector).classList.add(animName);
   },
 
   setIconAnim: animName => {
-    document.querySelector(character.selectorChibi).classList.add(animName);
+    document.querySelector(secretary.selectorChibi).classList.add(animName);
   },
 
   tapped: () => {
     if (config.enableIdleAnimations) {
-      document.querySelector(character.selector).classList.remove('anim-secretary-idle');
+      document.querySelector(secretary.selector).classList.remove('anim-secretary-idle');
     }
-    document.querySelector(character.selector).classList.add('anim-bob');
+    document.querySelector(secretary.selector).classList.add('anim-bob');
     setTimeout(() => {
       if (config.enableIdleAnimations) {
-        document.querySelector(character.selector).classList.add('anim-secretary-idle');
+        document.querySelector(secretary.selector).classList.add('anim-secretary-idle');
       }
-      document.querySelector(character.selector).classList.remove('anim-bob');
+      document.querySelector(secretary.selector).classList.remove('anim-bob');
     }, 450);
   },
 };
 
-/** MAIN */
+const main = {
+  init: async () => {
+    await main.waitForDeps();
+    await service.init();
+    configManager.load();
+    await secretary.changeActiveSecretary(config.secretaries[0]);
+    if (config.enableIdleAnimations) {
+      secretary.setAnim('anim-secretary-idle');
+      secretary.setIconAnim('anim-floating-icon');
+    }
 
-(function () {
-  configManager.load();
-  character.setSprite(config.secretaries[0]);
-  if (config.enableIdleAnimations) {
-    character.setAnim('anim-secretary-idle');
-    character.setIconAnim('anim-floating-icon');
-  }
+    ui.setUsername(config.username);
+    await ui.initHud();
+    document.querySelector('body').classList.toggle('loading');
+  },
+  waitForDeps: () => {
+    return new Promise(resolve => {
+      const checkDeps = () => {
+        const isAllLoaded = [
+          api,
+          db,
+          service,
+          secretary,
+          ui,
+        ].every(dep => typeof dep !== 'undefined');
+        if (isAllLoaded) {
+          clearInterval(watchId);
+          resolve();
+        }
+      };
+      const watchId = setInterval(checkDeps, 500);
+    });
+  },
+};
 
-  ui.setUsername(config.username);
-  ui.initHud();
-}) ();
+main.init();
