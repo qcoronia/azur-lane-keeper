@@ -12,6 +12,7 @@
     --ui-border-color-icon: #24aeff;
     --ui-color-highlight-icon: #ffcb00;
     --ui-color-highlight-shadow-icon: #ffcb00;
+    --ui-box-shadow-highlight: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
     --ui-font-family: "Source Sans Pro", sans-serif;
     --ui-font-family-number: "Monolisk", sans-serif;
     --ui-level-color: #ffcb00;
@@ -104,7 +105,7 @@ body {
                     width: 5vh;
                     position: fixed;
                     top: 0.5vh;
-                    border-width: 0.7vh;
+                    border-width: 0.5vh;
                     border-style: solid;
                     border-color: var(--ui-border-color-icon);
                 }
@@ -195,6 +196,18 @@ body {
                         background-color: rgba(0, 0, 0, 0.2);
                     }
 
+                    &:nth-child(1) .icon {
+                      color: #5a5a5a;
+                    }
+    
+                    &:nth-child(2) .icon {
+                      color: #ffee2e;
+                    }
+    
+                    &:nth-child(3) .icon {
+                      color: #fc1e59;
+                    }
+                    
                     > .icon {
                         height: 3vw;
                         width: 3vw;
@@ -217,8 +230,8 @@ body {
                     }
 
                     > .menu {
-                        height: 2vw;
-                        width: 2vw;
+                        height: 1.5vw;
+                        width: 1.5vw;
                         position: relative;
                         top: -6vh;
                         right: -1vw;
@@ -227,18 +240,6 @@ body {
                         float: right;
                         border: 0.1vh solid #a3a3d2;
                     }
-                }
-
-                > #counter_patch_date > .icon {
-                    color: #5a5a5a;
-                }
-
-                > #counter_patch_time > .icon {
-                    color: #ffee2e;
-                }
-
-                > #counter_clock > .icon {
-                    color: #fc1e59;
                 }
             }
         }
@@ -250,7 +251,7 @@ body {
             padding: 2vh;
             background-color: var(--ui-color-highlight);
             backdrop-filter: blur(var(--ui-blur));
-            box-shadow: 0 0 1vh 0.5vh black;
+            box-shadow: var(--ui-box-shadow-highlight);
 
             &.hidden {
                 visibility: hidden;
@@ -359,7 +360,7 @@ body {
                     width: 100%;
                     background-color: var(--ui-color-highlight);
                     backdrop-filter: blur(var(--ui-blur));
-                    box-shadow: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
+                    box-shadow: var(--ui-box-shadow-highlight);
 
                     > .banner {
                         height: 55%;

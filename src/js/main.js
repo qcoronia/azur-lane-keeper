@@ -1,45 +1,3 @@
-let config = {};
-
-const defaultConfig = {
-  refreshTimeOffset: 480,
-  enableIdleAnimations: true,
-  enableBlur: true,
-  sidebarButtons: [
-    { label: 'AL Facebook', icon: 'fab fa-facebook-square', url: '' },
-    { label: 'AL Twitter', icon: 'fab fa-twitter', url: '' },
-    { label: 'AL Reddit', icon: 'fab fa-reddit', url: '' },
-    { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
-  ],
-  secretaries: [
-    'LongIsland',
-    'Javelin',
-    'Ayanami',
-    'Laffey',
-    'Z23',
-  ],
-  username: 'Shikikan',
-};
-
-const configManager = {
-  keyname: 'al_mgr_cfg',
-  load: () => {
-    config = {
-      ...defaultConfig,
-      ...JSON.parse(window.localStorage.getItem(configManager.keyname) || '{}'),
-    };
-  },
-  save: () => {
-    window.localStorage.setItem(configManager.keyname, JSON.stringify(config));
-  },
-}
-
-const background = {
-  selector: '#app',
-  setDaylight: daylight => {
-    document.querySelector(background.selector).classList.add(daylight);
-  }
-};
-
 const ui = {
   hudElements: {
     topbar: '#topbar',
@@ -84,10 +42,10 @@ const ui = {
       curDaytime = 'night';
     }
 
-    background.setDaylight(curDaytime);
+    document.querySelector('#app').classList.add(curDaytime);
 
     const sidebarButtonTemplate = document.querySelector('#content_right > #sidebar_right > [template=button-sidebar]').outerHTML;
-    document.querySelector(ui.hudElements.sidebar_right_buttons).innerHTML = config.sidebarButtons.map(sidebarButton => sidebarButtonTemplate
+    document.querySelector(ui.hudElements.sidebar_right_buttons).innerHTML = config.active.sidebarButtons.map(sidebarButton => sidebarButtonTemplate
       .replace('template="button-sidebar"', '')
       .replace('{{label}}', sidebarButton.label)
       .replace('{{icon}}', sidebarButton.icon)
@@ -97,7 +55,7 @@ const ui = {
     const shipNames = await service.getShipgirlNames();
     document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = shipNames.map(c => `<option value="${c}">`).join('');
     document.querySelectorAll(ui.selectors.secretary_selector_inputs)
-      .forEach((input, idx) => input.value = config.secretaries[idx]);
+      .forEach((input, idx) => input.value = config.active.secretaries[idx]);
   },
 
   showHud: () => {
@@ -132,7 +90,7 @@ const secretary = {
   changeActiveSecretary: async idx => {
     idx = isNaN(idx) ? 0 : idx;
     secretary.activeIdx = Math.min(Math.max(0, idx), 5);
-    const name = config.secretaries[secretary.activeIdx];
+    const name = config.active.secretaries[secretary.activeIdx];
     const shipgirls = await service.getShipgirlByName(name);
     const skin = shipgirls[0].skins.find(e => e.name === 'Default');
     document.querySelector(secretary.selector).style.backgroundImage = `url(${skin.image})`;
@@ -169,14 +127,14 @@ const main = {
   init: async () => {
     await main.waitForDeps();
     await service.init();
-    configManager.load();
-    await secretary.changeActiveSecretary(config.secretaries[0]);
-    if (config.enableIdleAnimations) {
+    config.load();
+    await secretary.changeActiveSecretary(config.active.secretaries[0]);
+    if (config.active.enableIdleAnimations) {
       secretary.setAnim('anim-secretary-idle');
       secretary.setIconAnim('anim-floating-icon');
     }
 
-    ui.setUsername(config.username);
+    ui.setUsername(config.active.username);
     await ui.initHud();
     document.querySelector('body').classList.toggle('loading');
   },
@@ -185,9 +143,10 @@ const main = {
       const checkDeps = () => {
         const isAllLoaded = [
           api,
+          config,
           db,
-          service,
           secretary,
+          service,
           ui,
         ].every(dep => typeof dep !== 'undefined');
         if (isAllLoaded) {

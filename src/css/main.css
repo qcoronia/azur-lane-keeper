@@ -12,6 +12,7 @@
   --ui-border-color-icon: #24aeff;
   --ui-color-highlight-icon: #ffcb00;
   --ui-color-highlight-shadow-icon: #ffcb00;
+  --ui-box-shadow-highlight: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
   --ui-font-family: "Source Sans Pro", sans-serif;
   --ui-font-family-number: "Monolisk", sans-serif;
   --ui-level-color: #ffcb00;
@@ -115,7 +116,7 @@ body #app #topbar > .icon-design-top:before {
   width: 5vh;
   position: fixed;
   top: 0.5vh;
-  border-width: 0.7vh;
+  border-width: 0.5vh;
   border-style: solid;
   border-color: var(--ui-border-color-icon);
 }
@@ -213,6 +214,18 @@ body #app #topbar > #counters > [id^=counter]:before {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+body #app #topbar > #counters > [id^=counter]:nth-child(1) .icon {
+  color: #5a5a5a;
+}
+
+body #app #topbar > #counters > [id^=counter]:nth-child(2) .icon {
+  color: #ffee2e;
+}
+
+body #app #topbar > #counters > [id^=counter]:nth-child(3) .icon {
+  color: #fc1e59;
+}
+
 body #app #topbar > #counters > [id^=counter] > .icon {
   height: 3vw;
   width: 3vw;
@@ -235,8 +248,8 @@ body #app #topbar > #counters > [id^=counter] > .content {
 }
 
 body #app #topbar > #counters > [id^=counter] > .menu {
-  height: 2vw;
-  width: 2vw;
+  height: 1.5vw;
+  width: 1.5vw;
   position: relative;
   top: -6vh;
   right: -1vw;
@@ -247,18 +260,6 @@ body #app #topbar > #counters > [id^=counter] > .menu {
   border: 0.1vh solid #a3a3d2;
 }
 
-body #app #topbar > #counters > #counter_patch_date > .icon {
-  color: #5a5a5a;
-}
-
-body #app #topbar > #counters > #counter_patch_time > .icon {
-  color: #ffee2e;
-}
-
-body #app #topbar > #counters > #counter_clock > .icon {
-  color: #fc1e59;
-}
-
 body #app #secretary_selector {
   position: absolute;
   top: 7vh;
@@ -267,8 +268,8 @@ body #app #secretary_selector {
   background-color: var(--ui-color-highlight);
   -webkit-backdrop-filter: blur(var(--ui-blur));
           backdrop-filter: blur(var(--ui-blur));
-  -webkit-box-shadow: 0 0 1vh 0.5vh black;
-          box-shadow: 0 0 1vh 0.5vh black;
+  -webkit-box-shadow: var(--ui-box-shadow-highlight);
+          box-shadow: var(--ui-box-shadow-highlight);
 }
 
 body #app #secretary_selector.hidden {
@@ -419,8 +420,8 @@ body #app #content_right > #section_highlight > .container_top {
   background-color: var(--ui-color-highlight);
   -webkit-backdrop-filter: blur(var(--ui-blur));
           backdrop-filter: blur(var(--ui-blur));
-  -webkit-box-shadow: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
-          box-shadow: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: var(--ui-box-shadow-highlight);
+          box-shadow: var(--ui-box-shadow-highlight);
 }
 
 body #app #content_right > #section_highlight > .container_top > .banner {
