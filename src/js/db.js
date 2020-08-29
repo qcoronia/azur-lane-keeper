@@ -17,13 +17,20 @@ const db = {
     };
     req_open.onsuccess = evt => {
       db.instance = evt.target.result;
-      initDataSource.shipgirls().then(shipgirls => {
-        const store = db.getStore('shipgirls', 'readwrite');
-        shipgirls.forEach(e => {
-          store.add(e);
-        });
-      });
-      resolve();
+
+      const req_record_count = db.getStore('shipgirls').count();
+      req_record_count.onsuccess = evt => {
+        if (evt.target.result <= 0) {
+          initDataSource.shipgirls().then(shipgirls => {
+            const store = db.getStore('shipgirls', 'readwrite');
+            shipgirls.forEach(e => {
+              store.add(e);
+            });
+          });
+        }
+        
+        resolve();
+      }
     };
   }),
   getStore: (store, permission) => db.instance
