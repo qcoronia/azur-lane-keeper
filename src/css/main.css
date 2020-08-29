@@ -319,6 +319,45 @@ body #app #secretary_selector > form > #button_actions button {
   padding: 1vh 1vw;
 }
 
+body #app #content_left {
+  position: absolute;
+  height: 100vh;
+}
+
+body #app #content_left > #sidebar_left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 5vw;
+  position: absolute;
+  top: 40vh;
+}
+
+body #app #content_left > #sidebar_left button {
+  width: 5vh;
+  height: 5vh;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  margin-top: 5vh;
+  margin-left: 2vw;
+  background-color: #0016237a;
+  border: 0.2vh solid var(--ui-color-icon);
+  color: white;
+}
+
+body #app #content_left > #sidebar_left button i {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  font-size: 2.5vh;
+}
+
 body #app #content_right {
   height: 100vh;
   width: 100vw;
@@ -386,7 +425,7 @@ body #app #content_right > #section_highlight {
   width: 31vw;
   position: fixed;
   top: 20vh;
-  right: 6vw;
+  right: 8vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

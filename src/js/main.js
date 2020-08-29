@@ -76,8 +76,10 @@ const ui = {
     document.querySelector(ui.selectors.secretary_selector).classList.toggle('hidden');
   },
 
-  updateSecretaryRotation: () => {
-    config.secretaries = document.querySelectorAll(ui.selectors.secretary_selector_inputs).map(input => input.value);
+  updateSecretaryRotation: async () => {
+    config.active.secretaries = Array.from(document.querySelectorAll(ui.selectors.secretary_selector_inputs)).map(input => input.value);
+    config.save();
+    await secretary.changeActiveSecretary(secretary.activeIdx);
     ui.toggleSecretarySelector();
   },
 };
