@@ -92,9 +92,11 @@ const secretary = {
   changeActiveSecretary: async idx => {
     idx = isNaN(idx) ? 0 : idx;
     secretary.activeIdx = Math.min(Math.max(0, idx), 5);
-    const name = config.active.secretaries[secretary.activeIdx];
-    const shipgirls = await service.getShipgirlByName(name);
-    const skin = shipgirls[0].skins.find(e => e.name === 'Default');
+    config.active.activeSecretaryIdx = secretary.activeIdx;
+    config.save();
+    const sectretaryInfo = config.active.secretaries[secretary.activeIdx];
+    const shipgirls = await service.getShipgirlByName(sectretaryInfo.name);
+    const skin = shipgirls[0].skins.find(e => e.name === sectretaryInfo.skin);
     document.querySelector(secretary.selector).style.backgroundImage = `url(${skin.image})`;
     document.querySelector(secretary.selectorChibi).style.backgroundImage = `url(${skin.chibi})`;
   },
@@ -130,7 +132,7 @@ const main = {
     await main.waitForDeps();
     await service.init();
     config.load();
-    await secretary.changeActiveSecretary(config.active.secretaries[0]);
+    await secretary.changeActiveSecretary(config.active.activeSecretaryIdx);
     if (config.active.enableIdleAnimations) {
       secretary.setAnim('anim-secretary-idle');
       secretary.setIconAnim('anim-floating-icon');

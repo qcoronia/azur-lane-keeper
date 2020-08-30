@@ -302,8 +302,8 @@ body {
             top: 40vh;
             
             button {
-              width: 5vh;
-              height: 5vh;
+              width: 2.5em;
+              height: 2.5em;
               transform: rotate(45deg);
               margin-top: 5vh;
               margin-left: 2vw;
@@ -460,6 +460,46 @@ body {
             > #disclaimer {
                 color: rgba(255, 255, 255, 0.25);
                 font-size: 1.5vh;
+                position: absolute;
+                top: -1.5em;
+            }
+
+            > .buttons {
+                height: 100%;
+                text-align: center;
+
+                > button {
+                    height: 100%;
+                    width: calc(85vw / 8);
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    border-bottom: 0.3vh solid white;
+                    background-color: #314166b3;
+                    color: #e5effd;
+                    text-shadow: 0 0 1em #e5effd;
+                    font-size: 1.3em;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    font-family: "Source Sans Pro", sans-serif;
+
+                    > i {
+                      font-size: 1.5em;
+                      float: left;
+                    }
+
+                    &:nth-child(1) {
+                        background-color: #9d5e34b3;
+                        color: #fefdc0;
+                        text-shadow: 0 0 1em #fefdc0;
+                    }
+
+                    &:nth-child(7) {
+                        background-color: #6d3d33b3;
+                        color: #f5ccca;
+                        text-shadow: 0 0 1em #f5ccca;
+                    }
+                }
             }
         }
     }

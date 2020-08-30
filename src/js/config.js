@@ -10,16 +10,17 @@ const config = {
       { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
     ],
     secretaries: [
-      'Long Island',
-      'Javelin',
-      'Ayanami',
-      'Laffey',
-      'Z23',
+      { name: 'Long Island', skin: 'Default' },
+      { name: 'Javelin', skin: 'Default' },
+      { name: 'Ayanami', skin: 'Default' },
+      { name: 'Laffey', skin: 'Default' },
+      { name: 'Z23', skin: 'Default' },
     ],
+    activeSecretaryIdx: 0,
     username: 'Shikikan',
   },
   active: {},
-  keyname: 'al_mgr_cfg',
+  keyname: 'al_keeper_usrcfg',
   init: () => {
     config.load();
   },
@@ -28,6 +29,9 @@ const config = {
       ...config.default,
       ...JSON.parse(window.localStorage.getItem(config.keyname) || '{}'),
     };
+    if (!window.localStorage.getItem(config.keyname)) {
+      config.save();
+    }
   },
   save: () => {
     window.localStorage.setItem(config.keyname, JSON.stringify(config.active));
