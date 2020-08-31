@@ -13,8 +13,10 @@ const api = {
     };
     xhr.send();
   }),
-  fetchShipgirls: () => api.fetch('https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json').then(response => {
-    const entities = Object.values(response);
-    return entities;
-  }),
+  shipgirls: {
+    fetchAll: () => api.fetch('https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json').then(response => {
+      const entities = Object.values(response);
+      return entities;
+    }),
+  }
 };

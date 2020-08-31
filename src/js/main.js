@@ -52,7 +52,7 @@ const ui = {
       .replace('{{highlighted}}', sidebarButton.highlighted ? 'highlighted' : ''))
       .join('');
 
-    const shipNames = await service.getShipgirlNames();
+    const shipNames = await service.shipgirls.getAllNames();
     document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = shipNames.map(c => `<option value="${c}">`).join('');
     document.querySelectorAll(ui.selectors.secretary_selector_inputs)
       .forEach((input, idx) => input.value = config.active.secretaries[idx]);
@@ -95,7 +95,7 @@ const secretary = {
     config.active.activeSecretaryIdx = secretary.activeIdx;
     config.save();
     const sectretaryInfo = config.active.secretaries[secretary.activeIdx];
-    const shipgirls = await service.getShipgirlByName(sectretaryInfo.name);
+    const shipgirls = await service.shipgirls.getByName(sectretaryInfo.name);
     const skin = shipgirls[0].skins.find(e => e.name === sectretaryInfo.skin);
     document.querySelector(secretary.selector).style.backgroundImage = `url(${skin.image})`;
     document.querySelector(secretary.selectorChibi).style.backgroundImage = `url(${skin.chibi})`;

@@ -33,7 +33,6 @@ const sw_filesToCache = [
 const sw_staticCacheName = 'al_keeper_cache';
 
 self.addEventListener('install', evt => {
-  console.warn(evt);
   evt.waitUntil(
     caches.open(sw_staticCacheName).then(cache => {
       return cache.addAll(sw_filesToCache);
@@ -42,14 +41,24 @@ self.addEventListener('install', evt => {
 });
 
 self.addEventListener('fetch', evt => {
-  console.warn(evt);
   evt.respondWith(
     caches.match(evt.request).then(res => {
       if (!!res) {
         return res;
       }
 
-      return fetch(evt.request);
+      return fetch(evt.request).then(res2 => {
+        if (!res2 || res2.status !== 200 || res2.type !== 'basic') {
+          return res2;
+        }
+
+        let responseToBeCached = res2.clone();
+        caches.open(sw_staticCacheName).then(cache => {
+          cache.put(evt.request, responseToBeCached);
+          console.log('request cached: ', evt.request);
+        });
+        return res2;
+      });
     }).catch(err => console.error(err))
   );
 });
