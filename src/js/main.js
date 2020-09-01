@@ -156,7 +156,7 @@ const main = {
     return new Promise(resolve => {
       const checkDeps = () => {
         const isAllLoaded = [
-          api,
+          azur_api,
           config,
           db,
           secretary,
