@@ -199,15 +199,15 @@ body {
                     &:nth-child(1) .icon {
                       color: #5a5a5a;
                     }
-    
+
                     &:nth-child(2) .icon {
                       color: #ffee2e;
                     }
-    
+
                     &:nth-child(3) .icon {
                       color: #fc1e59;
                     }
-                    
+
                     > .icon {
                         height: 3vw;
                         width: 3vw;
@@ -267,7 +267,7 @@ body {
                     color: white;
                 }
 
-                > input {
+                input, select {
                     margin-top: 0.5vh;
                     margin-bottom: 0.5vh;
                     border: none;
@@ -300,7 +300,7 @@ body {
             width: 5vw;
             position: absolute;
             top: 40vh;
-            
+
             button {
               width: 2.5em;
               height: 2.5em;

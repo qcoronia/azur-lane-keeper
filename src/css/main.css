@@ -292,7 +292,7 @@ body #app #secretary_selector > form > h4 {
   color: white;
 }
 
-body #app #secretary_selector > form > input {
+body #app #secretary_selector > form input, body #app #secretary_selector > form select {
   margin-top: 0.5vh;
   margin-bottom: 0.5vh;
   border: none;

@@ -9,7 +9,8 @@ const ui = {
   selectors: {
     username: '#username_field > span',
     secretary_selector: '#secretary_selector',
-    secretary_selector_inputs: '#secretary_selector > form > input[id^=secretary]',
+    secretary_selector_inputs_name: '#secretary_selector > form > input[id^=secretary]',
+    secretary_selector_inputs_skin: '#secretary_selector > form > input[id^=skin]',
   },
   clockInterval: -1,
 
@@ -54,8 +55,12 @@ const ui = {
 
     const shipNames = await service.shipgirls.getAllNames();
     document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = shipNames.map(c => `<option value="${c}">`).join('');
-    document.querySelectorAll(ui.selectors.secretary_selector_inputs)
-      .forEach((input, idx) => input.value = config.active.secretaries[idx].name);
+    const skinInputs = document.querySelectorAll(ui.selectors.secretary_selector_inputs_skin)
+    document.querySelectorAll(ui.selectors.secretary_selector_inputs_name)
+      .forEach((input, idx) => {
+        input.value = config.active.secretaries[idx].name;
+        skinInputs[idx].value = config.active.secretaries[idx].skin;
+      });
   },
 
   showHud: () => {
@@ -77,7 +82,12 @@ const ui = {
   },
 
   updateSecretaryRotation: async () => {
-    config.active.secretaries = Array.from(document.querySelectorAll(ui.selectors.secretary_selector_inputs)).map(input => input.value);
+    const names = Array.from(document.querySelectorAll(ui.selectors.secretary_selector_inputs_name)).map(input => input.value);
+    const skins = Array.from(document.querySelectorAll(ui.selectors.secretary_selector_inputs_skin)).map(input => input.value);
+    config.active.secretaries = names.map((name, idx) => ({
+      name: name,
+      skin: skins[idx],
+    }));
     config.save();
     await secretary.changeActiveSecretary(secretary.activeIdx);
     ui.toggleSecretarySelector();
