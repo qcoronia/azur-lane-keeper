@@ -23,14 +23,14 @@ const db = {
         if (evt.target.result <= 0) {
           initDataSource.shipgirls().then(shipgirls => {
             const store = db.getStore('shipgirls', 'readwrite');
-            shipgirls.forEach(e => {
-              store.add(e);
-            });
+            shipgirls.forEach(e => store.add(e));
+
+            resolve();
           });
+        } else {
+          resolve();
         }
-        
-        resolve();
-      }
+      };
     };
   }),
   getStore: (store, permission) => db.instance
