@@ -55,7 +55,7 @@ const ui = {
     const shipNames = await service.shipgirls.getAllNames();
     document.querySelector('#secretary_selector > form > #shipgirls').innerHTML = shipNames.map(c => `<option value="${c}">`).join('');
     document.querySelectorAll(ui.selectors.secretary_selector_inputs)
-      .forEach((input, idx) => input.value = config.active.secretaries[idx]);
+      .forEach((input, idx) => input.value = config.active.secretaries[idx].name);
   },
 
   showHud: () => {
