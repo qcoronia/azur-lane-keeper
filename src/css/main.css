@@ -670,3 +670,8 @@ form button.danger {
   background: linear-gradient(45deg, #975149, #c26c63);
   border: 0.1vh solid #f88e82;
 }
+
+form fieldset {
+  border: none;
+  padding: 0;
+}

@@ -1,6 +1,7 @@
 const config = {
   default: {
-    refreshTimeOffset: 480,
+    localMinOffset: 480,
+    gameMinOffset: -420,
     enableIdleAnimations: true,
     enableBlur: true,
     sidebarButtons: [

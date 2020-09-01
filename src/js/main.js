@@ -162,7 +162,6 @@ const main = {
           secretary,
           service,
           ui,
-          sw_initialized,
         ].every(dep => typeof dep !== 'undefined');
         if (isAllLoaded) {
           clearInterval(watchId);
