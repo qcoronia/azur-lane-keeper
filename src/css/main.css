@@ -231,7 +231,7 @@ body #app #topbar > #counters > [id^=counter] > .icon {
   width: 3vw;
   position: relative;
   top: -1vh;
-  font-size: 3vw;
+  font-size: 2.5vw;
   text-align: center;
   margin-left: -1.5vw;
   text-shadow: 0 0 1vh black;
@@ -248,11 +248,11 @@ body #app #topbar > #counters > [id^=counter] > .content {
 }
 
 body #app #topbar > #counters > [id^=counter] > .menu {
-  height: 1.5vw;
-  width: 1.5vw;
+  height: 1.8vw;
+  width: 1.8vw;
   position: relative;
   top: -6vh;
-  right: -1vw;
+  right: -0.5vw;
   background-color: #516288;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);

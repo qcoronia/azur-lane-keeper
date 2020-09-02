@@ -28,4 +28,21 @@ const service = {
       }
     }),
   },
+  images: {
+    ensureCached: url => new Promise(resolve => {
+      caches.open('al_keeper_images').then(cache => {
+        cache.match(url).then(cachedResponse => {
+          if (!cachedResponse) {
+            cache.add(new Request(url, {})).then(() => {
+              console.log(`image cached: ${url}`);
+              resolve();
+            });
+          } else {
+            console.log(`image already cached: ${url}`);
+            resolve();
+          }
+        });
+      });
+    }),
+  },
 };

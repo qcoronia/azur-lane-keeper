@@ -107,6 +107,8 @@ const secretary = {
     const sectretaryInfo = config.active.secretaries[secretary.activeIdx];
     const shipgirls = await service.shipgirls.getByName(sectretaryInfo.name);
     const skin = shipgirls[0].skins.find(e => e.name === sectretaryInfo.skin);
+    await service.images.ensureCached(skin.image);
+    await service.images.ensureCached(skin.chibi);
     document.querySelector(secretary.selector).style.backgroundImage = `url(${skin.image})`;
     document.querySelector(secretary.selectorChibi).style.backgroundImage = `url(${skin.chibi})`;
   },
@@ -162,6 +164,7 @@ const main = {
           secretary,
           service,
           ui,
+          sw_initialized,
         ].every(dep => typeof dep !== 'undefined');
         if (isAllLoaded) {
           clearInterval(watchId);
