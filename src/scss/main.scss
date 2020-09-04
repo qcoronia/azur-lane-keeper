@@ -300,6 +300,15 @@ body {
             width: 5vw;
             position: absolute;
             top: 40vh;
+            visibility: visible;
+            animation-name: side_bar_left_enter;
+
+            &.hidden {
+                visibility: hidden;
+                animation-name: side_bar_left_exit;
+                animation-duration: var(--ui-enter-exit-duration);
+                animation-iteration-count: 1;
+            }
 
             button {
               width: 2.5em;
@@ -335,13 +344,13 @@ body {
                 flex-flow: column;
                 justify-content: center;
                 visibility: visible;
-                animation-name: side_bar_enter;
+                animation-name: side_bar_right_enter;
                 animation-duration: var(--ui-enter-exit-duration);
                 animation-iteration-count: 1;
 
                 &.hidden {
                     visibility: hidden;
-                    animation-name: side_bar_exit;
+                    animation-name: side_bar_right_exit;
                     animation-duration: var(--ui-enter-exit-duration);
                     animation-iteration-count: 1;
                 }

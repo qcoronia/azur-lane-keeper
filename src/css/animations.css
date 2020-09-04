@@ -88,7 +88,7 @@
     }
 }
 
-@keyframes side_bar_enter {
+@keyframes side_bar_right_enter {
     from {
         transform: translateX(5vw);
     }
@@ -98,13 +98,33 @@
     }
 }
 
-@keyframes side_bar_exit {
+@keyframes side_bar_right_exit {
     from {
         transform: translateX(0vw);
     }
 
     to {
         transform: translateX(5vw);
+    }
+}
+
+@keyframes side_bar_left_enter {
+    from {
+        transform: translateX(5vw);
+    }
+
+    to {
+        transform: translateX(0vw);
+    }
+}
+
+@keyframes side_bar_left_exit {
+    from {
+        transform: translateX(-5vw);
+    }
+
+    to {
+        transform: translateX(0vw);
     }
 }
 

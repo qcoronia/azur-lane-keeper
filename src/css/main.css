@@ -338,6 +338,19 @@ body #app #content_left > #sidebar_left {
   width: 5vw;
   position: absolute;
   top: 40vh;
+  visibility: visible;
+  -webkit-animation-name: side_bar_left_enter;
+          animation-name: side_bar_left_enter;
+}
+
+body #app #content_left > #sidebar_left.hidden {
+  visibility: hidden;
+  -webkit-animation-name: side_bar_left_exit;
+          animation-name: side_bar_left_exit;
+  -webkit-animation-duration: var(--ui-enter-exit-duration);
+          animation-duration: var(--ui-enter-exit-duration);
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
 }
 
 body #app #content_left > #sidebar_left button {
@@ -385,8 +398,8 @@ body #app #content_right > #sidebar_right {
       -ms-flex-pack: center;
           justify-content: center;
   visibility: visible;
-  -webkit-animation-name: side_bar_enter;
-          animation-name: side_bar_enter;
+  -webkit-animation-name: side_bar_right_enter;
+          animation-name: side_bar_right_enter;
   -webkit-animation-duration: var(--ui-enter-exit-duration);
           animation-duration: var(--ui-enter-exit-duration);
   -webkit-animation-iteration-count: 1;
@@ -395,8 +408,8 @@ body #app #content_right > #sidebar_right {
 
 body #app #content_right > #sidebar_right.hidden {
   visibility: hidden;
-  -webkit-animation-name: side_bar_exit;
-          animation-name: side_bar_exit;
+  -webkit-animation-name: side_bar_right_exit;
+          animation-name: side_bar_right_exit;
   -webkit-animation-duration: var(--ui-enter-exit-duration);
           animation-duration: var(--ui-enter-exit-duration);
   -webkit-animation-iteration-count: 1;

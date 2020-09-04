@@ -2,6 +2,7 @@ const ui = {
   hudElements: {
     topbar: '#topbar',
     bottombar: '#bottombar',
+    sidebar_left: '#sidebar_left',
     sidebar_right: '#sidebar_right',
     sidebar_right_buttons: '#sidebar_right > .buttons-configurable',
     section_highlight: '#section_highlight',
