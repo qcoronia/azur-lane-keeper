@@ -1,0 +1,11 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "scss",
+      "taskName": "scss main",
+      "command": "sass --watch src/scss/main.scss src/css/main.css",
+      "appliesTo": "src/css/main.scss"
+    }
+  ]
+}
