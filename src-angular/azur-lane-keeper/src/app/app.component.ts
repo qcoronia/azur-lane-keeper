@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './core/services/app/app.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,7 @@ export class AppComponent implements OnInit {
   public title = 'azur-lane-keeper';
   public isReady = false;
 
-  constructor(private app: AppService) {
-  }
+  constructor(private app: AppService) { }
 
   ngOnInit() {
     this.app.initializeApp().pipe(

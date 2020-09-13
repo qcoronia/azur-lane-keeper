@@ -5,7 +5,7 @@ export class Config {
   public enableBlur: boolean;
   public sidebarButtons: LinkInfo[];
   public secretaries: SecretaryInfo[];
-  public activeSecretary: SecretaryInfo;
+  public activeSecretaryIdx: number;
   public username: string;
 }
 

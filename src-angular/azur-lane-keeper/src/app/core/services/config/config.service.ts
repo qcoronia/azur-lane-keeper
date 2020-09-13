@@ -1,30 +1,39 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Config } from './config.model';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigService {
+export class ConfigService implements OnDestroy {
 
   public keyname = 'al_keeper_usrcfg';
 
-  public active: Config;
+  public config$: BehaviorSubject<Config>;
 
-  constructor() { }
+  private configUpdated$$: Subscription;
 
-  public load() {
+  constructor() {
     const existingConfig = window.localStorage.getItem(this.keyname);
-    this.active = {
+
+    this.config$ = new BehaviorSubject<Config>({
       ...DEFAULT_CONFIG,
       ...JSON.parse(existingConfig || '{}'),
-    };
-    if (!existingConfig) {
-      this.save();
-    }
+    });
+    this.configUpdated$$ = this.config$.subscribe(config => {
+      window.localStorage.setItem(this.keyname, JSON.stringify(config));
+    });
   }
 
-  public save() {
-    window.localStorage.setItem(this.keyname, JSON.stringify(this.active));
+  public ngOnDestroy() {
+    this.configUpdated$$.unsubscribe();
+  }
+
+  public patch(config: Partial<Config>) {
+    this.config$.next({
+      ...DEFAULT_CONFIG,
+      ...config,
+    })
   }
 }
 
@@ -46,6 +55,6 @@ export const DEFAULT_CONFIG: Config = {
     { name: 'Laffey', skin: 'Default' },
     { name: 'Z23', skin: 'Default' },
   ],
-  activeSecretary: { name: 'Long Island', skin: 'Default' },
+  activeSecretaryIdx: 0,
   username: 'Shikikan',
 };
