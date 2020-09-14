@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ConfigService } from '../config/config.service';
-import { of, Subject, Observable, BehaviorSubject, zip, Subscription, merge } from 'rxjs';
+import { of, Subject, Observable, BehaviorSubject, zip, Subscription, merge, forkJoin } from 'rxjs';
 import { map, tap, switchMap, filter, distinctUntilChanged } from 'rxjs/operators';
 import { ShipgirlService } from '../shipgirl/shipgirl.service';
 import { SecretaryInfo } from '../config/config.model';
@@ -30,10 +30,10 @@ export class SecretaryService implements OnDestroy {
       filter(result => !!result),
       map(shipgirls => shipgirls[0]),
     );
-    this.skin$ = zip(
+    this.skin$ = forkJoin([
       this.secretary$,
       this.secretaryShipgirl$
-      ).pipe(
+    ]).pipe(
       map(([secretaryInfo, shipgirl]) => shipgirl.skins.find(e => e.name === secretaryInfo.name))
     );
     this.fullImageUrl$ = this.skin$.pipe(

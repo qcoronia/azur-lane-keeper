@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import './assets/themes/global.scss';
+@import './assets/themes/azur-lane-theme.scss';
+@import './assets/themes/crimson-axis-theme.scss';
+
 :root {
+    --font-size: 16px;
+
     --background-day: url('assets/bg/bg_main_day.png');
     --background-twilight: url('assets/bg/bg_main_twilight.png');
     --background-night: url('assets/bg/bg_main_night.png');
@@ -9,18 +15,19 @@
     --ui-color-highlight: rgba(255, 255, 255, 0.35);
     --ui-blur: 0.6vh;
     --ui-enter-exit-duration: 0.45s;
-    --ui-color-icon: #24aeff;
-    --ui-color-shadow-icon: #24aeff;
-    --ui-border-color-icon: #24aeff;
-    --ui-color-highlight-icon: #ffcb00;
-    --ui-color-highlight-shadow-icon: #ffcb00;
+    --ui-color-icon: var(--primary);
+    --ui-color-shadow-icon: var(--primary);
+    --ui-border-color-icon: var(--primary);
+    --ui-color-highlight-icon: var(--accent);
+    --ui-color-highlight-shadow-icon: var(--accent);
     --ui-box-shadow-highlight: 0 0 0.5vw 0 rgba(0, 0, 0, 0.75);
     --ui-font-family: "Source Sans Pro", sans-serif;
     --ui-font-family-number: "Monolisk", sans-serif;
-    --ui-level-color: #ffcb00;
+    --ui-level-color: var(--accent);
 }
 
 body {
+    font-size: var(--font-size);
     font-family: var(--ui-font-family);
     height: 100vh;
     width: 100vw;

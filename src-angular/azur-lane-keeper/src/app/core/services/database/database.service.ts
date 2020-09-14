@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, zip, Subject } from 'rxjs';
+import { from, Observable, zip, Subject, of } from 'rxjs';
 import { take, switchMap, filter, tap } from 'rxjs/operators';
 import { NgxIndexedDBService, DBConfig } from 'ngx-indexed-db';
 
@@ -16,12 +16,18 @@ export class DatabaseService {
 
   public init(opts?: DatabaseInitOptions) {
     return from(this.db.count('shipgirls')).pipe(
-      filter(count => count <= 0),
-      switchMap(count => opts.dataSources.shipgirls),
+      switchMap(count => {
+        if (count > 0) {
+          return of([]);
+        }
+
+        return opts.dataSources.shipgirls.pipe(
+          switchMap((shipgirls: any[]) => zip(
+            shipgirls.map(shipgirl => from(this.db.add('shipgirl', shipgirl)))
+          )),
+        );
+      }),
       take(1),
-      switchMap((shipgirls: any[]) => zip(
-        shipgirls.map(shipgirl => from(this.db.add('shipgirl', shipgirl)))
-      )),
       tap(statuses => this.initialized$.next(true)),
     );
   }
