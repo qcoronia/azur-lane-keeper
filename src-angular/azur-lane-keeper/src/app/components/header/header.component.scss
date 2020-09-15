@@ -1,0 +1,21 @@
+:host {
+    height: 3rem;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    display: flex;
+
+    background-image: linear-gradient(to right,
+        rgba(var(--background), 1),
+        rgba(var(--background), 0.5),
+        rgba(var(--background), 0.1),
+        rgba(var(--background), 0));
+}
+
+app-profile-section {
+    flex-grow: 1;
+}
+
+app-header-counters {
+    flex-grow: 1;
+}

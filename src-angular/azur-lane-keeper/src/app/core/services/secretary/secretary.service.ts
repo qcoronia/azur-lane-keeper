@@ -16,7 +16,7 @@ export class SecretaryService implements OnDestroy {
   public fullImageUrl$: Observable<string>;
   public chibiImageUrl$: Observable<string>;
 
-  private imageUrlCache$$: Subscription;
+  private imageUrlCacher$$: Subscription;
 
   constructor(
     private configService: ConfigService,
@@ -43,7 +43,7 @@ export class SecretaryService implements OnDestroy {
       map(skinInfo => skinInfo.chibi),
     );
 
-    this.imageUrlCache$$ = merge(
+    this.imageUrlCacher$$ = merge(
       this.fullImageUrl$,
       this.chibiImageUrl$
     ).pipe(
@@ -52,7 +52,7 @@ export class SecretaryService implements OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.imageUrlCache$$.unsubscribe();
+    this.imageUrlCacher$$.unsubscribe();
   }
 
   public switchToNextSecretary() {

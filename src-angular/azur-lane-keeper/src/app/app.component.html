@@ -1,5 +1,6 @@
-<ng-template *ngIf="isReady">
-  <router-outlet></router-outlet>
-</ng-template>
-
-<app-loading-screen *ngIf="!isReady"></app-loading-screen>
+<main>
+  <app-loading-screen *ngIf="!isReady; else mainContent"></app-loading-screen>
+  <ng-template #mainContent>
+    <router-outlet></router-outlet>
+  </ng-template>
+</main>
