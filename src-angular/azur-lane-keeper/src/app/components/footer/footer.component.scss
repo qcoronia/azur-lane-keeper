@@ -1,9 +1,44 @@
 :host {
     display: flex;
-    height: 5rem;
+    height: 4rem;
+    gap: 0.1rem;
     width: 100vw;
     position: absolute;
     bottom: 0;
+    justify-content: center;
 
     background-color: var(--background);
+}
+
+.button {
+    height: 100%;
+    min-width: 8rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 0.1rem solid white;
+    background-color: #314166b3;
+    color: #e5effd;
+    text-shadow: 0 0 1rem #e5effd;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Source Sans Pro", sans-serif;
+
+    fa-icon {
+      font-size: 2rem;
+      float: left;
+    }
+
+    &:nth-child(1) {
+        background-color: #9d5e34b3;
+        color: var(--accent);
+        text-shadow: 0 0 1rem var(--accent);
+    }
+
+    &:nth-child(7) {
+        background-color: #6d3d33b3;
+        color: #f5ccca;
+        text-shadow: 0 0 1rem #f5ccca;
+    }
 }

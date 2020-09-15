@@ -1,0 +1,6 @@
+<ng-template ngFor let-button [ngForOf]="buttons">
+  <button class="button">
+    <fa-icon [icon]="button.icon"></fa-icon>
+    <span>{{button.text}}</span>
+  </button>
+</ng-template>
