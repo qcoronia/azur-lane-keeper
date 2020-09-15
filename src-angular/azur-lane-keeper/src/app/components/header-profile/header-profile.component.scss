@@ -1,0 +1,29 @@
+:host {
+    --diamond-shape: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+#profileButton {
+    margin-left: 1rem;
+    height: 6rem;
+    width: 6rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--primary);
+
+    clip-path:  var(--diamond-shape);
+
+    #avatarPic {
+        width: 95%;
+        height: 95%;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: var(--background);
+
+        clip-path:  var(--diamond-shape);
+    }
+}

@@ -1,3 +1,5 @@
 <!-- <svg id="icon-design"></svg> -->
 <!-- <svg id="icon-shape"></svg> -->
-<button (click)="openSecretaryForm()" [style.backgroundImage]="profilePicUrl$ | async"></button>
+<button id="profileButton" (click)="openSecretaryForm()">
+  <div id="avatarPic" [style.backgroundImage]="avatarPicUrl$ | async"></div>
+</button>

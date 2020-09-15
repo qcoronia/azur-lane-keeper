@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Config } from './config.model';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ConfigService implements OnDestroy {
 
   public config$: BehaviorSubject<Config>;
 
-  private configUpdated$$: Subscription;
+  private destroyed$$: Subject<void> = new Subject<void>();
 
   constructor() {
     const existingConfig = window.localStorage.getItem(this.keyname);
@@ -20,13 +21,16 @@ export class ConfigService implements OnDestroy {
       ...DEFAULT_CONFIG,
       ...JSON.parse(existingConfig || '{}'),
     });
-    this.configUpdated$$ = this.config$.subscribe(config => {
+
+    this.config$.pipe(
+      takeUntil(this.destroyed$$),
+    ).subscribe(config => {
       window.localStorage.setItem(this.keyname, JSON.stringify(config));
     });
   }
 
   public ngOnDestroy() {
-    this.configUpdated$$.unsubscribe();
+    this.destroyed$$.next();
   }
 
   public patch(config: Partial<Config>) {

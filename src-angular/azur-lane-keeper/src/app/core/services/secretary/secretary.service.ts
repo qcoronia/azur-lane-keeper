@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ConfigService } from '../config/config.service';
-import { of, Subject, Observable, BehaviorSubject, zip, Subscription, merge, forkJoin } from 'rxjs';
-import { map, tap, switchMap, filter, distinctUntilChanged } from 'rxjs/operators';
+import { of, Subject, Observable, BehaviorSubject, zip, Subscription, merge, forkJoin, combineLatest } from 'rxjs';
+import { map, tap, switchMap, filter, distinctUntilChanged, takeUntil, shareReplay } from 'rxjs/operators';
 import { ShipgirlService } from '../shipgirl/shipgirl.service';
 import { SecretaryInfo } from '../config/config.model';
 import { CacheService } from '../cache/cache.service';
@@ -16,7 +16,7 @@ export class SecretaryService implements OnDestroy {
   public fullImageUrl$: Observable<string>;
   public chibiImageUrl$: Observable<string>;
 
-  private imageUrlCacher$$: Subscription;
+  private destroyed$$: Subject<void> = new Subject<void>();
 
   constructor(
     private configService: ConfigService,
@@ -28,31 +28,34 @@ export class SecretaryService implements OnDestroy {
     this.secretaryShipgirl$ = this.secretary$.pipe(
       switchMap(secretaryInfo => this.shipgirlService.getByName(secretaryInfo.name)),
       filter(result => !!result),
-      map(shipgirls => shipgirls[0]),
     );
-    this.skin$ = forkJoin([
+    this.skin$ = combineLatest([
       this.secretary$,
       this.secretaryShipgirl$
     ]).pipe(
-      map(([secretaryInfo, shipgirl]) => shipgirl.skins.find(e => e.name === secretaryInfo.name))
+      filter(([secretaryInfo, shipgirl]) => !!secretaryInfo && !!shipgirl),
+      map(([secretaryInfo, shipgirl]) => shipgirl.skins.find(e => e.name === secretaryInfo.skin)),
     );
     this.fullImageUrl$ = this.skin$.pipe(
       map(skinInfo => skinInfo.image),
+      shareReplay(1),
     );
     this.chibiImageUrl$ = this.skin$.pipe(
       map(skinInfo => skinInfo.chibi),
+      shareReplay(1),
     );
 
-    this.imageUrlCacher$$ = merge(
+    merge(
       this.fullImageUrl$,
       this.chibiImageUrl$
     ).pipe(
       switchMap(imageUrl => this.cacheService.ensureCached(imageUrl)),
+      takeUntil(this.destroyed$$),
     ).subscribe(() => { });
   }
 
   public ngOnDestroy() {
-    this.imageUrlCacher$$.unsubscribe();
+    this.destroyed$$.next();
   }
 
   public switchToNextSecretary() {

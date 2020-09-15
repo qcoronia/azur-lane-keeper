@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { ComponentsModule } from './components/components.module';
+import { LoadingScreenComponentModule } from './components/loading-screen/loading-screen-component.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { ComponentsModule } from './components/components.module';
     AppRoutingModule,
 
     CoreModule,
-    ComponentsModule,
+    LoadingScreenComponentModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

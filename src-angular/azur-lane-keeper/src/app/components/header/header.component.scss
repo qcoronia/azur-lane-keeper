@@ -5,17 +5,11 @@
     width: 100vw;
     display: flex;
 
-    background-image: linear-gradient(to right,
-        rgba(var(--background), 1),
-        rgba(var(--background), 0.5),
-        rgba(var(--background), 0.1),
-        rgba(var(--background), 0));
+    background: linear-gradient(to right,
+        var(--background),
+        transparent);
 }
 
-app-profile-section {
-    flex-grow: 1;
-}
-
-app-header-counters {
+div {
     flex-grow: 1;
 }

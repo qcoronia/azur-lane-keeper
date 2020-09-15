@@ -27,7 +27,7 @@ export class SecretaryComponent implements OnInit {
   public ngOnInit(): void {
     if (this.configService.config$.value.enableIdleAnimations) {
       this.setAnim('anim-secretary-idle');
-      this.setIconAnim('anim-floating-icon');
+      // this.setIconAnim('anim-floating-icon');
     }
   }
 

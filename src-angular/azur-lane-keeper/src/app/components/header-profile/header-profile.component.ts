@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SecretaryService } from 'src/app/core/services/secretary/secretary.service';
 import { Observable } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-profile',
@@ -9,10 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class HeaderProfileComponent implements OnInit {
 
-  public profilePicUrl$: Observable<string>;
+  public avatarPicUrl$: Observable<string>;
 
   constructor(private secretaryService: SecretaryService) {
-    this.profilePicUrl$ = secretaryService.chibiImageUrl$;
+    this.avatarPicUrl$ = this.secretaryService.chibiImageUrl$.pipe(
+      map(url => `url(${url})`),
+    );
   }
 
   public ngOnInit(): void {
