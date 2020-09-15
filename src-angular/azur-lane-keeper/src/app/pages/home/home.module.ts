@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeBackgroundComponentModule } from 'src/app/components/home-background/home-background-component.module';
-import { HeaderComponentModule } from 'src/app/components/header/header-component.module';
 import { SecretaryComponentModule } from 'src/app/components/secretary/secretary-component.module';
 
 
@@ -14,8 +12,6 @@ import { SecretaryComponentModule } from 'src/app/components/secretary/secretary
     CommonModule,
     HomeRoutingModule,
 
-    HomeBackgroundComponentModule,
-    HeaderComponentModule,
     SecretaryComponentModule,
   ]
 })

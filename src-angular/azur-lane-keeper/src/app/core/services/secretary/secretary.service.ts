@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ConfigService } from '../config/config.service';
-import { of, Subject, Observable, BehaviorSubject, zip, Subscription, merge, forkJoin, combineLatest } from 'rxjs';
-import { map, tap, switchMap, filter, distinctUntilChanged, takeUntil, shareReplay } from 'rxjs/operators';
+import { Subject, Observable, merge, combineLatest } from 'rxjs';
+import { map, switchMap, filter, takeUntil, shareReplay } from 'rxjs/operators';
 import { ShipgirlService } from '../shipgirl/shipgirl.service';
 import { SecretaryInfo } from '../config/config.model';
 import { CacheService } from '../cache/cache.service';
@@ -29,6 +29,7 @@ export class SecretaryService implements OnDestroy {
       switchMap(secretaryInfo => this.shipgirlService.getByName(secretaryInfo.name)),
       filter(result => !!result),
     );
+
     this.skin$ = combineLatest([
       this.secretary$,
       this.secretaryShipgirl$
@@ -36,6 +37,7 @@ export class SecretaryService implements OnDestroy {
       filter(([secretaryInfo, shipgirl]) => !!secretaryInfo && !!shipgirl),
       map(([secretaryInfo, shipgirl]) => shipgirl.skins.find(e => e.name === secretaryInfo.skin)),
     );
+
     this.fullImageUrl$ = this.skin$.pipe(
       map(skinInfo => skinInfo.image),
       shareReplay(1),
