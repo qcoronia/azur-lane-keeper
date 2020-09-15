@@ -1,3 +1,9 @@
-<app-header-counter-item iconClass="fas fa-tools" [text]="daysUntilPatch$ | async"></app-header-counter-item>
-<app-header-counter-item iconClass="fa fa-sun" [text]="timeUntilReset$ | async"></app-header-counter-item>
-<app-header-counter-item iconClass="fas fa-clock" [text]="currentTime$ | async"></app-header-counter-item>
+<ng-template #counter let-text="text">
+  <div class="counter">
+    <span>{{text}}</span>
+  </div>
+</ng-template>
+
+<ng-container [ngTemplateOutlet]="counter" [ngTemplateOutletContext]="{ iconClass: 'fas fa-tools', text: daysUntilPatch$ | async }"></ng-container>
+<ng-container [ngTemplateOutlet]="counter" [ngTemplateOutletContext]="{ iconClass: 'fa fa-sun', text: timeUntilReset$ | async }"></ng-container>
+<ng-container [ngTemplateOutlet]="counter" [ngTemplateOutletContext]="{ iconClass: 'fas fa-clock', text: currentTime$ | async }"></ng-container>
