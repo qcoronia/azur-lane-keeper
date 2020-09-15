@@ -37,7 +37,7 @@ export class ConfigService implements OnDestroy {
     this.config$.next({
       ...DEFAULT_CONFIG,
       ...config,
-    })
+    });
   }
 }
 

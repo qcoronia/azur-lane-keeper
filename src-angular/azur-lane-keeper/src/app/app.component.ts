@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './core/services/app/app.service';
-import { tap } from 'rxjs/operators';
+import { tap, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.app.initializeApp().pipe(
+      delay(250),
     ).subscribe(() => {
       this.isReady = true;
     });

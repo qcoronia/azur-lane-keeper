@@ -1,5 +1,4 @@
-<!-- <svg id="icon-design"></svg> -->
-<!-- <svg id="icon-shape"></svg> -->
 <button id="profileButton" (click)="openSecretaryForm()">
   <div id="avatarPic" [style.backgroundImage]="avatarPicUrl$ | async"></div>
 </button>
+<label id="username">{{username$ | async}}</label>

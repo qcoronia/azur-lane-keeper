@@ -1,11 +1,15 @@
 :host {
     --diamond-shape: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+    display: flex;
 }
 
 #profileButton {
     margin-left: 1rem;
     height: 6rem;
     width: 6rem;
+    padding: 0;
+    border: 0;
 
     display: flex;
     justify-content: center;
@@ -16,14 +20,41 @@
     clip-path:  var(--diamond-shape);
 
     #avatarPic {
-        width: 95%;
-        height: 95%;
+        width: 90%;
+        height: 90%;
 
-        background-size: cover;
+        background-size: auto;
         background-repeat: no-repeat;
         background-position: center;
         background-color: var(--background);
 
+        animation: floating-icon 4s infinite;
+
         clip-path:  var(--diamond-shape);
+    }
+}
+
+#username {
+    color: white;
+    width: 12rem;
+    height: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+    margin-left: 0.8rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 0.1rem solid var(--accent);
+}
+
+@keyframes floating-icon {
+    0% {
+        background-position-y: -1.5rem;
+    }
+
+    50% {
+        background-position-y: -2rem;
+    }
+
+    100% {
+        background-position-y: -1.5rem;
     }
 }
