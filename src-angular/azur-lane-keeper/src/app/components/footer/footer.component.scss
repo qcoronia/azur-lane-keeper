@@ -7,7 +7,7 @@
     bottom: 0;
     justify-content: center;
 
-    background-color: var(--background);
+    background-color: var(--background-color-glass);
 }
 
 .button {
@@ -42,8 +42,8 @@
 
     &:nth-child(1) {
         background-color: #9d5e34b3;
-        color: var(--accent);
-        text-shadow: 0 0 1rem var(--accent);
+        color: var(--accent-color-1);
+        text-shadow: 0 0 1rem var(--accent-color-1);
     }
 
     &:nth-child(7) {

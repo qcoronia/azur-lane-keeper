@@ -15,7 +15,7 @@
     justify-content: center;
     align-items: center;
 
-    background-color: var(--primary);
+    background-color: var(--primary-color);
 
     clip-path:  var(--diamond-shape);
 
@@ -26,7 +26,7 @@
         background-size: auto;
         background-repeat: no-repeat;
         background-position: center;
-        background-color: var(--background);
+        background-color: var(--background-color);
 
         animation: floating-icon 4s infinite;
 
@@ -42,7 +42,7 @@
     margin-top: 1rem;
     margin-left: 0.8rem;
     padding-bottom: 0.2rem;
-    border-bottom: 0.1rem solid var(--accent);
+    border-bottom: 0.1rem solid var(--accent-color-1);
 }
 
 @keyframes floating-icon {

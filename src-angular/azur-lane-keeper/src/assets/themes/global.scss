@@ -1,9 +1,23 @@
-:root {
-    $background: #000e23;
+$primary-color: #24aeff !default;
+$secondary-color: #ffffff !default;
+$accent-color-1: #ffcb00 !default;
+$accent-color-2: #ff7171 !default;
 
-    --background: $background;
-    --background-transparent: transparentize($background, 80%);
-    --content-background: white;
-    --primary: #24aeff;
-    --accent: #ffcb00;
+@function get-background-color() {
+    @return darken($primary-color, 40%);
+}
+@function get-background-color-glass() {
+    @return transparentize(get-background-color(), 0.6);
+}
+
+:root {
+    --primary-color: #{$primary-color};
+    --secondary-color: #{$secondary-color};
+    --accent-color-1: #{$accent-color-1};
+    --accent-color-2: #{$accent-color-2};
+
+    --background-color: #{get-background-color()};
+    --background-color-glass: #{get-background-color-glass()};
+
+    --content-background-color: #{$secondary-color};
 }

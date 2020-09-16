@@ -7,7 +7,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--background);
+    background-color: var(--background-color-glass);
 }
 
 button {
@@ -18,12 +18,12 @@ button {
     width: 100%;
     height: 6rem;
 
-    color: var(--primary);
-    text-shadow: 0 0 1rem var(--primary);
+    color: var(--primary-color);
+    text-shadow: 0 0 1rem var(--primary-color);
 
     &.highlighted {
-        color: var(--accent);
-        text-shadow: 0 0 1rem var(--accent);
+        color: var(--accent-color-1);
+        text-shadow: 0 0 1rem var(--accent-color-1);
     }
 
     .icon {

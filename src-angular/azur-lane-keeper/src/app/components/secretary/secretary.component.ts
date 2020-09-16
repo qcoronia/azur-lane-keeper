@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/core/services/config/config.service';
 import { SecretaryService } from 'src/app/core/services/secretary/secretary.service';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { delay, take } from 'rxjs/operators';
+import { delay, take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-secretary',
@@ -20,7 +20,9 @@ export class SecretaryComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private secretaryService: SecretaryService) {
-      this.imageUrl$ = this.secretaryService.fullImageUrl$;
+      this.imageUrl$ = this.secretaryService.fullImageUrl$.pipe(
+        // map(url => `url(${url})`),
+      );
       this.animationClass$ = new BehaviorSubject<string>('');
     }
 

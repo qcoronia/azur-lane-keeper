@@ -1,6 +1,16 @@
+$primary-color: #ff486f;
+$secondary-color: #ffffff;
+
+@use 'global';
+
 .crimson-axis-theme {
-    --background: #42001680;
-    --content-background: white;
-    --primary: #ff2453;
-    --accent: #ffcb00;
+    --primary-color: #{$primary-color};
+    --secondary-color: #{$secondary-color};
+    --accent-color-1: #{$accent-color-1};
+    --accent-color-2: #{$accent-color-2};
+
+    --background-color: #{get-background-color()};
+    --background-color-glass: #{get-background-color-glass()};
+
+    --content-background-color: #{$secondary-color};
 }
