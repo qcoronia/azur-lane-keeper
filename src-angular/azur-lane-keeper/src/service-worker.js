@@ -27,6 +27,7 @@ self.addEventListener('install', evt => {
 self.addEventListener('fetch', evt => {
   const isImage = evt.request.url.includes('raw.githubusercontent') && evt.request.url.endsWith('.png');
   const isWebSocket = evt.request.url.includes('sockjs-node');
+  const isScript = evt.request.url.endsWith('.js');
 
   if (isImage) {
     evt.respondWith(
@@ -44,6 +45,7 @@ self.addEventListener('fetch', evt => {
       }).catch(err => console.error(err))
     );
   } else if (isWebSocket) {
+  } else if (isScript) {
   } else {
     evt.respondWith(
       caches.match(evt.request).then(cachedResponse => {

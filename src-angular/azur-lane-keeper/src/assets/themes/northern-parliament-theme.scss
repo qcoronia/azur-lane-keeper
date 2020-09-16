@@ -6,11 +6,6 @@ $secondary-color: #ffffff;
 .northern-parliament-theme {
     --primary-color: #{$primary-color};
     --secondary-color: #{$secondary-color};
-    --accent-color-1: #{$accent-color-1};
-    --accent-color-2: #{$accent-color-2};
 
-    --background-color: #{get-background-color()};
-    --background-color-glass: #{get-background-color-glass()};
-
-    --content-background-color: #{$secondary-color};
+    @include calculated-variables;
 }

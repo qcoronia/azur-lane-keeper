@@ -3,7 +3,15 @@
 @import './assets/themes/azur-lane-theme.scss';
 @import './assets/themes/crimson-axis-theme.scss';
 
+
 :root {
+    --primary-color: #{$primary-color};
+    --secondary-color: #{$secondary-color};
+    --accent-color-1: #{$accent-color-1};
+    --accent-color-2: #{$accent-color-2};
+
+    @include calculated-variables;
+
     --font-size: 16px;
 }
 

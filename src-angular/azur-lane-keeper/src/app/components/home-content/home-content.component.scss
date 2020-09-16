@@ -1,0 +1,28 @@
+:host {
+    --right-margin: 6rem;
+
+    display: flex;
+    position: absolute;
+    right: var(--right-margin);
+    width: calc(42vw - var(--right-margin));
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+div {
+    width: 90%;
+
+    &#focusedContent {
+        height: 15rem;
+        background-color: var(--content-background-color);
+    }
+
+    &#chatBox {
+        height: 9rem;
+        background-color: var(--background-color-glass);
+    }
+}
+
