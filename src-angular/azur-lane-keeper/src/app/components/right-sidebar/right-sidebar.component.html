@@ -1,5 +1,7 @@
-<ng-template ngFor let-button [ngForOf]="[{}]">
-  <button class="button">
-    <span>link</span>
+<ng-template ngFor let-button [ngForOf]="buttons$ | async">
+  <button class="button" [class.highlighted]="button.highlighted">
+    <span class="icon {{button.icon}}"></span>
+    <br>
+    <span>{{button.label}}</span>
   </button>
 </ng-template>

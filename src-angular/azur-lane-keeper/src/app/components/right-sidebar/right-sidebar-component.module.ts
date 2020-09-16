@@ -7,7 +7,7 @@ import { RightSidebarComponent } from './right-sidebar.component';
 @NgModule({
   declarations: [RightSidebarComponent],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [RightSidebarComponent],
 })

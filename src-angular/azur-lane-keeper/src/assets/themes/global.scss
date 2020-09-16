@@ -1,5 +1,8 @@
 :root {
-    --background: ##000e2380;
+    $background: #000e23;
+
+    --background: $background;
+    --background-transparent: transparentize($background, 80%);
     --content-background: white;
     --primary: #24aeff;
     --accent: #ffcb00;

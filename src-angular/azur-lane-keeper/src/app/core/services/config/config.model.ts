@@ -12,7 +12,8 @@ export class Config {
 export class LinkInfo {
   public label: string;
   public icon: string;
-  public url: string;
+  public url?: string;
+  public routerLink?: string[];
   public highlighted?: boolean;
 }
 

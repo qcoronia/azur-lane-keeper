@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faStore, faAnchor, faWarehouse, faSchool, faAtom, faClipboardList, faCube, faShip, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { LinkInfo } from 'src/app/core/services/config/config.model';
 
 @Component({
   selector: 'app-footer',
@@ -8,27 +8,22 @@ import { faStore, faAnchor, faWarehouse, faSchool, faAtom, faClipboardList, faCu
 })
 export class FooterComponent implements OnInit {
 
-  public buttons: ButtonInfo[];
+  public buttons: LinkInfo[];
 
   constructor() {
     this.buttons = [
-      { icon: faStore, text: 'Shop' },
-      { icon: faAnchor, text: 'Dock' },
-      { icon: faWarehouse, text: 'Depot' },
-      { icon: faSchool, text: 'HQ' },
-      { icon: faAtom, text: 'Lab' },
-      { icon: faClipboardList, text: 'Missions' },
-      { icon: faCube, text: 'Build' },
-      { icon: faShip, text: 'Guild' },
+      { label: 'Shop', icon: 'fa fa-store' },
+      { label: 'Dock', icon: 'fa fa-anchor' },
+      { label: 'Depot', icon: 'fa fa-warehouse' },
+      { label: 'HQ', icon: 'fa fa-school' },
+      { label: 'Lab', icon: 'fa fa-atom' },
+      { label: 'Missions', icon: 'fa fa-clipboard-list' },
+      { label: 'Build', icon: 'fa fa-cube' },
+      { label: 'Guild', icon: 'fa fa-ship' },
     ];
   }
 
   ngOnInit(): void {
   }
 
-}
-
-export class ButtonInfo {
-  public icon: IconDefinition;
-  public text: string;
 }

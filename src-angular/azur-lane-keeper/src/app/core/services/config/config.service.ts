@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Config } from './config.model';
-import { BehaviorSubject, Subscription, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
@@ -50,7 +50,7 @@ export const DEFAULT_CONFIG: Config = {
     { label: 'AL Facebook', icon: 'fab fa-facebook-square', url: '' },
     { label: 'AL Twitter', icon: 'fab fa-twitter', url: '' },
     { label: 'AL Reddit', icon: 'fab fa-reddit', url: '' },
-    { label: 'Email', icon: 'fa fa-envelope', url: '', highlighted: true },
+    { label: 'Email', icon: 'fas fa-envelope', url: '', highlighted: true },
   ],
   secretaries: [
     { name: 'Long Island', skin: 'Default' },
