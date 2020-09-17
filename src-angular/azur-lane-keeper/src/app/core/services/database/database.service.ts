@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, zip, Subject, of } from 'rxjs';
-import { take, switchMap, filter, tap } from 'rxjs/operators';
+import { switchMap, tap, first } from 'rxjs/operators';
 import { NgxIndexedDBService, DBConfig } from 'ngx-indexed-db';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class DatabaseService {
           )),
         );
       }),
-      take(1),
+      first(),
       tap(statuses => this.initialized$.next(true)),
     );
   }

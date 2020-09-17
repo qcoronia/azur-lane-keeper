@@ -4,6 +4,7 @@
     top: 0;
     width: 100vw;
     display: flex;
+    z-index: 1;
 
     background: linear-gradient(to right,
         var(--background-color-glass),
