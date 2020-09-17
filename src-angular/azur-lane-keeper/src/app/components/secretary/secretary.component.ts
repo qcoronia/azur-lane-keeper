@@ -21,7 +21,7 @@ export class SecretaryComponent implements OnInit {
     private configService: ConfigService,
     private secretaryService: SecretaryService) {
       this.imageUrl$ = this.secretaryService.fullImageUrl$.pipe(
-        // map(url => `url(${url})`),
+        map(url => `url(${url})`),
       );
       this.animationClass$ = new BehaviorSubject<string>('');
     }
@@ -29,7 +29,6 @@ export class SecretaryComponent implements OnInit {
   public ngOnInit(): void {
     if (this.configService.config$.value.enableIdleAnimations) {
       this.setAnim('anim-secretary-idle');
-      // this.setIconAnim('anim-floating-icon');
     }
   }
 
