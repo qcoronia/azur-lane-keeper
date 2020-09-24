@@ -4,25 +4,11 @@ self.addEventListener('install', evt => {
   evt.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll([
-        // '/',
-        // '/index.html',
-
-        // '/js/api.js',
-        // '/js/config.js',
-        // '/js/db.js',
-        // '/js/main.js',
-        // '/js/service.js',
-        // '/js/sw-init.js',
-
-        // '/css/animations.css',
-        // '/css/fonts.css',
-        // '/css/main.css',
-
         '/assets/bg/bg_main_day.png',
         '/assets/bg/bg_main_night.png',
         '/assets/bg/bg_main_twilight.png',
 
-        '/assets/fonts/vendor/fontawesome-5.14.0/css/all.min.css',
+        '/assets/fonts/font-awesome/css/all.min.css',
 
         '/assets/fonts/monolisk/Monolisk-Regular.woff2',
 
@@ -39,45 +25,58 @@ self.addEventListener('install', evt => {
 });
 
 self.addEventListener('fetch', evt => {
-  const isImage = evt.request.url.includes('raw.githubusercontent') && evt.request.url.endsWith('.png');
+  const requestType = evt.request.url.includes('raw.githubusercontent') && evt.request.url.endsWith('.png') ? 'image'
+    : evt.request.url.includes('sockjs-node') ? 'websocket'
+    : evt.request.url.endsWith('.js') ? 'script'
+    : 'default';
 
-  if (isImage) {
-    evt.respondWith(
-      caches.open('al_keeper_images').then(cache => {
-        return cache.match(evt.request.url).then(cachedResponse => {
+  switch (requestType) {
+    case 'image':
+      evt.respondWith(
+        caches.open('al_keeper_images').then(cache => {
+          return cache.match(evt.request.url).then(cachedResponse => {
+            if (!!cachedResponse) {
+              return cachedResponse;
+            } else {
+              return cache.add(evt.request.url).then(() => {
+                console.log(`image cached: ${evt.request.url}`);
+                return cache.match(evt.request.url);
+              });
+            }
+          });
+        }).catch(err => console.error(err))
+      );
+      break;
+
+    case 'script':
+      break;
+
+    case 'websocket':
+      break;
+
+    default:
+      evt.respondWith(
+        caches.match(evt.request).then(cachedResponse => {
           if (!!cachedResponse) {
             return cachedResponse;
-          } else {
-            return cache.add(evt.request.url).then(() => {
-              console.log(`image cached: ${evt.request.url}`);
-              return cache.match(evt.request.url);
+          }
+
+          return fetch(evt.request).then(freshResponse => {
+            if (!freshResponse || freshResponse.status !== 200 || freshResponse.type !== 'basic') {
+              console.warn('failed to cache request: ', evt.request);
+              return freshResponse;
+            }
+
+            const freshResponseClone = freshResponse.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(evt.request, freshResponseClone);
+              console.log('request cached: ', evt.request);
             });
-          }
-        });
-      }).catch(err => console.error(err))
-    );
-  } else {
-    evt.respondWith(
-      caches.match(evt.request).then(cachedResponse => {
-        if (!!cachedResponse) {
-          return cachedResponse;
-        }
 
-        return fetch(evt.request).then(freshResponse => {
-          if (!freshResponse || freshResponse.status !== 200 || freshResponse.type !== 'basic') {
-            console.warn('failed to cache request: ', evt.request);
             return freshResponse;
-          }
-
-          const freshResponseClone = freshResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(evt.request, freshResponseClone);
-            console.log('request cached: ', evt.request);
           });
-
-          return freshResponse;
-        });
-      }).catch(err => console.error(err))
-    );
+        }).catch(err => console.error(err))
+      );
+      break;
   }
 });

@@ -1,0 +1,15 @@
+<ng-template #counter let-text="text" let-iconClass="iconClass">
+  <div class="counter">
+    <span id="icon" [class]="iconClass"></span>
+    <span id="text">{{text}}</span>
+    <button id="plusButton">
+      <div class="fill">
+        <span class="fa fa-plus"></span>
+      </div>
+    </button>
+  </div>
+</ng-template>
+
+<ng-container [ngTemplateOutlet]="counter" [ngTemplateOutletContext]="{ iconClass: 'fas fa-tools', text: daysUntilPatch$ | async }"></ng-container>
+<ng-container [ngTemplateOutlet]="counter" [ngTemplateOutletContext]="{ iconClass: 'fa fa-sun', text: timeUntilReset$ | async }"></ng-container>
+<ng-container [ngTemplateOutlet]="counter" [ngTemplateOutletContext]="{ iconClass: 'fas fa-clock', text: currentTime$ | async }"></ng-container>

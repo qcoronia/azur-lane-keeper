@@ -1,0 +1,28 @@
+$primary-color: #24aeff !default;
+$secondary-color: #ffffff !default;
+$accent-color-1: #ffcb00 !default;
+$accent-color-2: #ff7171 !default;
+
+@function shift-hue-then-darken($color, $amount) {
+    @return darken(adjust-hue($color, 10deg), $amount);
+}
+@function get-background-color-glass() {
+    @return transparentize(shift-hue-then-darken($primary-color, 50%), 0.6);
+}
+@function get-background-color-glass-dim() {
+    @return transparentize(darken($primary-color, 40%), 0.2);
+}
+@function get-content-background-color() {
+    @return transparentize($secondary-color, 0.2);
+}
+
+@mixin calculated-variables() {
+    --background-color: #{shift-hue-then-darken($primary-color, 50%)};
+    --background-color-glass: #{get-background-color-glass()};
+    --background-color-glass-dim: #{get-background-color-glass-dim()};
+
+    --content-background-color: #{get-content-background-color()};
+
+    --primary-color-darker: #{shift-hue-then-darken($primary-color, 10%)};
+    --accent-color-1-darker: #{shift-hue-then-darken($accent-color-1, 10%)};
+}

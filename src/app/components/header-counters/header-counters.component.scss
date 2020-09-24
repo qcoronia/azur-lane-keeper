@@ -1,0 +1,71 @@
+:host {
+    display: flex;
+    gap: 2rem;
+}
+
+.counter {
+    display: flex;
+    margin-top: 1.5rem;
+    height: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 6.4rem;
+        height: 1.2rem;
+        background-color: var(--background-color);
+        z-index: -1;
+        margin-left: 1rem;
+        clip-path: polygon(5% 0%, 100% 0%, calc(100% - 0.5rem) 50%, 100% 100%, 5% 100%);
+    }
+
+    #icon {
+        font-size: 2rem;
+    }
+
+    #text {
+        min-width: 4rem;
+        text-align-last: center;
+        color: white;
+    }
+
+    #plusButton {
+        height: 1.5rem;
+        width: 1.5rem;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border: none;
+        background-color: var(--primary-color);
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+        .fill {
+            width: 90%;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            background-color: var(--background-color-glass);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+    }
+
+    &:nth-child(1) #icon {
+        color: #5a5a5a;
+    }
+
+    &:nth-child(2) #icon {
+        color: #ffee2e;
+    }
+
+    &:nth-child(3) #icon {
+        color: #fc1e59;
+    }
+}
