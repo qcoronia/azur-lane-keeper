@@ -19,7 +19,6 @@ export class SecretarySelectorFormComponent implements OnInit, OnDestroy {
   }
 
   public shipgirls$: Observable<string[]>;
-  public
 
   private destroyed$: Subject<void>;
 
