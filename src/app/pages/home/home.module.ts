@@ -6,6 +6,7 @@ import { SecretaryComponentModule } from 'src/app/components/secretary/secretary
 import { FooterComponentModule } from 'src/app/components/footer/footer-component.module';
 import { RightSidebarComponentModule } from 'src/app/components/right-sidebar/right-sidebar-component.module';
 import { HomeContentComponentModule } from 'src/app/components/home-content/home-content-component.module';
+import { LeftControlsModule } from 'src/app/components/left-controls/left-controls.module';
 
 
 
@@ -16,6 +17,7 @@ import { HomeContentComponentModule } from 'src/app/components/home-content/home
     HomeRoutingModule,
 
     SecretaryComponentModule,
+    LeftControlsModule,
     RightSidebarComponentModule,
     HomeContentComponentModule,
     FooterComponentModule,
