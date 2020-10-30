@@ -2,3 +2,7 @@
   <div id="avatarPic" [style.backgroundImage]="avatarPicUrl$ | async"></div>
 </button>
 <label id="username">{{username$ | async}}</label>
+
+<ng-container *ngIf="secretaryFormShown">
+  <app-secretary-selector-form></app-secretary-selector-form>
+</ng-container>

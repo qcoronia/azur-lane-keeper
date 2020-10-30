@@ -28,6 +28,7 @@ self.addEventListener('fetch', evt => {
   const requestType = evt.request.url.includes('raw.githubusercontent') && evt.request.url.endsWith('.png') ? 'image'
     : evt.request.url.includes('sockjs-node') ? 'websocket'
     : evt.request.url.endsWith('.js') ? 'script'
+    : evt.request.url.startsWith('chrome-extension://') ? 'extension'
     : 'default';
 
   switch (requestType) {
@@ -52,6 +53,9 @@ self.addEventListener('fetch', evt => {
       break;
 
     case 'websocket':
+      break;
+
+    case 'extension':
       break;
 
     default:
