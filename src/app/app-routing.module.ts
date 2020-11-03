@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
 
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule) },
-  { path: '**', pathMatch: 'full', redirectTo: '' },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(mod => mod.HomeModule) },
+  { path: 'formation', loadChildren: () => import('./pages/formation/formation.module').then(mod => mod.FormationModule) },
 ];
 
 @NgModule({
