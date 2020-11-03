@@ -3,6 +3,9 @@ $secondary-color: #ffffff !default;
 $accent-color-1: #ffcb00 !default;
 $accent-color-2: #ff7171 !default;
 
+@function shift-hue-then-lighten($color, $amount) {
+    @return lighten(adjust-hue($color, 10deg), $amount);
+}
 @function shift-hue-then-darken($color, $amount) {
     @return darken(adjust-hue($color, 10deg), $amount);
 }
@@ -22,6 +25,8 @@ $accent-color-2: #ff7171 !default;
     --background-color-glass-dim: #{get-background-color-glass-dim()};
 
     --content-background-color: #{get-content-background-color()};
+
+    --primary-color-lighter: #{shift-hue-then-lighten($primary-color, 10%)};
 
     --primary-color-darker: #{shift-hue-then-darken($primary-color, 10%)};
     --accent-color-1-darker: #{shift-hue-then-darken($accent-color-1, 10%)};
