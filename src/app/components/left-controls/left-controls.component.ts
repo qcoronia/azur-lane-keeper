@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ConfigService } from 'src/app/core/services/config/config.service';
+import { Observable, Subject } from 'rxjs';
+import { SecretaryService } from 'src/app/core/services/secretary/secretary.service';
 
 @Component({
   selector: 'app-left-controls',
   templateUrl: './left-controls.component.html',
   styleUrls: ['./left-controls.component.scss']
 })
-export class LeftControlsComponent implements OnInit {
+export class LeftControlsComponent {
 
-  constructor() { }
+  constructor(private secretary: SecretaryService) {
+  }
 
-  ngOnInit(): void {
+  public switchSecretary(): void {
+    this.secretary.switchToNextSecretary();
   }
 
 }
