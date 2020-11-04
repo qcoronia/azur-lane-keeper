@@ -34,8 +34,11 @@ export class ConfigService implements OnDestroy {
   }
 
   public patch(config: Partial<Config>) {
+    const existingConfig = window.localStorage.getItem(this.keyname);
+
     this.config$.next({
       ...DEFAULT_CONFIG,
+      ...JSON.parse(existingConfig || '{}'),
       ...config,
     });
   }

@@ -4,6 +4,7 @@
     height: 5rem;
     align-items: center;
     justify-content: center;
+    margin-right: 0.5rem;
 
     button {
         height: 4rem;
@@ -27,6 +28,10 @@
             border: none;
             background-color: var(--background-color-glass);
             clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        &.hidden {
+            display: none;
         }
     }
 }
