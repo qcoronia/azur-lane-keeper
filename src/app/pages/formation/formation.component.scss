@@ -1,0 +1,23 @@
+:host {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-areas:
+        'form'
+        'controls';
+    grid-template-rows: 1fr 6rem;
+
+    app-fleet-form {
+        height: 100%;
+        width: 100%;
+        background-color: #ff33334d;
+    }
+
+    #formationControls {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        background-color: #ebff334d;
+    }
+}
