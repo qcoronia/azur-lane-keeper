@@ -6,6 +6,7 @@ $secondary-color: #ffffff;
 .azur-lane-theme {
     --primary-color: #{$primary-color};
     --secondary-color: #{$secondary-color};
+    --accent-color-1: #{$accent-color-1};
 
     @include calculated-variables;
 }
