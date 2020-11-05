@@ -4,7 +4,8 @@
     width: 100%;
     grid-template-areas: 'list form';
     grid-template-columns: 400px 1fr;
-    margin-top: 3rem;
+    padding-top: 3rem;
+    box-sizing: border-box;
 
     app-fleet-list {
         grid-area: list;
@@ -16,6 +17,5 @@
         grid-area: form;
         height: 100%;
         width: 100%;
-        background-color: #ebff334d;
     }
 }
