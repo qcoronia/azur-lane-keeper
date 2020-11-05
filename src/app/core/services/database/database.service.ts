@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, zip, Subject, of } from 'rxjs';
 import { switchMap, tap, first, filter, shareReplay, take } from 'rxjs/operators';
 import { NgxIndexedDBService, DBConfig } from 'ngx-indexed-db';
-
-export const DB_NAME = 'shipgirls';
+import { STORE_SHIPGIRL, STORE_FLEET_FORMATION, DB_AL_KEEPER } from './store-names';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class DatabaseService {
   }
 
   public init(opts?: DatabaseInitOptions) {
-    return from(this.db.count(DB_NAME)).pipe(
+    return from(this.db.count(STORE_SHIPGIRL)).pipe(
       switchMap(count => {
         if (count > 0) {
           return of([]);
@@ -31,7 +30,7 @@ export class DatabaseService {
 
         return opts.dataSources.shipgirls.pipe(
           switchMap((shipgirls: any[]) => zip(
-            shipgirls.map(shipgirl => from(this.db.add(DB_NAME, shipgirl)))
+            shipgirls.map(shipgirl => from(this.db.add(STORE_SHIPGIRL, shipgirl)))
           )),
         );
       }),
@@ -48,26 +47,32 @@ export class DatabaseService {
 
   public selectByIndex(storeName: string, index: string, searchTerm: string): Observable<any> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.getByIndex(DB_NAME, index, searchTerm))),
+      switchMap(initialized => from(this.db.getByIndex(storeName, index, searchTerm))),
     );
   }
 }
 
 export const dbConfig: DBConfig = {
-  name: 'al_keeper',
+  name: DB_AL_KEEPER,
   version: 1,
-  objectStoresMeta: [{
-    store: DB_NAME,
-    storeConfig: { keyPath: 'id', autoIncrement: false },
-    storeSchema: [
-      { name: 'name', keypath: 'name', options: { unique: false } },
-    ]
-  }],
-  migrationFactory: () => ({
-    1: (db, transaction) => {
-      const store = transaction.objectStore(DB_NAME);
-      store.createIndex('name', 'name', { unique: false });
+  objectStoresMeta: [
+    {
+      store: STORE_SHIPGIRL,
+      storeConfig: { keyPath: 'id', autoIncrement: false },
+      storeSchema: [
+        { name: 'name', keypath: 'names.en', options: { unique: false } },
+      ]
     },
+    {
+      store: STORE_FLEET_FORMATION,
+      storeConfig: { keyPath: 'id', autoIncrement: true },
+      storeSchema: [
+        { name: 'name', keypath: 'name', options: { unique: true } },
+      ]
+    }
+  ],
+  migrationFactory: () => ({
+    1: (db, transaction) => { },
   }),
 };
 

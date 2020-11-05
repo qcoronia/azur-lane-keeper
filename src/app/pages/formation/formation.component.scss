@@ -2,22 +2,20 @@
     display: grid;
     height: 100%;
     width: 100%;
-    grid-template-areas:
-        'form'
-        'controls';
-    grid-template-rows: 1fr 6rem;
+    grid-template-areas: 'list form';
+    grid-template-columns: 400px 1fr;
+    margin-top: 3rem;
 
-    app-fleet-form {
+    app-fleet-list {
+        grid-area: list;
         height: 100%;
         width: 100%;
-        background-color: #ff33334d;
     }
 
-    #formationControls {
-        display: flex;
+    app-fleet-form {
+        grid-area: form;
         height: 100%;
         width: 100%;
-        align-items: center;
         background-color: #ebff334d;
     }
 }

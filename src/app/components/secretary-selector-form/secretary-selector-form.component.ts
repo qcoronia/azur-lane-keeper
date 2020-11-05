@@ -44,7 +44,6 @@ export class SecretarySelectorFormComponent implements OnInit, OnDestroy {
     this.secretaryFormInternal.valueChanges.pipe(
       takeUntil(this.destroyed$),
       map(form => form as SecretaryInfo[]),
-      tap(console.warn)
     ).subscribe(form => {
       this.configService.patch({
         secretaries: form,
