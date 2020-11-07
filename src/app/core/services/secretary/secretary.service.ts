@@ -5,6 +5,7 @@ import { map, switchMap, filter, takeUntil, shareReplay } from 'rxjs/operators';
 import { ShipgirlService } from '../shipgirl/shipgirl.service';
 import { SecretaryInfo } from '../config/config.model';
 import { CacheService } from '../cache/cache.service';
+import { SkinInfo } from '../../models/entities/azur-api/skin-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -66,9 +67,4 @@ export class SecretaryService implements OnDestroy {
       activeSecretaryIdx: newIndex,
     });
   }
-}
-
-export class SkinInfo {
-  public image: string;
-  public chibi: string;
 }

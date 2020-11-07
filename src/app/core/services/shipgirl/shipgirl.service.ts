@@ -3,6 +3,7 @@ import { DatabaseService } from '../database/database.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { STORE_SHIPGIRL } from '../database/store-names';
+import { SkinInfo } from '../../models/entities/azur-api/skin-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class ShipgirlService {
     );
   }
 
-  public getSkins(name: string): Observable<string[]> {
+  public getSkins(name: string): Observable<SkinInfo[]> {
     return this.database.selectByIndex(STORE_SHIPGIRL, 'name', name).pipe(
       map(res => res.skins)
     );
