@@ -62,23 +62,23 @@ export class FleetFormComponent implements OnInit, OnDestroy {
         notes: [null],
       }),
     });
-    const syncChibiUrl = (position: string) => {
-      this.form.get(`${position}.shipName`).valueChanges.pipe(
+    const syncChibiUrl = (position: DragSlot) => {
+      this.form.get([ position.row, position.slot, 'shipName' ]).valueChanges.pipe(
         filter(newshipName => !!newshipName),
         switchMap(newShipName => this.shipgirl.getSkins(newShipName)),
         map(skins => skins.find(e => e.name === 'Default')),
         map(skin => skin.chibi),
         takeUntil(this.whenDestroyed$),
       ).subscribe(chibiUrl => {
-        this.form.get(`${position}._chibiUrl`).patchValue(chibiUrl || TRANSPARENT_PIXEL);
+        this.form.get([ position.row, position.slot, '_chibiUrl' ]).patchValue(chibiUrl || TRANSPARENT_PIXEL);
       });
     };
-    syncChibiUrl('main.flagship');
-    syncChibiUrl('main.top');
-    syncChibiUrl('main.bottom');
-    syncChibiUrl('vanguard.lead');
-    syncChibiUrl('vanguard.middle');
-    syncChibiUrl('vanguard.last');
+    syncChibiUrl({ row: 'main', slot: 'flagship' });
+    syncChibiUrl({ row: 'main', slot: 'top' });
+    syncChibiUrl({ row: 'main', slot: 'bottom' });
+    syncChibiUrl({ row: 'vanguard', slot: 'lead' });
+    syncChibiUrl({ row: 'vanguard', slot: 'middle' });
+    syncChibiUrl({ row: 'vanguard', slot: 'last' });
 
     this.form.patchValue(this.fleetFormation);
   }
@@ -91,8 +91,40 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     this.whenDestroyed$.complete();
   }
 
-  public getShipChibiUrl(shipName: string): string {
-    return TRANSPARENT_PIXEL;
+  public handleDragStart(evt: DragEvent, row: string, slot: string) {
+    evt.dataTransfer.clearData();
+    evt.dataTransfer.setData('application/json', JSON.stringify({ row, slot }));
   }
 
+  public handleDragOver(evt: DragEvent) {
+    if (evt.dataTransfer.types.includes('application/json')) {
+      evt.preventDefault();
+    }
+  }
+
+  public handleDrop(evt: any, row: string, slot: string) {
+    console.warn(typeof(evt));
+    evt.preventDefault();
+
+    const draggedSlot = JSON.parse(evt.dataTransfer.getData('application/json'));
+    if (draggedSlot.row !== row) {
+      return;
+    }
+
+    this.swapShip(draggedSlot, { row, slot });
+  }
+
+  private swapShip(from: DragSlot, to: DragSlot) {
+    const shipFrom = this.form.get([from.row, from.slot]).value;
+    const shipTo = this.form.get([to.row, to.slot]).value;
+
+    this.form.get([to.row, to.slot]).patchValue(shipFrom);
+    this.form.get([from.row, from.slot]).patchValue(shipTo);
+  }
+
+}
+
+interface DragSlot {
+  row: string;
+  slot: string;
 }
