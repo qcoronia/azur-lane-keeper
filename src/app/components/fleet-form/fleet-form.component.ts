@@ -102,8 +102,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  public handleDrop(evt: any, row: string, slot: string) {
-    console.warn(typeof(evt));
+  public handleDrop(evt: DragEvent, row: string, slot: string) {
     evt.preventDefault();
 
     const draggedSlot = JSON.parse(evt.dataTransfer.getData('application/json'));
