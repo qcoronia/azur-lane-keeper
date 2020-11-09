@@ -13,7 +13,14 @@
     </div>
   </div>
 </div>
-<div class="ship-list"></div>
+<div class="ship-list">
+  <input type="text" (keyup)="whenShipListFilterChanged$.next($event.target.value)" placeholder="Search..."/>
+  <div class="list">
+    <ng-template ngFor let-ship [ngForOf]="shipList$ | async">
+      <label draggable="true" (dragstart)="handleDragStartFromDrawer($event, ship)">{{ship.names.en}}</label>
+    </ng-template>
+  </div>
+</div>
 <div class="main-notes" [formGroup]="form">
   <label for="notes" class="header">Notes</label>
   <textarea id="notes" formControlName="notes" draggable="false"></textarea>

@@ -22,6 +22,10 @@ export class ShipgirlService {
     );
   }
 
+  public getAll(): Observable<any[]> {
+    return this.database.selectAll(STORE_SHIPGIRL).pipe();
+  }
+
   public getSkins(name: string): Observable<SkinInfo[]> {
     return this.database.selectByIndex(STORE_SHIPGIRL, 'name', name).pipe(
       map(res => res.skins)

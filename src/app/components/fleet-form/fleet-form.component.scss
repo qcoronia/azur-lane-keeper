@@ -10,7 +10,7 @@
     column-gap: 0.5rem;
     row-gap: 0.5rem;
     grid-template-columns: 1fr 300px;
-    grid-template-rows: 50px 1fr 100px 100px;
+    grid-template-rows: 50px minmax(0, 1fr) 100px 100px;
 
     .name {
         display: flex;
@@ -100,7 +100,24 @@
 
     .ship-list {
         grid-area: shipList;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
         margin-top: 1.5rem;
+        overflow: auto;
+
+        .list {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            overflow: auto;
+
+            label {
+                color: white;
+            }
+        }
     }
 
     .main-notes {

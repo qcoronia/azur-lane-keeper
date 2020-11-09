@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FleetFormation } from 'src/app/core/models/entities/fleet-formation.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, merge, combineLatest, interval } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { takeUntil, switchMap, map, tap, filter } from 'rxjs/operators';
+import { takeUntil, switchMap, map, tap, filter, shareReplay, debounceTime } from 'rxjs/operators';
 import { ShipgirlService } from 'src/app/core/services/shipgirl/shipgirl.service';
 
 const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
@@ -18,15 +18,30 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
+  private allShipList$: Observable<any[]>;
   public shipList$: Observable<any[]>;
 
+  public whenShipListFilterChanged$: Subject<any>;
   private whenDestroyed$: Subject<any>;
 
   constructor(
     private shipgirl: ShipgirlService,
     private formBuilder: FormBuilder) {
     this.whenDestroyed$ = new Subject<any>();
-    this.shipList$ = this.shipgirl.getAllNames();
+    this.whenShipListFilterChanged$ = new Subject<any>();
+
+    this.allShipList$ = this.shipgirl.getAll().pipe(
+      shareReplay(1)
+    );
+    this.shipList$ = combineLatest([
+      this.allShipList$,
+      this.whenShipListFilterChanged$,
+    ]).pipe(
+      debounceTime(200),
+      filter(([list, searchTerm]) => searchTerm.length > 1),
+      map(([list, searchTerm]) => list.filter(e => e.names.en.toLowerCase().includes(searchTerm))),
+      map(list => list.slice(0, 10)),
+    );
 
     this.fleetFormation = {
       name: 'sample',
@@ -100,6 +115,15 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     evt.dataTransfer.setData('application/json', JSON.stringify({ row, slot }));
   }
 
+  public handleDragStartFromDrawer(evt: DragEvent, ship: any) {
+    const row = VANDUARD_HULL_TYPES.includes(ship.hullType) ? 'vanguard'
+      : MAIN_HULL_TYPES.includes(ship.hullType) ? 'main'
+      : null;
+
+    evt.dataTransfer.clearData();
+    evt.dataTransfer.setData('application/json', JSON.stringify({ shipName: ship.names.en, row }));
+  }
+
   public handleDragOver(evt: DragEvent) {
     if (evt.dataTransfer.types.includes('application/json')) {
       evt.preventDefault();
@@ -109,12 +133,17 @@ export class FleetFormComponent implements OnInit, OnDestroy {
   public handleDrop(evt: DragEvent, row: string, slot: string) {
     evt.preventDefault();
 
-    const draggedSlot = JSON.parse(evt.dataTransfer.getData('application/json'));
-    if (draggedSlot.row !== row) {
+    const data = JSON.parse(evt.dataTransfer.getData('application/json'));
+
+    if (data.row !== row) {
       return;
     }
 
-    this.swapShip(draggedSlot, { row, slot });
+    if (!!data.shipName) {
+      this.addShip(data.shipName, { row, slot });
+    } else {
+      this.swapShip(data, { row, slot });
+    }
   }
 
   private swapShip(from: DragSlot, to: DragSlot) {
@@ -125,9 +154,29 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     this.form.get([from.row, from.slot]).patchValue(shipTo);
   }
 
+  private addShip(shipName: string, to: DragSlot) {
+    this.form.get([to.row, to.slot, 'shipName']).patchValue(shipName);
+  }
+
 }
 
 interface DragSlot {
   row: string;
   slot: string;
 }
+
+const VANDUARD_HULL_TYPES = [
+  'Destroyer',
+  'Light Cruiser',
+  'Heavy Cruiser',
+  'Munition Ship',
+];
+
+const MAIN_HULL_TYPES = [
+  'Battleship',
+  'Battlecruiser',
+  'Aircraft Carrier',
+  'Light Aircraft Carrier',
+  'Repair Ship',
+  'Monitor',
+];
