@@ -23,7 +23,7 @@ body {
     margin: 0px;
     overflow: hidden;
 
-    input, select {
+    input, select, textarea {
         min-width: 10rem;
         background-color: var(--background-color);
         color: white;

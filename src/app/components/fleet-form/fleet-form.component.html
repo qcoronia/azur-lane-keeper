@@ -1,3 +1,6 @@
+<div class="name" [formGroup]="form">
+  <input type="text" formControlName="name" />
+</div>
 <div class="fleet-layout">
   <div class="fleet">
     <div class="platforms">
@@ -10,8 +13,11 @@
     </div>
   </div>
 </div>
-<div class="ship-notes"></div>
-<div class="main-notes"></div>
+<div class="ship-list"></div>
+<div class="main-notes" [formGroup]="form">
+  <label for="notes" class="header">Notes</label>
+  <textarea id="notes" formControlName="notes" draggable="false"></textarea>
+</div>
 <div class="controls"></div>
 
 <ng-template #slot let-row="row" let-slot="slot">

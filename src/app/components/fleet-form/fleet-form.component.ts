@@ -18,12 +18,15 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
+  public shipList$: Observable<any[]>;
+
   private whenDestroyed$: Subject<any>;
 
   constructor(
     private shipgirl: ShipgirlService,
     private formBuilder: FormBuilder) {
     this.whenDestroyed$ = new Subject<any>();
+    this.shipList$ = this.shipgirl.getAllNames();
 
     this.fleetFormation = {
       name: 'sample',
@@ -61,6 +64,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
         last: positionForm(),
         notes: [null],
       }),
+      notes: [null],
     });
     const syncChibiUrl = (position: DragSlot) => {
       this.form.get([ position.row, position.slot, 'shipName' ]).valueChanges.pipe(
