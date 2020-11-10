@@ -25,13 +25,13 @@
 
     .fleet-layout {
         --plaform-size: 8rem;
-        --chibi-size: 6rem;
+        --chibi-size: 5rem;
 
         grid-area: layout;
         display: flex;
         justify-content: center;
         align-items: center;
-        perspective: 910px;
+        perspective: 1500px;
         pointer-events: none;
 
         .fleet {
@@ -43,7 +43,7 @@
             row-gap: 1.5rem;
             column-gap: 1.5rem;
 
-            transform: rotateX(60deg) rotateY(0deg) rotateZ(-24deg);
+            transform: rotateX(65deg) rotateY(0deg) rotateZ(-30deg);
             transform-style: preserve-3d;
 
             .platforms {
