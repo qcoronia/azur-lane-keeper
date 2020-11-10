@@ -4,6 +4,7 @@ import { Observable, Subject, merge, combineLatest, interval, of } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { takeUntil, switchMap, map, tap, filter, shareReplay, debounceTime } from 'rxjs/operators';
 import { ShipgirlService } from 'src/app/core/services/shipgirl/shipgirl.service';
+import { FleetFormationService } from 'src/app/core/services/fleet-formation/fleet-formation.service';
 
 const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
@@ -14,7 +15,7 @@ const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA
 })
 export class FleetFormComponent implements OnInit, OnDestroy {
 
-  public fleetFormation: FleetFormation;
+  public originalFormation: FleetFormation;
 
   public isDraggingShip = false;
 
@@ -28,6 +29,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private shipgirl: ShipgirlService,
+    private fleetFormation: FleetFormationService,
     private formBuilder: FormBuilder) {
     this.whenDestroyed$ = new Subject<any>();
     this.whenShipListFilterChanged$ = new Subject<any>();
@@ -45,7 +47,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
       map(list => list.slice(0, 10)),
     );
 
-    this.fleetFormation = {
+    this.originalFormation = {
       name: 'sample',
       main: {
         flagship: { shipName: 'Long Island', notes: 'flagship'},
@@ -103,7 +105,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     syncChibiUrl({ row: 'vanguard', slot: 'middle' });
     syncChibiUrl({ row: 'vanguard', slot: 'last' });
 
-    this.form.patchValue(this.fleetFormation);
+    this.form.patchValue(this.originalFormation);
   }
 
   ngOnInit(): void {
@@ -162,6 +164,16 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
     this.form.get([data.row, data.slot, 'shipName']).patchValue(null);
     this.isDraggingShip = false;
+  }
+
+  public revertForm() {
+    this.form.patchValue(this.originalFormation);
+  }
+
+  public saveForm() {
+    const newFormation = this.form.getRawValue() as FleetFormation;
+
+    this.fleetFormation.insertOrUpdateFormation(newFormation);
   }
 
   private swapShip(from: DragSlot, to: DragSlot) {

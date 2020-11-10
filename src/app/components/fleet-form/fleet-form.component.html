@@ -31,7 +31,10 @@
   <label for="notes" class="header">Notes</label>
   <textarea id="notes" formControlName="notes" draggable="false"></textarea>
 </div>
-<div class="controls"></div>
+<div class="controls">
+  <button class="revert" (click)="revertForm()">Revert</button>
+  <button class="save" (click)="saveForm()">Save</button>
+</div>
 
 <ng-template #slot let-row="row" let-slot="slot">
   <div class="plane" ondragover="event.dataTransfer.types.includes('application/json') && event.preventDefault()" (drop)="handleDrop($event, row, slot)">

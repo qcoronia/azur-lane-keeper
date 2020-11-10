@@ -30,4 +30,5 @@ $accent-color-2: #ff7171 !default;
 
     --primary-color-darker: #{shift-hue-then-darken($primary-color, 10%)};
     --accent-color-1-darker: #{shift-hue-then-darken($accent-color-1, 10%)};
+    --secondary-color-darker: #{shift-hue-then-darken($secondary-color, 10%)};
 }

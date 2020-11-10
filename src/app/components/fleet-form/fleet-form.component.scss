@@ -59,13 +59,13 @@
                 transform-style: preserve-3d;
 
                 .plane {
-                    background-color: var(--primary-color);
+                    background: linear-gradient(45deg, var(--primary-color-darker), var(--primary-color));
                     display: flex;
                     align-items: center;
                     justify-content: center;
 
                     &:nth-child(2) {
-                        background-color: var(--accent-color-1);
+                        background: linear-gradient(45deg, var(--accent-color-1-darker), var(--accent-color-1));
                     }
 
                     .content {
@@ -196,6 +196,32 @@
 
     .controls {
         grid-area: controls;
-        background-color: #43f3334d;
+        display: flex;
+        justify-content: stretch;
+        gap: 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
+
+        button {
+            flex-grow: 1;
+            margin: 0.5rem;
+            border: none;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            padding: 5px;
+            font-size: 1rem;
+
+            &.revert {
+                background: linear-gradient(45deg, var(--secondary-color-darker), var(--secondary-color));
+                color: black;
+            }
+
+            &.save {
+                background: linear-gradient(45deg, var(--primary-color-darker), var(--primary-color));
+            }
+        }
     }
 }
