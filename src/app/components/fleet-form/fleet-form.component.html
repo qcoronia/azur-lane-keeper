@@ -2,6 +2,12 @@
   <input type="text" formControlName="name" />
 </div>
 <div class="fleet-layout">
+  <div class="remove-dropzone" [class.active]="isDraggingShip">
+    <div *ngFor="let pos of ['top', 'left', 'right', 'bottom']"
+         class="{{pos}}" ondragover="event.preventDefault()" (drop)="removeShip($event)">
+      <span>Remove</span>
+    </div>
+  </div>
   <div class="fleet">
     <div class="platforms">
       <ng-container [ngTemplateOutlet]="slot" [ngTemplateOutletContext]="{ row: 'main', slot: 'bottom' }"></ng-container>
@@ -14,7 +20,7 @@
   </div>
 </div>
 <div class="ship-list">
-  <input type="text" (keyup)="whenShipListFilterChanged$.next($event.target.value)" placeholder="Search..."/>
+  <input type="text" (keyup)="whenShipListFilterChanged$.next($event.target.value)" placeholder="Search for ship then drag to platform..."/>
   <div class="list">
     <ng-template ngFor let-ship [ngForOf]="shipList$ | async">
       <label draggable="true" (dragstart)="handleDragStartFromDrawer($event, ship)">{{ship.names.en}}</label>
@@ -31,7 +37,7 @@
   <div class="plane" ondragover="event.dataTransfer.types.includes('application/json') && event.preventDefault()" (drop)="handleDrop($event, row, slot)">
     <div class="content">
       <div class="ship">
-        <img [src]="form.get([row, slot, '_chibiUrl']).value" draggable="true" (dragstart)="handleDragStart($event, row, slot)">
+        <img [src]="form.get([row, slot, '_chibiUrl']).value" draggable="true" (dragstart)="handleDragStart($event, row, slot)" (dragend)="handleDragEnd($event)">
       </div>
     </div>
   </div>

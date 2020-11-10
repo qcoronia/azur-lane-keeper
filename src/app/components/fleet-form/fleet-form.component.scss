@@ -96,6 +96,63 @@
                 }
             }
         }
+
+        .remove-dropzone {
+            --dropzone-width: 2rem;
+
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+
+            &.active {
+                display: block;
+            }
+
+            > div {
+                background-color: rgba(255, 0, 0, 0.452);
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                pointer-events: auto;
+            }
+
+            .top {
+                top: 0px;
+                height: var(--dropzone-width);
+                width: 100%;
+            }
+
+            .left {
+                left: 0px;
+                top: var(--dropzone-width);
+                height: calc(100% - (var(--dropzone-width) * 2));
+                width: var(--dropzone-width);
+
+                span {
+                    transform: rotate(-90deg);
+                }
+            }
+
+            .right {
+                right: 0px;
+                top: var(--dropzone-width);
+                height: calc(100% - (var(--dropzone-width) * 2));
+                width: var(--dropzone-width);
+
+                span {
+                    transform: rotate(90deg);
+                }
+            }
+
+            .bottom {
+                bottom: 0px;
+                height: var(--dropzone-width);
+                width: 100%;
+            }
+        }
     }
 
     .ship-list {
@@ -108,11 +165,14 @@
 
         .list {
             flex-grow: 1;
-            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             overflow: auto;
+            margin: 0.2rem;
+            padding: 0.5rem;
+            box-sizing: border-box;
+            background-color: var(--background-color-glass);
 
             label {
                 color: white;

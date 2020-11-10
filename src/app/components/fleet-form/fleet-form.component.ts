@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FleetFormation } from 'src/app/core/models/entities/fleet-formation.model';
-import { Observable, Subject, merge, combineLatest, interval } from 'rxjs';
+import { Observable, Subject, merge, combineLatest, interval, of } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { takeUntil, switchMap, map, tap, filter, shareReplay, debounceTime } from 'rxjs/operators';
 import { ShipgirlService } from 'src/app/core/services/shipgirl/shipgirl.service';
@@ -15,6 +15,8 @@ const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA
 export class FleetFormComponent implements OnInit, OnDestroy {
 
   public fleetFormation: FleetFormation;
+
+  public isDraggingShip = false;
 
   public form: FormGroup;
 
@@ -83,10 +85,12 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     });
     const syncChibiUrl = (position: DragSlot) => {
       this.form.get([ position.row, position.slot, 'shipName' ]).valueChanges.pipe(
-        filter(newshipName => !!newshipName),
-        switchMap(newShipName => this.shipgirl.getSkins(newShipName)),
-        map(skins => skins.find(e => e.name === 'Default')),
-        map(skin => skin.chibi),
+        switchMap(newShipName => !!newShipName
+          ? this.shipgirl.getSkins(newShipName).pipe(
+            map(skins => skins.find(e => e.name === 'Default')),
+            map(skin => skin.chibi),
+          )
+          : of(TRANSPARENT_PIXEL)),
         takeUntil(this.whenDestroyed$),
       ).subscribe(chibiUrl => {
         this.form.get([ position.row, position.slot, '_chibiUrl' ]).patchValue(chibiUrl || TRANSPARENT_PIXEL);
@@ -113,6 +117,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
   public handleDragStart(evt: DragEvent, row: string, slot: string) {
     evt.dataTransfer.clearData();
     evt.dataTransfer.setData('application/json', JSON.stringify({ row, slot }));
+    this.isDraggingShip = true;
   }
 
   public handleDragStartFromDrawer(evt: DragEvent, ship: any) {
@@ -122,6 +127,11 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
     evt.dataTransfer.clearData();
     evt.dataTransfer.setData('application/json', JSON.stringify({ shipName: ship.names.en, row }));
+  }
+
+  public handleDragEnd(evt: DragEvent) {
+    evt.dataTransfer.clearData();
+    this.isDraggingShip = false;
   }
 
   public handleDragOver(evt: DragEvent) {
@@ -146,16 +156,26 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  private swapShip(from: DragSlot, to: DragSlot) {
-    const shipFrom = this.form.get([from.row, from.slot]).value;
-    const shipTo = this.form.get([to.row, to.slot]).value;
+  public removeShip(evt: DragEvent) {
+    evt.preventDefault();
+    const data = JSON.parse(evt.dataTransfer.getData('application/json'));
 
-    this.form.get([to.row, to.slot]).patchValue(shipFrom);
-    this.form.get([from.row, from.slot]).patchValue(shipTo);
+    this.form.get([data.row, data.slot, 'shipName']).patchValue(null);
+    this.isDraggingShip = false;
+  }
+
+  private swapShip(from: DragSlot, to: DragSlot) {
+    const shipFrom = this.form.get([from.row, from.slot, 'shipName']).value;
+    const shipTo = this.form.get([to.row, to.slot, 'shipName']).value;
+
+    this.form.get([to.row, to.slot, 'shipName']).patchValue(shipFrom);
+    this.form.get([from.row, from.slot, 'shipName']).patchValue(shipTo);
+    this.isDraggingShip = false;
   }
 
   private addShip(shipName: string, to: DragSlot) {
     this.form.get([to.row, to.slot, 'shipName']).patchValue(shipName);
+    this.isDraggingShip = false;
   }
 
 }
