@@ -31,7 +31,9 @@ export class FleetFormationService {
   }
 
   public getOneById(id: number) {
-    return this.database.selectByKey(STORE_FLEET_FORMATION, id);
+    return this.database.selectByKey(STORE_FLEET_FORMATION, id).pipe(
+      tap(console.warn)
+    );
   }
 
   public insertOrUpdateFormation(formation: FleetFormation) {

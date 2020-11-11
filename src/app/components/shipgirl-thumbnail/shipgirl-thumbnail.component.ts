@@ -15,10 +15,12 @@ export class ShipgirlThumbnailComponent implements AfterContentInit {
 
   public thumbnailUrl: string;
 
-  constructor(private shipgirl: ShipgirlService) { }
+  constructor(private shipgirl: ShipgirlService) {
+    this.thumbnailUrl = TRANSPARENT_PIXEL;
+  }
 
   ngAfterContentInit(): void {
-    this.shipgirl.getByName(this.shipName).pipe(
+    this.shipgirl.getByName(this.shipName || '').pipe(
       map(res => res?.thumbnail || TRANSPARENT_PIXEL),
       take(1),
     ).subscribe(url => this.thumbnailUrl = url);

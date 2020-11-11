@@ -41,38 +41,38 @@ export class DatabaseService {
 
   public selectAll(storeName: string): Observable<any[]> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.getAll(storeName))),
+      switchMap(initialized => this.db.getAll(storeName)),
     );
   }
 
   public selectByKey(storeName: string, key: number): Observable<any> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.getByKey(storeName, key)))
+      switchMap(initialized => this.db.getByKey(storeName, key))
     );
   }
 
   public selectByIndex(storeName: string, index: string, searchTerm: string): Observable<any> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.getByIndex(storeName, index, searchTerm))),
+      switchMap(initialized => this.db.getByIndex(storeName, index, searchTerm)),
     );
   }
 
   public insert<T>(storeName: string, value: T): Observable<any> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.add(storeName, value))),
+      switchMap(initialized => this.db.add(storeName, value)),
     );
   }
 
   public update<T>(storeName: string, value: T): Observable<any> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.update(storeName, value))),
+      switchMap(initialized => this.db.update(storeName, value)),
       map(all => value),
     );
   }
 
   public delete(storeName: string, id: number): Observable<any> {
     return this.ensureInitialized$.pipe(
-      switchMap(initialized => from(this.db.delete(storeName, id))),
+      switchMap(initialized => this.db.delete(storeName, id)),
     );
   }
 }

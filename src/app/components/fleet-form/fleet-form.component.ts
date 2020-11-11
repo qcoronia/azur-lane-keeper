@@ -104,6 +104,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     ).subscribe(params => this.whenNavigated$.next(params.formationId || -1));
 
     this.whenNavigated$.pipe(
+      map(formationId => +formationId),
       switchMap(formationId => formationId > 0
         ? this.fleetFormation.getOneById(formationId)
         : of(BLANK_FORMATION)),
