@@ -1,4 +1,5 @@
 export class FleetFormation {
+  public id?: number;
   public name: string;
   public main: {
     flagship: FleetFormationPosition,

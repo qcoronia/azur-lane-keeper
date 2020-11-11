@@ -1,43 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FleetFormation } from 'src/app/core/models/entities/fleet-formation.model';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, Subject } from 'rxjs';
 import { FleetFormationService } from 'src/app/core/services/fleet-formation/fleet-formation.service';
-import { shareReplay, map } from 'rxjs/operators';
+import { shareReplay, map, switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fleet-list',
   templateUrl: './fleet-list.component.html',
   styleUrls: ['./fleet-list.component.scss']
 })
-export class FleetListComponent implements OnInit {
+export class FleetListComponent implements OnDestroy {
 
   public fleetFormations$: Observable<FleetFormation[]>;
 
-  constructor(private fleetFormation: FleetFormationService) {
-    const TEST_FLEET: FleetFormation = {
-      name: 'sample',
-      main: {
-        flagship: { shipName: 'Long Island', notes: 'flagship'},
-        top: { shipName: '', notes: 'top'},
-        bottom: { shipName: '', notes: 'bottom'},
-        notes: 'main',
-      },
-      vanguard: {
-        lead: { shipName: 'Javelin', notes: 'lead'},
-        middle: { shipName: 'Laffey', notes: 'middle'},
-        last: { shipName: 'Ayanami', notes: 'last'},
-        notes: 'vanguard',
-      },
-      notes: 'sample',
-    };
+  private whenDestroyed$: Subject<any>;
 
-    this.fleetFormations$ = this.fleetFormation.getFleetFormations().pipe(
-      map(res => [ ...res, TEST_FLEET ]),
-      shareReplay(1)
-    );
+  constructor(private fleetFormation: FleetFormationService) {
+    this.whenDestroyed$ = new Subject<any>();
+    this.setSourceList();
+    this.fleetFormation.fleetListUpdated$.pipe(
+      takeUntil(this.whenDestroyed$),
+    ).subscribe(() => this.setSourceList());
   }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.whenDestroyed$.next();
+    this.whenDestroyed$.complete();
+  }
+
+  public deleteFormation(id: number) {
+    this.fleetFormation.delete(id);
+  }
+
+  private setSourceList() {
+    this.fleetFormations$ = this.fleetFormation.getFleetFormations();
   }
 
 }

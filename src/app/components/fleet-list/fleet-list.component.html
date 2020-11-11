@@ -1,11 +1,20 @@
-<h3 class="header">Formation</h3>
-<ng-container *ngFor="let fleet of fleetFormations$ | async"
+<div class="header">
+  <h3 class="title">Formation</h3>
+  <button class="new default" [routerLink]="['new']" [routerLinkActive]="'primary'">
+    <span>Add</span>
+  </button>
+</div>
+<div class="list">
+  <ng-container *ngFor="let fleet of fleetFormations$ | async"
               [ngTemplateOutlet]="fleetItem"
               [ngTemplateOutletContext]="{ fleet: fleet }"></ng-container>
+</div>
 
 <ng-template #fleetItem let-fleet="fleet">
-  <button class="fleet-item">
-    <h4>{{fleet.name}}</h4>
+  <button class="fleet-item" [routerLink]="['edit', fleet.id]" [routerLinkActive]="'active'">
+    <h4 class="label">
+      <span>{{fleet.name}}</span>
+    </h4>
     <div class="thumbnails">
       <app-shipgirl-thumbnail [shipName]="fleet.main.flagship.shipName"></app-shipgirl-thumbnail>
       <app-shipgirl-thumbnail [shipName]="fleet.main.top.shipName"></app-shipgirl-thumbnail>

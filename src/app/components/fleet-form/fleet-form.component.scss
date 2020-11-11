@@ -14,12 +14,20 @@
 
     .name {
         display: flex;
+        flex-direction: column;
 
         input {
             font-size: 1.5rem;
             flex-grow: 1;
             background-color: transparent;
-            border: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        span {
+            color: #cfcfcf;
         }
     }
 
@@ -191,6 +199,7 @@
 
         textarea {
             flex-grow: 1;
+            resize: none;
         }
     }
 
@@ -206,22 +215,12 @@
             flex-grow: 1;
             margin: 0.5rem;
             border: none;
-            color: white;
             font-weight: bold;
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
             padding: 5px;
             font-size: 1rem;
-
-            &.revert {
-                background: linear-gradient(45deg, var(--secondary-color-darker), var(--secondary-color));
-                color: black;
-            }
-
-            &.save {
-                background: linear-gradient(45deg, var(--primary-color-darker), var(--primary-color));
-            }
         }
     }
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FleetFormation } from 'src/app/core/models/entities/fleet-formation.model';
-import { Observable, Subject, merge, combineLatest, interval, of } from 'rxjs';
+import { Observable, Subject, combineLatest, of, ReplaySubject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { takeUntil, switchMap, map, tap, filter, shareReplay, debounceTime } from 'rxjs/operators';
 import { ShipgirlService } from 'src/app/core/services/shipgirl/shipgirl.service';
 import { FleetFormationService } from 'src/app/core/services/fleet-formation/fleet-formation.service';
+import { ActivatedRoute } from '@angular/router';
 
 const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
@@ -26,12 +27,15 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
   public whenShipListFilterChanged$: Subject<any>;
   private whenDestroyed$: Subject<any>;
+  private whenNavigated$: ReplaySubject<any>;
 
   constructor(
     private shipgirl: ShipgirlService,
     private fleetFormation: FleetFormationService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute) {
     this.whenDestroyed$ = new Subject<any>();
+    this.whenNavigated$ = new ReplaySubject<any>();
     this.whenShipListFilterChanged$ = new Subject<any>();
 
     this.allShipList$ = this.shipgirl.getAll().pipe(
@@ -47,29 +51,13 @@ export class FleetFormComponent implements OnInit, OnDestroy {
       map(list => list.slice(0, 10)),
     );
 
-    this.originalFormation = {
-      name: 'sample',
-      main: {
-        flagship: { shipName: 'Long Island', notes: 'flagship'},
-        top: { shipName: '', notes: 'top'},
-        bottom: { shipName: '', notes: 'bottom'},
-        notes: 'main',
-      },
-      vanguard: {
-        lead: { shipName: 'Javelin', notes: 'lead'},
-        middle: { shipName: 'Laffey', notes: 'middle'},
-        last: { shipName: 'Ayanami', notes: 'last'},
-        notes: 'vanguard',
-      },
-      notes: 'sample',
-    };
-
     const positionForm = () => this.formBuilder.group({
       shipName: [null],
       notes: [null],
       _chibiUrl: [TRANSPARENT_PIXEL],
     });
     this.form = this.formBuilder.group({
+      id: [null],
       name: [null],
       main: this.formBuilder.group({
         flagship: positionForm(),
@@ -105,15 +93,30 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     syncChibiUrl({ row: 'vanguard', slot: 'middle' });
     syncChibiUrl({ row: 'vanguard', slot: 'last' });
 
+    this.originalFormation = BLANK_FORMATION;
+
     this.form.patchValue(this.originalFormation);
   }
 
   ngOnInit(): void {
+    this.route.params.pipe(
+      takeUntil(this.whenDestroyed$)
+    ).subscribe(params => this.whenNavigated$.next(params.formationId || -1));
+
+    this.whenNavigated$.pipe(
+      switchMap(formationId => formationId > 0
+        ? this.fleetFormation.getOneById(formationId)
+        : of(BLANK_FORMATION)),
+      tap(formation => this.originalFormation = formation || BLANK_FORMATION),
+      tap(formation => this.revertForm()),
+      takeUntil(this.whenDestroyed$)
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
     this.whenDestroyed$.next();
     this.whenDestroyed$.complete();
+    this.whenNavigated$.complete();
   }
 
   public handleDragStart(evt: DragEvent, row: string, slot: string) {
@@ -212,3 +215,20 @@ const MAIN_HULL_TYPES = [
   'Repair Ship',
   'Monitor',
 ];
+
+const BLANK_FORMATION: FleetFormation = {
+  name: '',
+  main: {
+    flagship: { shipName: '', notes: 'flagship'},
+    top: { shipName: '', notes: 'top'},
+    bottom: { shipName: '', notes: 'bottom'},
+    notes: 'main',
+  },
+  vanguard: {
+    lead: { shipName: '', notes: 'lead'},
+    middle: { shipName: '', notes: 'middle'},
+    last: { shipName: '', notes: 'last'},
+    notes: 'vanguard',
+  },
+  notes: '',
+};

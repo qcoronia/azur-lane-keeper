@@ -1,5 +1,6 @@
 <div class="name" [formGroup]="form">
-  <input type="text" formControlName="name" />
+  <input type="text" formControlName="name" placeholder="Fleet name..." />
+  <span>#{{form.get('id').value}}</span>
 </div>
 <div class="fleet-layout">
   <div class="remove-dropzone" [class.active]="isDraggingShip">
@@ -29,11 +30,11 @@
 </div>
 <div class="main-notes" [formGroup]="form">
   <label for="notes" class="header">Notes</label>
-  <textarea id="notes" formControlName="notes" draggable="false"></textarea>
+  <textarea id="notes" formControlName="notes" placeholder="Add notes here..."></textarea>
 </div>
 <div class="controls">
-  <button class="revert" (click)="revertForm()">Revert</button>
-  <button class="save" (click)="saveForm()">Save</button>
+  <button class="revert default" (click)="revertForm()">Revert</button>
+  <button class="save primary" (click)="saveForm()">Save</button>
 </div>
 
 <ng-template #slot let-row="row" let-slot="slot">

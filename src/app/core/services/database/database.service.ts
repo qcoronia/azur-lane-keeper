@@ -45,6 +45,12 @@ export class DatabaseService {
     );
   }
 
+  public selectByKey(storeName: string, key: number): Observable<any> {
+    return this.ensureInitialized$.pipe(
+      switchMap(initialized => from(this.db.getByKey(storeName, key)))
+    );
+  }
+
   public selectByIndex(storeName: string, index: string, searchTerm: string): Observable<any> {
     return this.ensureInitialized$.pipe(
       switchMap(initialized => from(this.db.getByIndex(storeName, index, searchTerm))),
@@ -61,6 +67,12 @@ export class DatabaseService {
     return this.ensureInitialized$.pipe(
       switchMap(initialized => from(this.db.update(storeName, value))),
       map(all => value),
+    );
+  }
+
+  public delete(storeName: string, id: number): Observable<any> {
+    return this.ensureInitialized$.pipe(
+      switchMap(initialized => from(this.db.delete(storeName, id))),
     );
   }
 }
