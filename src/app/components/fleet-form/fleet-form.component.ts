@@ -160,6 +160,8 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     } else {
       this.swapShip(data, { row, slot });
     }
+
+    this.reflowPositions();
   }
 
   public removeShip(evt: DragEvent) {
@@ -168,6 +170,8 @@ export class FleetFormComponent implements OnInit, OnDestroy {
 
     this.form.get([data.row, data.slot, 'shipName']).patchValue(null);
     this.isDraggingShip = false;
+
+    this.reflowPositions();
   }
 
   public revertForm() {
@@ -192,6 +196,63 @@ export class FleetFormComponent implements OnInit, OnDestroy {
   private addShip(shipName: string, to: DragSlot) {
     this.form.get([to.row, to.slot, 'shipName']).patchValue(shipName);
     this.isDraggingShip = false;
+  }
+
+  private reflowPositions() {
+    const formation = this.form.getRawValue() as FleetFormation;
+
+    if (!formation.main.flagship.shipName) {
+      if (!formation.main.top.shipName) {
+        if (!formation.main.bottom.shipName) {
+          // main is empty
+        } else {
+          formation.main.flagship.shipName = formation.main.bottom.shipName;
+          formation.main.bottom.shipName = '';
+        }
+      } else {
+        formation.main.flagship.shipName = formation.main.top.shipName;
+        formation.main.top.shipName = '';
+      }
+    }
+
+    if (!formation.main.top.shipName) {
+      if (!formation.main.bottom.shipName) {
+        // main is empty aside from flagship
+      } else {
+        formation.main.top.shipName = formation.main.bottom.shipName;
+        formation.main.bottom.shipName = '';
+      }
+    }
+
+    if (!formation.vanguard.lead.shipName) {
+      if (!formation.vanguard.middle.shipName) {
+        if (!formation.vanguard.last.shipName) {
+          // vanguard is empty
+        } else {
+          formation.vanguard.lead.shipName = formation.vanguard.last.shipName;
+          formation.vanguard.last.shipName = '';
+        }
+      } else {
+        formation.vanguard.lead.shipName = formation.vanguard.middle.shipName;
+        formation.vanguard.middle.shipName = '';
+      }
+    }
+
+    if (!formation.vanguard.middle.shipName) {
+      if (!formation.vanguard.last.shipName) {
+        // vanguard is empty aside from lead
+      } else {
+        formation.vanguard.middle.shipName = formation.vanguard.last.shipName;
+        formation.vanguard.last.shipName = '';
+      }
+    }
+
+    this.form.get(['main', 'flagship', 'shipName']).patchValue(formation.main.flagship.shipName);
+    this.form.get(['main', 'top', 'shipName']).patchValue(formation.main.top.shipName);
+    this.form.get(['main', 'bottom', 'shipName']).patchValue(formation.main.bottom.shipName);
+    this.form.get(['vanguard', 'lead', 'shipName']).patchValue(formation.vanguard.lead.shipName);
+    this.form.get(['vanguard', 'middle', 'shipName']).patchValue(formation.vanguard.middle.shipName);
+    this.form.get(['vanguard', 'last', 'shipName']).patchValue(formation.vanguard.last.shipName);
   }
 
 }

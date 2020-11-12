@@ -16,7 +16,7 @@ $accent-color-2: #ff7171 !default;
     @return transparentize(darken($primary-color, 40%), 0.2);
 }
 @function get-content-background-color() {
-    @return transparentize($secondary-color, 0.2);
+    @return transparentize($secondary-color, 0.4);
 }
 
 @mixin calculated-variables() {
