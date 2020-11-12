@@ -7,12 +7,28 @@ import { map } from 'rxjs/operators';
 })
 export class AzurLaneApiService {
 
-  public dataSourceUrl = 'https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json';
+  public shipsUrl = 'https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json';
+
+  public chaptersUrl = 'https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/chapters.json';
+
+  public equipmentsUrl = 'https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/equipments.json';
 
   constructor(private http: HttpClient) { }
 
   public fetchAllShipgirls() {
-    return this.http.get(this.dataSourceUrl, { observe : 'body' }).pipe(
+    return this.http.get(this.shipsUrl, { observe : 'body' }).pipe(
+      map(res => Object.values(res)),
+    );
+  }
+
+  public fetchAllChapters() {
+    return this.http.get(this.chaptersUrl, { observe : 'body' }).pipe(
+      map(res => Object.values(res)),
+    );
+  }
+
+  public fetchAllEquipments() {
+    return this.http.get(this.equipmentsUrl, { observe : 'body' }).pipe(
       map(res => Object.values(res)),
     );
   }

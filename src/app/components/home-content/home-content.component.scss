@@ -41,35 +41,38 @@
 
                 button {
                     border: none;
+                    display: flex;
+                    flex-direction: column;
+                    font-family: "Oswald", sans-serif;
+                    padding: 0px 15px 0px 15px;
+
+                    span {
+                        text-transform: uppercase;
+                        font-size: 28pt;
+                        font-weight: bold;
+                        color: white;
+                    }
+
+                    small {
+                        text-transform: uppercase;
+                        font-size: 7pt;
+                        color: white;
+                    }
 
                     &#formationButton {
                         flex-grow: 1;
-                        height: 50%;
+                        height: 55%;
                         background: linear-gradient(45deg, var(--primary-color-darker), var(--primary-color));
-                        display: flex;
-                        flex-direction: column;
-                        flex-wrap: wrap-reverse;
                         justify-content: center;
-                        font-family: "Monolisk", sans-serif;
-
-                        span {
-                            text-transform: uppercase;
-                            font-size: 19pt;
-                            font-weight: bold;
-                            color: white;
-                        }
-
-                        small {
-                            text-transform: uppercase;
-                            font-size: 7pt;
-                            color: white;
-                        }
+                        align-items: flex-end;
                     }
 
                     &#battleButton {
                         height: 100%;
                         width: 35%;
                         background: linear-gradient(45deg, var(--accent-color-1-darker), var(--accent-color-1));
+                        justify-content: flex-start;
+                        align-items: flex-start;
                     }
                 }
             }

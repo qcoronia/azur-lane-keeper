@@ -4,6 +4,9 @@
 @import './assets/themes/crimson-axis-theme.scss';
 @import './assets/themes/northern-parliament-theme.scss';
 
+@import './assets/fonts/monolisk/monolisk-font.scss';
+@import './assets/fonts/oswald/oswald-font.scss';
+@import './assets/fonts/source-sans-pro/source-sans-pro-font.scss';
 
 :root {
     --primary-color: #{$primary-color};

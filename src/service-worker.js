@@ -19,6 +19,13 @@ self.addEventListener('install', evt => {
         '/assets/fonts/source-sans-pro/SourceSansPro-SemiBold-latin.woff2',
         '/assets/fonts/source-sans-pro/SourceSansPro-SemiBold-latin-ext.woff2',
         '/assets/fonts/source-sans-pro/SourceSansPro-SemiBold-vietnamese.woff2',
+
+        '/assets/fonts/oswald/Oswald-Bold.ttf',
+        '/assets/fonts/oswald/Oswald-ExtraLight.ttf',
+        '/assets/fonts/oswald/Oswald-Light.ttf',
+        '/assets/fonts/oswald/Oswald-Medium.ttf',
+        '/assets/fonts/oswald/Oswald-Regular.ttf',
+        '/assets/fonts/oswald/Oswald-SemiBold.ttf',
       ]);
     })
   );
