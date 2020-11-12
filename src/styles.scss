@@ -8,6 +8,8 @@
 @import './assets/fonts/oswald/oswald-font.scss';
 @import './assets/fonts/source-sans-pro/source-sans-pro-font.scss';
 
+@import './assets/vendor/ag-grid.scss';
+
 :root {
     --primary-color: #{$primary-color};
     --secondary-color: #{$secondary-color};
