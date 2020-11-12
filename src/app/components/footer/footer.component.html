@@ -1,5 +1,5 @@
 <ng-template ngFor let-button [ngForOf]="buttons">
-  <button class="button">
+  <button class="button" [routerLink]="button.routerLink">
     <span class="icon {{button.icon}}"></span>
     <span>{{button.label}}</span>
   </button>

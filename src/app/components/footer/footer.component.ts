@@ -13,7 +13,7 @@ export class FooterComponent implements OnInit {
   constructor() {
     this.buttons = [
       { label: 'Shop', icon: 'fa fa-store' },
-      { label: 'Dock', icon: 'fa fa-anchor' },
+      { label: 'Dock', icon: 'fa fa-anchor', routerLink: ['/dock'] },
       { label: 'Depot', icon: 'fa fa-warehouse' },
       { label: 'HQ', icon: 'fa fa-school' },
       { label: 'Lab', icon: 'fa fa-atom' },
