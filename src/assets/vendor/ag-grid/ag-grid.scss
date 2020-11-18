@@ -1,0 +1,40 @@
+// Customize the look and feel of the grid with Sass variables
+// Up-to-date list of variables is available in the source code: https://github.com/ag-grid/ag-grid/blob/latest/src/styles/ag-theme-fresh.scss
+$icons-path: "../node_modules/ag-grid-community/src/styles/balham-icons/";
+
+// changes the border color
+// $border-color: #FF0000;
+
+// Changes the font size
+// $font-size: 12px;
+
+// Changes the font family
+// $font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$ag-font-family: "Source Sans Pro", sans-serif;
+
+// Reverts the cell horizontal padding change between ag-fresh and ag-theme-fresh
+// $cell-horizontal-padding: 2px;
+
+// changes the icon color
+// $icon-color: red;
+
+// $ag-active: $primary-color;
+
+@import "../../../../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../../../../node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine.scss";
+
+.ag-theme-alpine {
+    --ag-foreground-color: var(--secondary-color);
+    --ag-background-color: var(--background-color-glass);
+    --ag-odd-row-background-color: var(--background-color-glass);
+    --ag-header-background-color: var(--background-color-glass-dim);
+    --ag-subheader-background-color: var(--background-color-glass-dim);
+    --ag-subheader-toolbar-background-color: var(--background-color-glass-dim);
+    --ag-control-panel-background-color: var(--background-color-glass-dim);
+    --ag-border-color: var(--background-color-glass);
+    --ag-row-border-color: var(--background-color-glass);
+    --ag-card-radius: 0px;
+    --ag-border-radius: 0px;
+    --ag-checkbox-border-radius: 0px;
+    --ag-font-family: "Source Sans Pro", sans-serif;
+}
