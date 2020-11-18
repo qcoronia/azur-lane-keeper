@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, zip, Subject, of } from 'rxjs';
 import { switchMap, tap, first, filter, shareReplay, take, map } from 'rxjs/operators';
 import { NgxIndexedDBService, DBConfig } from 'ngx-indexed-db';
-import { STORE_SHIPGIRL, STORE_FLEET_FORMATION, DB_AL_KEEPER } from './store-names';
+import { DB_AL_KEEPER, STORE_SHIPGIRL, STORE_FLEET_FORMATION, STORE_DOCK_NOTE } from './store-names';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +93,13 @@ export const dbConfig: DBConfig = {
       storeConfig: { keyPath: 'id', autoIncrement: true },
       storeSchema: [
         { name: 'name', keypath: 'name', options: { unique: true } },
+      ]
+    },
+    {
+      store: STORE_DOCK_NOTE,
+      storeConfig: { keyPath: 'id', autoIncrement: true },
+      storeSchema: [
+        { name: 'shipName', keypath: 'shipName', options: { unique: true } },
       ]
     }
   ],

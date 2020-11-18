@@ -10,6 +10,7 @@ import { CacheService } from './cache/cache.service';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { TimeService } from './time/time.service';
 import { FleetFormationService } from './fleet-formation/fleet-formation.service';
+import { DockNotesService } from './dock-notes/dock-notes.service';
 
 
 
@@ -37,6 +38,7 @@ export class ServicesModule {
         SecretaryService,
         ShipgirlService,
         FleetFormationService,
+        DockNotesService,
       ],
     };
   }

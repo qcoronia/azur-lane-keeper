@@ -1,8 +1,7 @@
 import { Component, Input, AfterContentInit } from '@angular/core';
 import { ShipgirlService } from 'src/app/core/services/shipgirl/shipgirl.service';
 import { map, take, tap } from 'rxjs/operators';
-
-const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+import { BLANK_IMAGE } from 'src/app/core/constants/data-urls';
 
 @Component({
   selector: 'app-shipgirl-thumbnail',
@@ -16,12 +15,12 @@ export class ShipgirlThumbnailComponent implements AfterContentInit {
   public thumbnailUrl: string;
 
   constructor(private shipgirl: ShipgirlService) {
-    this.thumbnailUrl = TRANSPARENT_PIXEL;
+    this.thumbnailUrl = BLANK_IMAGE;
   }
 
   ngAfterContentInit(): void {
     this.shipgirl.getByName(this.shipName || '').pipe(
-      map(res => res?.thumbnail || TRANSPARENT_PIXEL),
+      map(res => res?.thumbnail || BLANK_IMAGE),
       take(1),
     ).subscribe(url => this.thumbnailUrl = url);
   }

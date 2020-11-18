@@ -6,8 +6,9 @@ import { takeUntil, switchMap, map, tap, filter, shareReplay, debounceTime } fro
 import { ShipgirlService } from 'src/app/core/services/shipgirl/shipgirl.service';
 import { FleetFormationService } from 'src/app/core/services/fleet-formation/fleet-formation.service';
 import { ActivatedRoute } from '@angular/router';
-
-const TRANSPARENT_PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+import { BLANK_IMAGE } from 'src/app/core/constants/data-urls';
+import { VANDUARD_HULL_TYPES, MAIN_HULL_TYPES } from 'src/app/core/constants/type-flags';
+import { BLANK_FORMATION } from 'src/app/core/constants/data-objects';
 
 @Component({
   selector: 'app-fleet-form',
@@ -54,7 +55,7 @@ export class FleetFormComponent implements OnInit, OnDestroy {
     const positionForm = () => this.formBuilder.group({
       shipName: [null],
       notes: [null],
-      _chibiUrl: [TRANSPARENT_PIXEL],
+      _chibiUrl: [BLANK_IMAGE],
     });
     this.form = this.formBuilder.group({
       id: [null],
@@ -80,10 +81,10 @@ export class FleetFormComponent implements OnInit, OnDestroy {
             map(skins => skins.find(e => e.name === 'Default')),
             map(skin => skin.chibi),
           )
-          : of(TRANSPARENT_PIXEL)),
+          : of(BLANK_IMAGE)),
         takeUntil(this.whenDestroyed$),
       ).subscribe(chibiUrl => {
-        this.form.get([ position.row, position.slot, '_chibiUrl' ]).patchValue(chibiUrl || TRANSPARENT_PIXEL);
+        this.form.get([ position.row, position.slot, '_chibiUrl' ]).patchValue(chibiUrl || BLANK_IMAGE);
       });
     };
     syncChibiUrl({ row: 'main', slot: 'flagship' });
@@ -261,36 +262,3 @@ interface DragSlot {
   row: string;
   slot: string;
 }
-
-const VANDUARD_HULL_TYPES = [
-  'Destroyer',
-  'Light Cruiser',
-  'Heavy Cruiser',
-  'Munition Ship',
-];
-
-const MAIN_HULL_TYPES = [
-  'Battleship',
-  'Battlecruiser',
-  'Aircraft Carrier',
-  'Light Aircraft Carrier',
-  'Repair Ship',
-  'Monitor',
-];
-
-const BLANK_FORMATION: FleetFormation = {
-  name: '',
-  main: {
-    flagship: { shipName: '', notes: 'flagship'},
-    top: { shipName: '', notes: 'top'},
-    bottom: { shipName: '', notes: 'bottom'},
-    notes: 'main',
-  },
-  vanguard: {
-    lead: { shipName: '', notes: 'lead'},
-    middle: { shipName: '', notes: 'middle'},
-    last: { shipName: '', notes: 'last'},
-    notes: 'vanguard',
-  },
-  notes: '',
-};

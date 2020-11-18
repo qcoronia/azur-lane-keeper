@@ -8,6 +8,21 @@ self.addEventListener('install', evt => {
         '/assets/bg/bg_main_night.png',
         '/assets/bg/bg_main_twilight.png',
 
+        '/assets/img/icon-ae.png',
+        '/assets/img/icon-ar.png',
+        '/assets/img/icon-bb.png',
+        '/assets/img/icon-bbv.png',
+        '/assets/img/icon-bc.png',
+        '/assets/img/icon-bm.png',
+        '/assets/img/icon-ca.png',
+        '/assets/img/icon-cb.png',
+        '/assets/img/icon-cl.png',
+        '/assets/img/icon-cv.png',
+        '/assets/img/icon-cvl.png',
+        '/assets/img/icon-dd.png',
+        '/assets/img/icon-ss.png',
+        '/assets/img/icon-ssv.png',
+
         '/assets/fonts/font-awesome/css/all.min.css',
 
         '/assets/fonts/monolisk/Monolisk-Regular.woff2',

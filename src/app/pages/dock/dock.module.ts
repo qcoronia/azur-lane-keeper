@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DockComponent } from './dock.component';
 import { DockRoutingModule } from './dock-routing.module';
 import { DockGridModule } from 'src/app/components/dock-grid/dock-grid.module';
+import { DockGridControlsModule } from 'src/app/components/dock-grid-controls/dock-grid-controls.module';
 
 
 
@@ -13,6 +14,7 @@ import { DockGridModule } from 'src/app/components/dock-grid/dock-grid.module';
     DockRoutingModule,
 
     DockGridModule,
+    DockGridControlsModule,
   ],
   exports: [DockComponent]
 })
