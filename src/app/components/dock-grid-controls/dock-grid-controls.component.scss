@@ -1,5 +1,15 @@
 :host {
     display: flex;
     height: 3rem;
-    margin-top: 3rem;
+    margin: 3rem 6rem 0 8rem;
+
+    form {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        select {
+            text-transform: capitalize;
+        }
+    }
 }

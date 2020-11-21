@@ -38,6 +38,10 @@ body {
         padding: 0.5rem;
     }
 
+    input[type=checkbox] {
+        min-width: auto;
+    }
+
     button {
         &.default {
             background: linear-gradient(45deg, var(--secondary-color-darker), var(--secondary-color));

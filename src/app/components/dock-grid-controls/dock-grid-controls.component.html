@@ -1,1 +1,13 @@
-<p>dock-grid-controls works!</p>
+<form [formGroup]="form">
+  <select formControlName="columnLayout">
+    <option *ngFor="let columnLayout of columnLayouts">{{columnLayout}}</option>
+  </select>
+  <select formControlName="statsLevelFocus"
+          *ngIf="form.get('columnLayout').value === 'stats'">
+    <option *ngFor="let statsLevelFocusItem of statsLevelFocus">{{statsLevelFocusItem}}</option>
+  </select>
+  <div *ngIf="form.get('columnLayout').value === 'stats'">
+    <input type="checkbox" formControlName="showBarsOnStats" id="showBarsOnStats" />
+    <label for="showBarsOnStats">Show bars on stats</label>
+  </div>
+</form>
