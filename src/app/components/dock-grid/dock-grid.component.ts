@@ -32,94 +32,50 @@ export class DockGridComponent implements OnDestroy {
       },
     },
     columnTypes: {
-      number: { valueFormatter: params => (+params.value).toLocaleString(), cellStyle: { textAlign: 'right' } },
+      number: { cellRenderer: params => (+params.value).toLocaleString(), cellStyle: { textAlign: 'right' }, comparator: (a, b) => {
+        return +a === +b ? 0
+          : isNaN(+a) ? -1
+          : isNaN(+b) ? 1
+          : +a - +b;
+      } },
     },
     getRowNodeId: data => data.id,
     columnDefs: [
-      { headerName: 'Faction', field: 'nationality', maxWidth: 170 },
-      { headerName: 'Type', field: 'hullType', maxWidth: 170 },
-      { headerName: 'Name', field: 'names.en', cellStyle: { fontWeight: 'bold' }, maxWidth: 260, tooltipField: 'names.en' },
+      { headerName: '', maxWidth: 70, minWidth: 70, pinned: true, valueGetter: params => `${params.node.rowIndex + 1}` },
+      { headerName: 'Name', field: 'names.en', cellStyle: { fontWeight: 'bold' }, maxWidth: 260, minWidth: 260, pinned: true, tooltipField: 'names.en' },
+      { headerName: 'Type', field: 'hullType', maxWidth: 170, minWidth: 170 },
+      { headerName: 'Faction', field: 'nationality', maxWidth: 170, minWidth: 170 },
+      { headerName: 'Rarity', field: 'stars.stars', maxWidth: 170, minWidth: 170, valueGetter: params => params.data.stars.value, valueFormatter: params => params.data.stars.stars },
+      { headerName: 'Class', field: 'class', maxWidth: 170, minWidth: 170 },
       { headerName: 'Notes', field: '_ext.notes', cellStyle: { fontStyle: 'italic' }, editable: true, onCellValueChanged: params => {
         this.dockNotes.setNote({ shipName: params.data.names.en, notes: params.newValue });
       } },
 
-      // base
-      { headerName: 'ACC', field: 'stats.baseStats.accuracy', type: 'number' },
-      { headerName: 'AA', field: 'stats.baseStats.antiair', type: 'number' },
-      { headerName: 'ASW', field: 'stats.baseStats.antisubmarineWarfare', type: 'number' },
-      { headerName: 'DEF', field: 'stats.baseStats.armor' },
-      { headerName: 'AVI', field: 'stats.baseStats.aviation', type: 'number' },
-      { headerName: 'EVA', field: 'stats.baseStats.evasion', type: 'number' },
-      { headerName: 'FP', field: 'stats.baseStats.firepower', type: 'number' },
-      { headerName: 'HP', field: 'stats.baseStats.health', type: 'number' },
-      { headerName: 'LCK', field: 'stats.baseStats.luck', type: 'number' },
-      { headerName: 'OIL', field: 'stats.baseStats.oilConsumption', type: 'number' },
-      { headerName: 'RLD', field: 'stats.baseStats.reload', type: 'number' },
-      { headerName: 'SPD', field: 'stats.baseStats.speed', type: 'number' },
-      { headerName: 'TRP', field: 'stats.baseStats.torpedo', type: 'number' },
-
-      // level 100
-      { headerName: 'ACC', field: 'stats.level100.accuracy', type: 'number' },
-      { headerName: 'AA', field: 'stats.level100.antiair', type: 'number' },
-      { headerName: 'ASW', field: 'stats.level100.antisubmarineWarfare', type: 'number' },
-      { headerName: 'DEF', field: 'stats.level100.armor' },
-      { headerName: 'AVI', field: 'stats.level100.aviation', type: 'number' },
-      { headerName: 'EVA', field: 'stats.level100.evasion', type: 'number' },
-      { headerName: 'FP', field: 'stats.level100.firepower', type: 'number' },
-      { headerName: 'HP', field: 'stats.level100.health', type: 'number' },
-      { headerName: 'LCK', field: 'stats.level100.luck', type: 'number' },
-      { headerName: 'OIL', field: 'stats.level100.oilConsumption', type: 'number' },
-      { headerName: 'RLD', field: 'stats.level100.reload', type: 'number' },
-      { headerName: 'SPD', field: 'stats.level100.speed', type: 'number' },
-      { headerName: 'TRP', field: 'stats.level100.torpedo', type: 'number' },
-
-      // level 100 Retrofit
-      { headerName: 'ACC', field: 'stats.level100Retrofit.accuracy', type: 'number' },
-      { headerName: 'AA', field: 'stats.level100Retrofit.antiair', type: 'number' },
-      { headerName: 'ASW', field: 'stats.level100Retrofit.antisubmarineWarfare', type: 'number' },
-      { headerName: 'DEF', field: 'stats.level100Retrofit.armor' },
-      { headerName: 'AVI', field: 'stats.level100Retrofit.aviation', type: 'number' },
-      { headerName: 'EVA', field: 'stats.level100Retrofit.evasion', type: 'number' },
-      { headerName: 'FP', field: 'stats.level100Retrofit.firepower', type: 'number' },
-      { headerName: 'HP', field: 'stats.level100Retrofit.health', type: 'number' },
-      { headerName: 'LCK', field: 'stats.level100Retrofit.luck', type: 'number' },
-      { headerName: 'OIL', field: 'stats.level100Retrofit.oilConsumption', type: 'number' },
-      { headerName: 'RLD', field: 'stats.level100Retrofit.reload', type: 'number' },
-      { headerName: 'SPD', field: 'stats.level100Retrofit.speed', type: 'number' },
-      { headerName: 'TRP', field: 'stats.level100Retrofit.torpedo', type: 'number' },
-
-      // level 120
-      { headerName: 'ACC', field: 'stats.level120.accuracy', type: 'number' },
-      { headerName: 'AA', field: 'stats.level120.antiair', type: 'number' },
-      { headerName: 'ASW', field: 'stats.level120.antisubmarineWarfare', type: 'number' },
-      { headerName: 'DEF', field: 'stats.level120.armor' },
-      { headerName: 'AVI', field: 'stats.level120.aviation', type: 'number' },
-      { headerName: 'EVA', field: 'stats.level120.evasion', type: 'number' },
-      { headerName: 'FP', field: 'stats.level120.firepower', type: 'number' },
-      { headerName: 'HP', field: 'stats.level120.health', type: 'number' },
-      { headerName: 'LCK', field: 'stats.level120.luck', type: 'number' },
-      { headerName: 'OIL', field: 'stats.level120.oilConsumption', type: 'number' },
-      { headerName: 'RLD', field: 'stats.level120.reload', type: 'number' },
-      { headerName: 'SPD', field: 'stats.level120.speed', type: 'number' },
-      { headerName: 'TRP', field: 'stats.level120.torpedo', type: 'number' },
-
-      // level 120 Retrofit
-      { headerName: 'ACC', field: 'stats.level120Retrofit.accuracy', type: 'number' },
-      { headerName: 'AA', field: 'stats.level120Retrofit.antiair', type: 'number' },
-      { headerName: 'ASW', field: 'stats.level120Retrofit.antisubmarineWarfare', type: 'number' },
-      { headerName: 'DEF', field: 'stats.level120Retrofit.armor' },
-      { headerName: 'AVI', field: 'stats.level120Retrofit.aviation', type: 'number' },
-      { headerName: 'EVA', field: 'stats.level120Retrofit.evasion', type: 'number' },
-      { headerName: 'FP', field: 'stats.level120Retrofit.firepower', type: 'number' },
-      { headerName: 'HP', field: 'stats.level120Retrofit.health', type: 'number' },
-      { headerName: 'LCK', field: 'stats.level120Retrofit.luck', type: 'number' },
-      { headerName: 'OIL', field: 'stats.level120Retrofit.oilConsumption', type: 'number' },
-      { headerName: 'RLD', field: 'stats.level120Retrofit.reload', type: 'number' },
-      { headerName: 'SPD', field: 'stats.level120Retrofit.speed', type: 'number' },
-      { headerName: 'TRP', field: 'stats.level120Retrofit.torpedo', type: 'number' },
+      ...[
+        'baseStats',
+        'level100',
+        'level100Retrofit',
+        'level120',
+        'level120Retrofit',
+      ].map(e => ([
+        { headerName: 'ACC', field: `stats.${e}.accuracy`, type: 'number' },
+        { headerName: 'AA', field: `stats.${e}.antiair`, type: 'number' },
+        { headerName: 'ASW', field: `stats.${e}.antisubmarineWarfare`, type: 'number' },
+        { headerName: 'DEF', field: `stats.${e}.armor` },
+        { headerName: 'AVI', field: `stats.${e}.aviation`, type: 'number' },
+        { headerName: 'EVA', field: `stats.${e}.evasion`, type: 'number' },
+        { headerName: 'FP', field: `stats.${e}.firepower`, type: 'number' },
+        { headerName: 'HP', field: `stats.${e}.health`, type: 'number' },
+        { headerName: 'LCK', field: `stats.${e}.luck`, type: 'number' },
+        { headerName: 'OIL', field: `stats.${e}.oilConsumption`, type: 'number' },
+        { headerName: 'RLD', field: `stats.${e}.reload`, type: 'number' },
+        { headerName: 'SPD', field: `stats.${e}.speed`, type: 'number' },
+        { headerName: 'TRP', field: `stats.${e}.torpedo`, type: 'number' },
+      ])).reduce((p, c) => [...p, ...c]),
 
     ],
     onGridReady: evt => this.paramsUpdated$.next(),
+    onSortChanged: evt => evt.api.refreshCells(),
   };
 
   private whenDestroyed$: Subject<any>;
@@ -159,8 +115,6 @@ export class DockGridComponent implements OnDestroy {
 
   public updateLayout(params?: DockGridControlsModel) {
     const requiredColumns = [
-      'nationality',
-      'hullType',
       'names.en',
     ];
 
@@ -201,8 +155,13 @@ export class DockGridComponent implements OnDestroy {
         hiddenColumns = statsColumns;
         break;
 
+      case 'info':
+        visibleColumns = [...requiredColumns, 'nationality', 'hullType', 'stars.stars', 'class'];
+        hiddenColumns = statsColumns;
+        break;
+
       case 'stats':
-        visibleColumns = [...requiredColumns, ...statsColumns.map(e => `stats.${statLevel}.${e}`)];
+        visibleColumns = ['names.en', ...statsColumns.map(e => `stats.${statLevel}.${e}`)];
         console.warn(statsColumns.map(e => `${statLevel}.${e}`));
         hiddenColumns = notesColumns;
         break;

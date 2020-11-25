@@ -16,6 +16,7 @@ export class DockGridControlsComponent implements OnDestroy {
 
   public columnLayouts = [
     'notes',
+    'info',
     'stats',
   ];
 
@@ -36,7 +37,6 @@ export class DockGridControlsComponent implements OnDestroy {
     this.form = this.formBuilder.group({
       columnLayout: ['notes'],
       statsLevelFocus: ['base'],
-      showBarsOnStats: [false],
     });
     this.form.valueChanges.pipe(
       map(res => this.form.getRawValue() as DockGridControlsModel),
@@ -54,8 +54,7 @@ export class DockGridControlsComponent implements OnDestroy {
 export class DockGridControlsModel {
   public columnLayout: DockGridColumnLayouts;
   public statsLevelFocus: StatsLevelFocuses;
-  public showBarsOnStats: boolean;
 }
 
-export type DockGridColumnLayouts = 'notes' | 'stats';
+export type DockGridColumnLayouts = 'notes' | 'info' | 'stats';
 export type StatsLevelFocuses = 'base' | '100' | '100Retrofit' | '120' | '120Retrofit';
