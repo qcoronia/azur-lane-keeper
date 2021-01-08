@@ -103,7 +103,6 @@ export class DockGridComponent implements OnDestroy {
 
     this.paramsUpdated$ = new Subject<DockGridControlsModel>();
     this.paramsUpdated$.pipe(
-      tap(console.warn),
       takeUntil(this.whenDestroyed$),
     ).subscribe(params => this.updateLayout(params));
   }
@@ -162,7 +161,6 @@ export class DockGridComponent implements OnDestroy {
 
       case 'stats':
         visibleColumns = ['names.en', ...statsColumns.map(e => `stats.${statLevel}.${e}`)];
-        console.warn(statsColumns.map(e => `${statLevel}.${e}`));
         hiddenColumns = notesColumns;
         break;
 
